@@ -481,7 +481,7 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            Users[2].Balance -= 10000;
+            //Users[2].Balance -= 10000;
             Random rand = new Random();
             int numberCell;
             int nextPlayer = 0;
@@ -518,7 +518,13 @@ namespace MonopolyV20
                     {
                         if (((Bot)Users[nextPlayer]).MortagagedBusinesses(Field.Buldings))
                         {
-                            ((Bot)Users[nextPlayer]).BusinessBuyout(Field.Buldings);
+                            if (!((Bot)Users[nextPlayer]).BusinessBuyout(Field.Buldings))
+                            {
+                                if (nextPlayer == 0)
+                                {
+
+                                }
+                            }
                         }
                         int prisonPrice = 500;
                         if (Users[nextPlayer].Prison == true)

@@ -11,7 +11,7 @@ namespace MonopolyV20
         public string Title { get; set; }//название 
         public int Number { get; set; }//номер ячейки 
         public List<char> Symbol { get; set; }//фигурка игрока
-
+        public int BusinessDowntrun { get; set; }
         public Building() { }
         public Building(string title,int number)
         {

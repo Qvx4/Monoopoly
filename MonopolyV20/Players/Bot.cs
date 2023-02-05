@@ -578,20 +578,20 @@ namespace MonopolyV20
             {
                 if (listBuilding[pos].GetType() == typeof(Business))
                 {
-                    ((Business)building[pos]).Mortgaged = false;
-                    Balance -= ((Business)building[pos]).RansomValue;
+                    ((Business)listBuilding[pos]).Mortgaged = false;
+                    Balance -= ((Business)listBuilding[pos]).RansomValue;
                     return true;
                 }
                 if (listBuilding[pos].GetType() == typeof(CarInterior))
                 {
-                    ((CarInterior)building[pos]).Mortgaged = false;
-                    Balance -= ((CarInterior)building[pos]).RansomValue;
+                    ((CarInterior)listBuilding[pos]).Mortgaged = false;
+                    Balance -= ((CarInterior)listBuilding[pos]).RansomValue;
                     return true;
                 }
                 if (listBuilding[pos].GetType() == typeof(GamingCompanies))
                 {
-                    ((GamingCompanies)building[pos]).Mortgaged = false;
-                    Balance -= ((GamingCompanies)building[pos]).RansomValue;
+                    ((GamingCompanies)listBuilding[pos]).Mortgaged = false;
+                    Balance -= ((GamingCompanies)listBuilding[pos]).RansomValue;
                     return true;
                 }
             }
@@ -775,6 +775,53 @@ namespace MonopolyV20
             }
             return false;
         }//проверка если заложенный бизнес 
+        public void BotsBusinessDownturn(List<Building> building)
+        {
+            for (int i = 0; i < building.Count; i++)
+            {
+                if (building[i].GetType() == typeof(Business))
+                {
+                    if (((Business)building[i]).BusinessDowntrun < 15)
+                    {
+                        ((Business)building[i]).BusinessDowntrun += 1;
+                    }
+                    else
+                    {
+                        ((Business)building[i]).Mortgaged = false;
+                        ((Business)building[i]).BusinessOwner = ' ';
+                    }
+                }
+                if (building[i].GetType() == typeof(CarInterior))
+                {
+                    if (((CarInterior)building[i]).BusinessDowntrun < 15)
+                    {
+                        ((CarInterior)building[i]).BusinessDowntrun += 1;
+                    }
+                    else
+                    {
+                        ((CarInterior)building[i]).Mortgaged = false;
+                        ((CarInterior)building[i]).BusinessOwner = ' ';
+                    }
+                }
+                if (building[i].GetType() == typeof(GamingCompanies))
+                {
+                    if (((GamingCompanies)building[i]).BusinessDowntrun < 15)
+                    {
+                        ((GamingCompanies)building[i]).BusinessDowntrun += 1;
+                    }
+                    else
+                    {
+                        ((GamingCompanies)building[i]).Mortgaged = false;
+                        ((GamingCompanies)building[i]).BusinessOwner = ' ';
+                    }
+
+                }
+            }
+        }
+        public void AllMortagagedBusinesses(List<Building> building)
+        {
+
+        }
     }
 }
 
