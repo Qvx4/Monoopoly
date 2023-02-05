@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F7933518-D653-43D1-B47C-F578B7B7544D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MonopolyV20</RootNamespace>
+    <AssemblyName>MonopolyV20</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Game\Applicationcs.cs" />
+    <Compile Include="Game\Trade.cs" />
+    <Compile Include="Enums\Actions.cs" />
+    <Compile Include="Enums\BusinessType.cs" />
+    <Compile Include="Enums\ChoosingWhoDelete.cs" />
+    <Compile Include="Enums\FirstMenu.cs" />
+    <Compile Include="Enums\GameMenu.cs" />
+    <Compile Include="Field\Field.cs" />
+    <Compile Include="Game\MonoopolyGame.cs" />
+    <Compile Include="Players\Bot.cs" />
+    <Compile Include="Players\Player.cs" />
+    <Compile Include="Players\User.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="The buldings\Bank.cs" />
+    <Compile Include="The buldings\Bulding.cs" />
+    <Compile Include="The buldings\Business.cs" />
+    <Compile Include="The buldings\CarInterior.cs" />
+    <Compile Include="The buldings\Chance\Chance.cs" />
+    <Compile Include="The buldings\Chance\Chances.cs" />
+    <Compile Include="The buldings\Chance\Lesion.cs" />
+    <Compile Include="The buldings\Chance\Profit.cs" />
+    <Compile Include="The buldings\Chance\RandomActions.cs" />
+    <Compile Include="The buldings\GamingCompanies.cs" />
+    <Compile Include="The buldings\Jackpot.cs" />
+    <Compile Include="The buldings\PoliceStation.cs" />
+    <Compile Include="The buldings\Prison.cs" />
+    <Compile Include="The buldings\Start.cs" />
+    <Compile Include="The buldings\Tax.cs" />
+    <Compile Include="Enums\TradeMenu.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,478 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MonopolyV20
+{
+    public class Player : User
+    {
+        public Player(string name, char symbol, int balance, bool stepSkip, bool prison) : base(name, symbol, balance, stepSkip, prison)
+        {
+
+        }
+        public override void Show()
+        {
+            //Сделать бордер с for
+            Console.WriteLine($"Никнейм Игрока [ {Name} ]");
+            Console.WriteLine($"Символ Игрока [ {Symbol} ]");
+        }
+        public bool IsCheckCellNotBis(Building buldings)
+        {
+            if (buldings.GetType() == typeof(Business))
+            {
+                return false;
+            }
+            else if (buldings.GetType() == typeof(CarInterior))
+            {
+                return false;
+            }
+            else if (buldings.GetType() == typeof(GamingCompanies))
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool IsCheckCellBy(Business business)//Проверка куплен ли бизнес 
+        {
+            if (business.BusinessOwner != 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool IsCheckCellBy(CarInterior carInterior)//проверка куплен ли автоцентр
+        {
+            if (carInterior.BusinessOwner != 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool IsCheckCellBy(GamingCompanies gamingCompanies)//проверка куплена ли игровая компания
+        {
+            if (gamingCompanies.BusinessOwner != 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void IsByCell(Building bulding)
+        {
+            if (bulding.GetType() == typeof(Business))
+            {
+                if (((Business)bulding).Price <= Balance)
+                {
+                    ((Business)bulding).BusinessOwner = Symbol;
+                    Balance -= ((Business)bulding).Price;
+                }
+            }
+            else if (bulding.GetType() == typeof(CarInterior))
+            {
+                if (((CarInterior)bulding).Price <= Balance)
+                {
+                    ((CarInterior)bulding).BusinessOwner = Symbol;
+                    Balance -= ((CarInterior)bulding).Price;
+                }
+            }
+            else if (bulding.GetType() == typeof(GamingCompanies))
+            {
+                if (((GamingCompanies)bulding).Price <= Balance)
+                {
+                    ((GamingCompanies)bulding).BusinessOwner = Symbol;
+                    Balance -= ((GamingCompanies)bulding).Price;
+                }
+            }
+        }//Покупка ячейки 
+        public void PayRent(Building bulding, List<User> users)
+        {
+            if (bulding.GetType() == typeof(Business))
+            {
+                if (((Business)bulding).Rent[((Business)bulding).Level] <= Balance)
+                {
+                    if (((Business)bulding).Mortgaged == false)
+                    {
+                        Balance -= ((Business)bulding).Rent[((Business)bulding).Level];
+                        for (int i = 0; i < users.Count; i++)
+                        {
+                            if (((Business)bulding).BusinessOwner == users[i].Symbol)
+                            {
+                                users[i].Balance += ((Business)bulding).Rent[((Business)bulding).Level];
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            else if (bulding.GetType() == typeof(CarInterior))
+            {
+                if (((CarInterior)bulding).Rent[((CarInterior)bulding).Level] <= Balance)
+                {
+                    if (((CarInterior)bulding).Mortgaged == false)
+                    {
+                        Balance -= ((CarInterior)bulding).Rent[((CarInterior)bulding).Level];
+                        for (int i = 0; i < users.Count; i++)
+                        {
+                            if (((CarInterior)bulding).BusinessOwner == users[i].Symbol)
+                            {
+                                users[i].Balance += ((CarInterior)bulding).Rent[((CarInterior)bulding).Level];
+                            }
+                        }
+                    }
+                }
+            }
+            else if (bulding.GetType() == typeof(GamingCompanies))
+            {
+                if (((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level] <= Balance)
+                {
+                    if (((GamingCompanies)bulding).Mortgaged == false)
+                    {
+                        Balance -= ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+                        for (int i = 0; i < users.Count; i++)
+                        {
+                            if (((GamingCompanies)bulding).BusinessOwner == users[i].Symbol)
+                            {
+                                users[i].Balance += ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+                            }
+                        }
+                    }
+                }
+            }
+        }//выплата ренты поля 
+        public bool IsCehckByCell(Building bulding)
+        {
+            if (bulding.GetType() == typeof(Business))
+            {
+                return IsCheckCellBy((Business)bulding);
+            }
+            else if (bulding.GetType() == typeof(CarInterior))
+            {
+                return IsCheckCellBy((CarInterior)bulding);
+            }
+            else if (bulding.GetType() == typeof(GamingCompanies))
+            {
+                return IsCheckCellBy((GamingCompanies)bulding);
+            }
+            return false;
+        }//Проверка ячейки киплина ли она 
+        public bool LayACell(Building bulding)
+        {
+            if (bulding.GetType() == typeof(Business))
+            {
+                if (((Business)bulding).BusinessOwner == Symbol)
+                {
+                    ((Business)bulding).Mortgaged = true;
+                    Balance += ((Business)bulding).ValueOfCollaterel;
+                    return true;
+                }
+            }
+            if (bulding.GetType() == typeof(CarInterior))
+            {   
+                if (((CarInterior)bulding).BusinessOwner == Symbol)
+                {
+                    ((CarInterior)bulding).Mortgaged = true;
+                    Balance += ((CarInterior)bulding).ValueOfCollaterel;
+                    return true;
+                }
+            }
+            if (bulding.GetType() == typeof(GamingCompanies))
+            {               
+                if (((GamingCompanies)bulding).BusinessOwner == Symbol)
+                {
+                    ((GamingCompanies)bulding).Mortgaged = true;
+                    Balance += ((GamingCompanies)bulding).ValueOfCollaterel;
+                    return true;
+                }
+            }
+            return false;
+        }//заложить бизнес игрока
+        public bool BsnBuyout(Building bulding)//выкуп своего бизнеса
+        {
+            if (bulding.GetType() == typeof(Business))
+            {
+                if (Balance >= ((Business)bulding).RansomValue)
+                {
+                    ((Business)bulding).Mortgaged = false;
+                    Balance -= ((Business)bulding).RansomValue;
+                    return true;
+                }
+            }
+            else if (bulding.GetType() == typeof(CarInterior))
+            {
+                if (Balance >= ((CarInterior)bulding).RansomValue)
+                {
+                    ((CarInterior)bulding).Mortgaged = false;
+                    Balance -= ((CarInterior)bulding).RansomValue;
+                    return true;
+                }
+            }
+            else if (bulding.GetType() == typeof(GamingCompanies))
+            {
+                if (Balance >= ((GamingCompanies)bulding).RansomValue)
+                {
+                    ((GamingCompanies)bulding).Mortgaged = false;
+                    Balance -= ((GamingCompanies)bulding).RansomValue;
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void Surrendered(Field field)
+        {
+            for (int i = 0; i < field.Buldings.Count; i++)
+            {
+                if (field.Buldings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)field.Buldings[i]).BusinessOwner == Symbol)
+                    {
+                        ((Business)field.Buldings[i]).BusinessOwner = '\0';
+                    }
+                }
+                else if (field.Buldings[i].GetType() == typeof(CarInterior))
+                {
+                    if (((CarInterior)field.Buldings[i]).BusinessOwner == Symbol)
+                    {
+                        ((CarInterior)field.Buldings[i]).BusinessOwner = '\0';
+                    }
+                }
+                if (field.Buldings[i].GetType() == typeof(GamingCompanies))
+                {
+                    if (((GamingCompanies)field.Buldings[i]).BusinessOwner == Symbol)
+                    {
+                        ((GamingCompanies)field.Buldings[i]).BusinessOwner = '\0';
+                    }
+                }
+            }
+        }//сдатся
+        public bool IsMonopolyContains(Field field)
+        {
+            for (int i = 0; i < field.Buldings.Count; i++)
+            {
+                if (field.Buldings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)field.Buldings[i]).BusinessOwner == Symbol)
+                    {
+                        bool isMonopoly = true;
+                        for (int j = 0; j < field.Buldings.Count; j++)
+                        {
+                            if (((Business)field.Buldings[i]).BusinessType == ((Business)field.Buldings[j]).BusinessType &&
+                                ((Business)field.Buldings[j]).BusinessOwner != Symbol)
+                            {
+                                isMonopoly = false;
+                            }
+                        }
+                        if (isMonopoly)
+                        {
+                            return isMonopoly;
+                        }
+                        return isMonopoly;
+                    }
+                }
+            }
+            return false;
+        }
+        public void ShowMonopolyBsn(Field field)//Доделать вывод монополии ( Ряд бизнесов которых можно улучшить )
+        {
+            List<Business> list = new List<Business>();
+            for (int i = 0; i < field.Buldings.Count; i++)
+            {
+                if (field.Buldings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)field.Buldings[i]).BusinessOwner == Symbol)
+                    {
+                        for (int j = 0; j < field.Buldings.Count; j++)
+                        {
+                            if (((Business)field.Buldings[i]).BusinessType == ((Business)field.Buldings[j]).BusinessType &&
+                                ((Business)field.Buldings[j]).BusinessOwner == Symbol)
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        public void ChanceAnalysis(Chances chances,Field field)
+        {
+            if (chances.GetType() == typeof(Profit))
+            {
+                Balance += ((Profit)chances).GettingMoney;
+            }
+            else if (chances.GetType() == typeof(Lesion))
+            {
+                Balance -= ((Lesion)chances).WriteOffMoney;
+            }
+            else if (chances.GetType() == typeof(RandomActions))
+            {
+                switch (((RandomActions)chances).Actions)
+                {
+                    case Actions.Teleport:
+                        {
+                            field.Buldings[CordinationPlayer].Symbol.Remove(Symbol);
+                            Random random = new Random();
+                            CordinationPlayer += random.Next(0, 20);
+                            field.Buldings[CordinationPlayer].Symbol.Add(Symbol);
+                        }
+                        break;
+                    case Actions.WalkBackWards:
+                        {
+                            ReverseStroke = true;
+                        }
+                        break;
+                    case Actions.GoToJail:
+                        {
+                            for (int i = 0; i < field.Buldings.Count; i++)
+                            {
+                                if (field.Buldings[i].GetType() == typeof(Prison))
+                                {
+                                    field.Buldings[CordinationPlayer].Symbol.Remove(Symbol);
+                                    field.Buldings[i].Symbol.Add(Symbol);
+                                    CordinationPlayer = field.Buldings[i].Number;
+                                    Prison = true;
+                                }
+                            }
+                        }
+                        break;
+                    case Actions.Skipping:
+                        {
+                            StepSkip = true;
+                        }
+                        break;
+                    case Actions.Empty:
+                        {
+
+                        }
+                        break;
+                }
+            }
+        }//анализ шанса 
+        public bool IsMonopolyByType(BusinessType type, List<Building> building)
+        {
+            for (int i = 0; i < building.Count; i++)
+            {
+                if (building[i].GetType() == typeof(Business) &&
+                    ((Business)building[i]).BusinessType == type &&
+                    ((Business)building[i]).BusinessOwner != Symbol)
+                {
+                    return false;
+                }
+                else if (building[i].GetType() == typeof(CarInterior) &&
+                    ((CarInterior)building[i]).BusinessType == type &&
+                    ((CarInterior)building[i]).BusinessOwner != Symbol)
+                {
+                    return false;
+                }
+                else if (building[i].GetType() == typeof(GamingCompanies) &&
+                    ((GamingCompanies)building[i]).BusinessType == type &&
+                    ((GamingCompanies)building[i]).BusinessOwner != Symbol)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public bool IsHaveMeMonoopoly(List<Building> buldings)
+        {
+            for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
+            {
+                if (IsMonopolyByType((BusinessType)i, buldings)) return true;
+            }
+            return false;
+        }//проверка есть ли хоть одна купленная монополия 
+        public void ShowBsn(List<Building> buldings)
+        {
+            int min = 0, max = 0;
+            List<Building> monopolyBusiness = new List<Building>();
+            for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
+            {
+                if (IsMonopolyByType((BusinessType)i, buldings))
+                {
+                    monopolyBusiness = buldings.Where(x => x.GetType() == typeof(Business)).
+                        Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList();
+                    break;
+                }
+            }
+            for (int i = 0; i < monopolyBusiness.Count; i++)
+            {
+                for (int j = 0; j < monopolyBusiness.Count; j++)
+                {
+                    if (((Business)monopolyBusiness[i]).Level > ((Business)monopolyBusiness[j]).Level)
+                    {
+                        max = ((Business)monopolyBusiness[i]).Level;
+                    }
+                    else
+                    {
+                        min = ((Business)monopolyBusiness[j]).Level;
+                    }
+                }
+            }
+            for (int i = 0; i < monopolyBusiness.Count; i++)
+            {
+                if (max != min)
+                {
+                    if (((Business)monopolyBusiness[i]).Level == max)
+                    {
+                        monopolyBusiness.RemoveAt(i);
+                    }
+                }
+            }
+            for (int i = 0; i < monopolyBusiness.Count; i++)
+            {
+                Console.WriteLine($"Название: {monopolyBusiness[i].Title} Номер: {monopolyBusiness[i].Number} {((Business)monopolyBusiness[i]).UpgradePrice}");
+            }
+        }//добовление бизнесов которых можно улучшить 
+        public void MonoopolyImprovement(Business business)
+        {
+            business.Level += 1;
+            Balance -= business.UpgradePrice;
+        }//улучшение бизнеса 
+        public bool CheckCell(Building buldings, Field field)//проверк ячейки на которую попал бот 
+        {
+            if (buldings.GetType() == typeof(Jackpot))
+            {
+                Jackpot = true;
+            }//проверка что ячейка джекпот //доделать боту логику джекпота
+            else if (buldings.GetType() == typeof(Bank))
+            {
+                if (Balance >= ((Bank)buldings).Summa)
+                {
+                    Balance -= ((Bank)buldings).Summa;
+                }
+
+            }//проверка что ячейка налог
+            else if (buldings.GetType() == typeof(Tax))
+            {
+                if (Balance >= ((Tax)buldings).Summa)
+                {
+                    Balance -= ((Tax)buldings).Summa;
+                }
+            }//проверка что ячейка налог на богадство 
+            else if (buldings.GetType() == typeof(PoliceStation))
+            {
+                for (int i = 0; i < field.Buldings.Count; i++)
+                {
+                    if (field.Buldings[i].GetType() == typeof(Prison))
+                    {
+                        field.Buldings[CordinationPlayer].Symbol.Remove(Symbol);
+                        field.Buldings[i].Symbol.Add(Symbol);
+                        CordinationPlayer = field.Buldings[i].Number;
+                        Prison = true;
+                    }
+                }
+            }//проверка что ячейка полицейский участок
+            else if (buldings.GetType() == typeof(Start))
+            {
+                Balance += ((Start)buldings).Summa;
+            }//проверка что ячейка старт 
+            else if (buldings.GetType() == typeof(Chance))
+            {
+                ((Chance)buldings).AddChance();
+                Random random = new Random();
+                ChanceAnalysis(((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)],field);
+
+            }//проверка что ячейка шанс //доделать боту шанс 
+            return false;
+        }
+    }
+}
