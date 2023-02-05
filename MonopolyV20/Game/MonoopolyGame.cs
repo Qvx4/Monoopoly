@@ -481,7 +481,7 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[2].Prison = true;
+            Users[2].Balance -= 10000;
             Random rand = new Random();
             int numberCell;
             int nextPlayer = 0;
@@ -516,7 +516,10 @@ namespace MonopolyV20
                     bool check = true;
                     while (check)
                     {
-                        ((Bot)Users[nextPlayer]).BusinessBuyout(Field.Buldings);
+                        if (((Bot)Users[nextPlayer]).MortagagedBusinesses(Field.Buldings))
+                        {
+                            ((Bot)Users[nextPlayer]).BusinessBuyout(Field.Buldings);
+                        }
                         int prisonPrice = 500;
                         if (Users[nextPlayer].Prison == true)
                         {
@@ -792,7 +795,7 @@ namespace MonopolyV20
                                     check = false;
                                 }
                                 break;
-                        }//варианты выбора для игрока 
+                        }
                         if (surrender != true || prison != true || skipping != true)
                         {
                             ShowGameCube(firstCube);

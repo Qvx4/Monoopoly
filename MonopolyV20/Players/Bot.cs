@@ -576,19 +576,19 @@ namespace MonopolyV20
             pos = random.Next(listBuilding.Count);
             if (Balance >= minBalance)
             {
-                if (building[pos].GetType() == typeof(Business))
+                if (listBuilding[pos].GetType() == typeof(Business))
                 {
                     ((Business)building[pos]).Mortgaged = false;
                     Balance -= ((Business)building[pos]).RansomValue;
                     return true;
                 }
-                if (building[pos].GetType() == typeof(CarInterior))
+                if (listBuilding[pos].GetType() == typeof(CarInterior))
                 {
                     ((CarInterior)building[pos]).Mortgaged = false;
                     Balance -= ((CarInterior)building[pos]).RansomValue;
                     return true;
                 }
-                if (building[pos].GetType() == typeof(GamingCompanies))
+                if (listBuilding[pos].GetType() == typeof(GamingCompanies))
                 {
                     ((GamingCompanies)building[pos]).Mortgaged = false;
                     Balance -= ((GamingCompanies)building[pos]).RansomValue;
@@ -756,6 +756,25 @@ namespace MonopolyV20
             }
             return businessValue;
         }
+        public bool MortagagedBusinesses(List<Building> building)
+        {
+            for (int i = 0; i < building.Count;i++)
+            {
+                if (building[i].GetType() == typeof(Business) && ((Business)building[i]).BusinessOwner == Symbol && ((Business)building[i]).Mortgaged == true)
+                {
+                    return true;
+                }
+                if (building[i].GetType() == typeof(CarInterior) && ((CarInterior)building[i]).BusinessOwner == Symbol && ((CarInterior)building[i]).Mortgaged == true)
+                {
+                    return true;
+                }
+                if (building[i].GetType() == typeof(GamingCompanies) && ((GamingCompanies)building[i]).BusinessOwner == Symbol && ((GamingCompanies)building[i]).Mortgaged == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }//проверка если заложенный бизнес 
     }
 }
 

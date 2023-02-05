@@ -1,23 +1,8 @@
-C:/Users/sudik/OneDrive/Рабочий стол/с#/MonopolyV20/MonopolyV20/bin/Debug/MonopolyV20.exe.config
-C:/Users/sudik/OneDrive/Рабочий стол/с#/MonopolyV20/MonopolyV20/bin/Debug/MonopolyV20.exe
-C:/Users/sudik/OneDrive/Рабочий стол/с#/MonopolyV20/MonopolyV20/bin/Debug/MonopolyV20.pdb
-C:/Users/sudik/OneDrive/Рабочий стол/с#/MonopolyV20/MonopolyV20/obj/Debug/MonopolyV20.csproj.AssemblyReference.cache
-C:/Users/sudik/OneDrive/Рабочий стол/с#/MonopolyV20/MonopolyV20/obj/Debug/MonopolyV20.csproj.SuggestedBindingRedirects.cache
-C:/Users/sudik/OneDrive/Рабочий стол/с#/MonopolyV20/MonopolyV20/obj/Debug/MonopolyV20.csproj.CoreCompileInputs.cache
-C:/Users/sudik/OneDrive/Рабочий стол/с#/MonopolyV20/MonopolyV20/obj/Debug/MonopolyV20.exe
-C:/Users/sudik/OneDrive/Рабочий стол/с#/MonopolyV20/MonopolyV20/obj/Debug/MonopolyV20.pdb
-/Volumes/ESD-USB/MonopolyV20/MonopolyV20/obj/Debug/MonopolyV20.csproj.AssemblyReference.cache
-/Volumes/ESD-USB/MonopolyV20/MonopolyV20/obj/Debug/MonopolyV20.csproj.CoreCompileInputs.cache
-/Volumes/ESD-USB/MonopolyV20/MonopolyV20/obj/Debug/MonopolyV20.exe
-/Volumes/ESD-USB/MonopolyV20/MonopolyV20/obj/Debug/MonopolyV20.pdb
-/Volumes/ESD-USB/MonopolyV20/MonopolyV20/bin/Debug/MonopolyV20.exe.config
-/Volumes/ESD-USB/MonopolyV20/MonopolyV20/bin/Debug/MonopolyV20.exe
-/Volumes/ESD-USB/MonopolyV20/MonopolyV20/bin/Debug/MonopolyV20.pdb
-E:\MonopolyV20\MonopolyV20\bin\Debug\MonopolyV20.exe.config
-E:\MonopolyV20\MonopolyV20\bin\Debug\MonopolyV20.exe
-E:\MonopolyV20\MonopolyV20\bin\Debug\MonopolyV20.pdb
-E:\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.csproj.AssemblyReference.cache
-E:\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.csproj.SuggestedBindingRedirects.cache
-E:\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.csproj.CoreCompileInputs.cache
-E:\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.exe
-E:\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.pdb
+C:\Users\sudik\OneDrive\Рабочий стол\с#\MonopolyV20\MonopolyV20\bin\Debug\MonopolyV20.exe.config
+C:\Users\sudik\OneDrive\Рабочий стол\с#\MonopolyV20\MonopolyV20\bin\Debug\MonopolyV20.exe
+C:\Users\sudik\OneDrive\Рабочий стол\с#\MonopolyV20\MonopolyV20\bin\Debug\MonopolyV20.pdb
+C:\Users\sudik\OneDrive\Рабочий стол\с#\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.csproj.AssemblyReference.cache
+C:\Users\sudik\OneDrive\Рабочий стол\с#\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.csproj.SuggestedBindingRedirects.cache
+C:\Users\sudik\OneDrive\Рабочий стол\с#\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.csproj.CoreCompileInputs.cache
+C:\Users\sudik\OneDrive\Рабочий стол\с#\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.exe
+C:\Users\sudik\OneDrive\Рабочий стол\с#\MonopolyV20\MonopolyV20\obj\Debug\MonopolyV20.pdb
