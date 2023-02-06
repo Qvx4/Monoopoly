@@ -522,7 +522,8 @@ namespace MonopolyV20
                             {
                                 if (nextPlayer == 0)
                                 {
-
+                                    ((Bot)Users[nextPlayer]).BotsBusinessDownturn(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
+ 
                                 }
                             }
                         }
