@@ -481,7 +481,7 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[2].Balance -= 10000;
+            //Users[2].Balance -= 13000;
             Random rand = new Random();
             int numberCell;
             int nextPlayer = 0;
@@ -523,7 +523,6 @@ namespace MonopolyV20
                                 if (nextPlayer == 0)
                                 {
                                     ((Bot)Users[nextPlayer]).BotsBusinessDownturn(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
- 
                                 }
                             }
                         }

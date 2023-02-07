@@ -823,15 +823,15 @@ namespace MonopolyV20
             List<Building> result = new List<Building>();
             for (int i = 0; i < building.Count; i++)
             {
-                if (building[i].GetType() == typeof(Business) || ((Business)building[i]).BusinessOwner == Symbol || ((Business)building[i]).Mortgaged)
+                if (building[i].GetType() == typeof(Business) && ((Business)building[i]).BusinessOwner == Symbol && ((Business)building[i]).Mortgaged)
                 {
                     result.Add(building[i]);
                 }
-                if (building[i].GetType() == typeof(CarInterior) || ((CarInterior)building[i]).BusinessOwner == Symbol || ((CarInterior)building[i]).Mortgaged)
+                if (building[i].GetType() == typeof(CarInterior) && ((CarInterior)building[i]).BusinessOwner == Symbol && ((CarInterior)building[i]).Mortgaged)
                 {
                     result.Add(building[i]);
                 }
-                if (building[i].GetType() == typeof(GamingCompanies) || ((GamingCompanies)building[i]).BusinessOwner == Symbol || ((GamingCompanies)building[i]).Mortgaged)
+                if (building[i].GetType() == typeof(GamingCompanies) && ((GamingCompanies)building[i]).BusinessOwner == Symbol && ((GamingCompanies)building[i]).Mortgaged)
                 {
                     result.Add(building[i]);
                 }
