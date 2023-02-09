@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace MonopolyV20
@@ -232,7 +233,7 @@ namespace MonopolyV20
                 {
                     nextPlayer = 0;
                 }
-                if (user.Count == 1)
+                if (user.Count <= 1)
                 {
                     isWork = false;
                     break;
@@ -258,6 +259,11 @@ namespace MonopolyV20
                         else
                         {
                             user.Remove(user[nextPlayer]);
+                            if (user.Count == 1)
+                            {
+                                isWork = false;
+                                break;
+                            }
                         }
                         if (startOrStop)
                         {
@@ -292,6 +298,10 @@ namespace MonopolyV20
                     }
                 }
                 nextPlayer++;
+            }
+            if (user.Count == 0)
+            {
+                return;
             }
             if (user[nextPlayer].GetType() == typeof(Bot))
             {
@@ -481,7 +491,7 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[2].Balance -= 13000;
+            Users[2].Balance -= 11000;
             Random rand = new Random();
             int numberCell;
             int nextPlayer = 0;
