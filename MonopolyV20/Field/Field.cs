@@ -134,8 +134,7 @@ namespace MonopolyV20
                         count = 20;
                     }
                     Console.Write("│");//сделать для автосалона и игровых команий
-                    if (Buldings[cellNumber[j]].GetType() == typeof(Business))
-                    //иф который делает провку на куленный бизнес
+                    if (Buldings[cellNumber[j]].GetType() == typeof(Business))//иф который делает провку на куленный бизнес
                     {
                         if (((Business)Buldings[cellNumber[j]]).BusinessOwner != ' ')
                         {

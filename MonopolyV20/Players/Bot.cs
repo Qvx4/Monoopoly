@@ -632,6 +632,10 @@ namespace MonopolyV20
         } //купленные бизнесы бота
         public void MortagageBusiness(List<Building> myBuilding, List<User> users, List<Building> allBuilding)//заложить бизнес 
         {
+            if (myBuilding.Count == 0)
+            {
+                return;
+            }
             List<int> businessValue = new List<int>();//доделать заложить бизнес выбрать минимальный 
             for (int i = 0; i < myBuilding.Count; i++)
             {
@@ -644,9 +648,18 @@ namespace MonopolyV20
                 {
                     if (myBuilding[i].GetType() == typeof(Business))
                     {
-                        ((Business)myBuilding[i]).Mortgaged = true;
-                        Balance += ((Business)myBuilding[i]).ValueOfCollaterel;
-                        return;
+                        if (((Business)myBuilding[i]).Level == 0)
+                        {
+                            ((Business)myBuilding[i]).Mortgaged = true;
+                            Balance += ((Business)myBuilding[i]).ValueOfCollaterel;
+                            return;
+                        }
+                        else
+                        {
+                            ((Business)myBuilding[i]).Level -= 1;
+                            Balance -= ((Business)myBuilding[i]).UpgradePrice;
+
+                        }
                     }
                     if (myBuilding[i].GetType() == typeof(CarInterior))
                     {
@@ -758,7 +771,7 @@ namespace MonopolyV20
         }
         public bool MortagagedBusinesses(List<Building> building)
         {
-            for (int i = 0; i < building.Count;i++)
+            for (int i = 0; i < building.Count; i++)
             {
                 if (building[i].GetType() == typeof(Business) && ((Business)building[i]).BusinessOwner == Symbol && ((Business)building[i]).Mortgaged == true)
                 {

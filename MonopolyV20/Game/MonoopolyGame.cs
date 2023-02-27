@@ -299,6 +299,10 @@ namespace MonopolyV20
                 }
                 nextPlayer++;
             }
+            if (nextPlayer >= user.Count)
+            {
+                nextPlayer = 0;
+            }
             if (user.Count == 0)
             {
                 return;
