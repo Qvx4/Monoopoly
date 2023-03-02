@@ -264,6 +264,7 @@ namespace MonopolyV20
                                 isWork = false;
                                 break;
                             }
+                            break;
                         }
                         if (startOrStop)
                         {

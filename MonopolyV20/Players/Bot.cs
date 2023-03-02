@@ -149,7 +149,14 @@ namespace MonopolyV20
             }
             else if (chances.GetType() == typeof(Lesion))
             {
-                Balance -= ((Lesion)chances).WriteOffMoney;
+                if (Balance > ((Lesion)chances).WriteOffMoney)
+                {
+                    Balance -= ((Lesion)chances).WriteOffMoney;
+                }
+                else
+                {
+                    MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
+                }
             }
             else if (chances.GetType() == typeof(RandomActions))
             {
@@ -203,7 +210,7 @@ namespace MonopolyV20
                         break;
                 }
             }
-        }//выпадения рандомного шанса
+        }//выпадения рандомного шанса //
         public bool IsHaveBusinessThisType(BusinessType businessType, List<Building> buldings)
         {
             for (int i = 0; i < buldings.Count; i++)
@@ -496,14 +503,14 @@ namespace MonopolyV20
             }//проверка что ячейка джекпот //доделать боту логику джекпота
             else if (buldings.GetType() == typeof(Bank))
             {
-                if (Balance >= ((Bank)buldings).Summa)
+                if (Balance > ((Bank)buldings).Summa)
                 {
                     Balance -= ((Bank)buldings).Summa;
                 }
             }//проверка что ячейка налог
             else if (buldings.GetType() == typeof(Tax))
             {
-                if (Balance >= ((Tax)buldings).Summa)
+                if (Balance > ((Tax)buldings).Summa)
                 {
                     Balance -= ((Tax)buldings).Summa;
                 }
