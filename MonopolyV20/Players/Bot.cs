@@ -48,7 +48,7 @@ namespace MonopolyV20
         {
             if (bulding.GetType() == typeof(Business))
             {
-                if (((Business)bulding).Price <= Balance)
+                if (((Business)bulding).Price < Balance)
                 {
                     ((Business)bulding).BusinessOwner = Symbol;
                     Balance -= ((Business)bulding).Price;
@@ -57,7 +57,7 @@ namespace MonopolyV20
             }
             else if (bulding.GetType() == typeof(CarInterior))
             {
-                if (((CarInterior)bulding).Price <= Balance)
+                if (((CarInterior)bulding).Price < Balance)
                 {
                     ((CarInterior)bulding).BusinessOwner = Symbol;
                     Balance -= ((CarInterior)bulding).Price;
@@ -66,7 +66,7 @@ namespace MonopolyV20
             }
             else if (bulding.GetType() == typeof(GamingCompanies))
             {
-                if (((GamingCompanies)bulding).Price <= Balance)
+                if (((GamingCompanies)bulding).Price < Balance)
                 {
                     ((GamingCompanies)bulding).BusinessOwner = Symbol;
                     Balance -= ((GamingCompanies)bulding).Price;
@@ -79,7 +79,7 @@ namespace MonopolyV20
         {
             if (bulding.GetType() == typeof(Business))
             {
-                if (((Business)bulding).Rent[((Business)bulding).Level] <= Balance)
+                if (((Business)bulding).Rent[((Business)bulding).Level] < Balance)
                 {
                     if (((Business)bulding).Mortgaged == false)
                     {
@@ -100,7 +100,7 @@ namespace MonopolyV20
             }
             else if (bulding.GetType() == typeof(CarInterior))
             {
-                if (((CarInterior)bulding).Rent[((CarInterior)bulding).Level] <= Balance)
+                if (((CarInterior)bulding).Rent[((CarInterior)bulding).Level] < Balance)
                 {
                     if (((CarInterior)bulding).Mortgaged == false)
                     {
@@ -121,7 +121,7 @@ namespace MonopolyV20
             }
             else if (bulding.GetType() == typeof(GamingCompanies))
             {
-                if (((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level] <= Balance)
+                if (((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level] < Balance)
                 {
                     if (((GamingCompanies)bulding).Mortgaged == false)
                     {
@@ -460,59 +460,71 @@ namespace MonopolyV20
             {
                 Random random = new Random();
                 int numberCubs = 0;
+                int priceGame = 1000;
                 if (random.Next(0, 1) == 0)
                 {
-                    Balance -= 1000;
-                    int[] arrayCell = new int[random.Next(1, 4)];
-                    for (int i = 0; i < arrayCell.Length; i++)
+                    if (Balance > priceGame)
                     {
-                        numberCubs = random.Next(1, 7);
-                        for (int j = 0; j < arrayCell.Length; j++)
+                        Balance -= priceGame;
+                        int[] arrayCell = new int[random.Next(1, 4)];
+                        for (int i = 0; i < arrayCell.Length; i++)
                         {
-                            if (numberCubs == arrayCell[j])
+                            numberCubs = random.Next(1, 7);
+                            for (int j = 0; j < arrayCell.Length; j++)
                             {
-                                break;
-                            }
-                            else if (j == arrayCell.Length - 1)
-                            {
-                                arrayCell[i] = random.Next(1, 7);
+                                if (numberCubs == arrayCell[j])
+                                {
+                                    break;
+                                }
+                                else if (j == arrayCell.Length - 1)
+                                {
+                                    arrayCell[i] = random.Next(1, 7);
+                                }
                             }
                         }
-                    }
-                    //firstCube = RollTheCube(rand);    
-                    for (int i = 0; i < arrayCell.Length; i++)
-                    {
-                        if (arrayCell[i] == /*firstCube*/numberCubs)
+                        //firstCube = RollTheCube(rand);    
+                        for (int i = 0; i < arrayCell.Length; i++)
                         {
-                            if (arrayCell.Length == 3)
+                            if (arrayCell[i] == /*firstCube*/numberCubs)
                             {
-                                Balance += 2000;
+                                if (arrayCell.Length == 3)
+                                {
+                                    Balance += 2000;
+                                }
+                                else if (arrayCell.Length == 2)
+                                {
+                                    Balance += 3000;
+                                }
+                                else if (arrayCell.Length == 1)
+                                {
+                                    Balance += 6000;
+                                }
+                                break;
                             }
-                            else if (arrayCell.Length == 2)
-                            {
-                                Balance += 3000;
-                            }
-                            else if (arrayCell.Length == 1)
-                            {
-                                Balance += 6000;
-                            }
-                            break;
                         }
                     }
                 }
-            }//проверка что ячейка джекпот //доделать боту логику джекпота
+            }//проверка что ячейка джекпот 
             else if (buldings.GetType() == typeof(Bank))
             {
                 if (Balance > ((Bank)buldings).Summa)
                 {
                     Balance -= ((Bank)buldings).Summa;
                 }
-            }//проверка что ячейка налог
+                else
+                {
+                    MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
+                }
+            }//проверка что ячейка налог 
             else if (buldings.GetType() == typeof(Tax))
             {
                 if (Balance > ((Tax)buldings).Summa)
                 {
                     Balance -= ((Tax)buldings).Summa;
+                }
+                else
+                {
+                    MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
                 }
             }//проверка что ячейка налог на богадство 
             else if (buldings.GetType() == typeof(PoliceStation))
@@ -537,7 +549,7 @@ namespace MonopolyV20
                 ((Chance)buldings).AddChance();
                 Random random = new Random();
                 ChanceAnalysis(((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)], field, users);
-            }//проверка что ячейка шанс //доделать боту шанс 
+            }//проверка что ячейка шанс 
             return false;
         }
         public bool BusinessBuyout(List<Building> building)//выкуп заложенного бизнеса
@@ -797,11 +809,12 @@ namespace MonopolyV20
         }//проверка если заложенный бизнес 
         public void BotsBusinessDownturn(List<Building> building)
         {
+           const int numberLaps = 15;
             for (int i = 0; i < building.Count; i++)
             {
                 if (building[i].GetType() == typeof(Business))
                 {
-                    if (((Business)building[i]).BusinessDowntrun < 15)
+                    if (((Business)building[i]).BusinessDowntrun < numberLaps)
                     {
                         ((Business)building[i]).BusinessDowntrun += 1;
                     }
@@ -813,7 +826,7 @@ namespace MonopolyV20
                 }
                 if (building[i].GetType() == typeof(CarInterior))
                 {
-                    if (((CarInterior)building[i]).BusinessDowntrun < 15)
+                    if (((CarInterior)building[i]).BusinessDowntrun < numberLaps)
                     {
                         ((CarInterior)building[i]).BusinessDowntrun += 1;
                     }
@@ -825,7 +838,7 @@ namespace MonopolyV20
                 }
                 if (building[i].GetType() == typeof(GamingCompanies))
                 {
-                    if (((GamingCompanies)building[i]).BusinessDowntrun < 15)
+                    if (((GamingCompanies)building[i]).BusinessDowntrun < numberLaps)
                     {
                         ((GamingCompanies)building[i]).BusinessDowntrun += 1;
                     }

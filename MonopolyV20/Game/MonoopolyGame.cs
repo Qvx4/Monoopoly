@@ -496,8 +496,12 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            Users[2].Balance -= 11000;
+            //Users[0].Balance -= 11000;
+            //Users[1].Balance -= 11000;
+            //Users[2].Balance -= 11000;
+            //Users[3].Balance -= 11000;
             Random rand = new Random();
+            int prisonPrice = 500;
             int numberCell;
             int nextPlayer = 0;
             int firstCube = 0;
@@ -541,7 +545,6 @@ namespace MonopolyV20
                                 }
                             }
                         }
-                        int prisonPrice = 500;
                         if (Users[nextPlayer].Prison == true)
                         {
                             if (Users[nextPlayer].Balance >= prisonPrice)
