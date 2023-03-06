@@ -202,128 +202,128 @@ namespace MonopolyV20
         }//проверка на победу 
         public void Auction(List<User> users, Building bulding)
         {
-            Random random = new Random();
-            int nextPlayer = 0;
-            int bsnPrice = 0;
-            BusinessType businessType = (BusinessType)0;
-            if (bulding.GetType() == typeof(Business))
-            {
-                bsnPrice = ((Business)bulding).Price + 100;
-                businessType = ((Business)bulding).BusinessType;
-            }
-            else if (bulding.GetType() == typeof(CarInterior))
-            {
-                bsnPrice = ((CarInterior)bulding).Price + 100;
-                businessType = ((CarInterior)bulding).BusinessType;
-            }
-            else if (bulding.GetType() == typeof(GamingCompanies))
-            {
-                bsnPrice = ((GamingCompanies)bulding).Price + 100;
-                businessType = ((GamingCompanies)bulding).BusinessType;
-            }
-            List<User> user = new List<User>();
-            for (int i = 0; i < Users.Count; i++)
-            {
-                user.Add(Users[i]);
-            }
-            bool isWork = true;
-            while (isWork)
-            {
-                if (nextPlayer >= user.Count)
-                {
-                    nextPlayer = 0;
-                }
-                if (user.Count <= 1)
-                {
-                    isWork = false;
-                    break;
-                }
-                if (user[nextPlayer].GetType() == typeof(Bot))
-                {
-                    bool startOrStop = false;
-                    if (((Bot)user[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))//fix
-                    {
-                        user.Remove(user[nextPlayer]);
-                    }
-                    else
-                    {
-                        if (((Bot)user[nextPlayer]).IsHaveBusinessThisType(businessType, Field.Buldings) == true ||
-                            ((Bot)user[nextPlayer]).IsHaveEnemyBusinessType(Users, businessType, Field.Buldings))
-                        {
-                            startOrStop = true;
-                        }
-                        if (user[nextPlayer].Balance > bsnPrice * 2)
-                        {
-                            startOrStop = true;
-                        }
-                        else
-                        {
-                            user.Remove(user[nextPlayer]);
-                            if (user.Count == 1)
-                            {
-                                isWork = false;
-                                break;
-                            }
-                            break;
-                        }
-                        if (startOrStop)
-                        {
-                            bsnPrice += 100;
-                        }
-                        else
-                        {
-                            user.Remove(user[nextPlayer]);//fix
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"Цена бизнеса = {bsnPrice}");
-                    Console.WriteLine("{ 1 } Поднять ставку | { 2 } отказатся ");
-                    Console.Write("{ Ввод } >> ");
-                    int.TryParse(Console.ReadLine(), out int choise);
-                    while (choise < 1 || choise > 2)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.Write("{ Ввод } >> ");
-                        int.TryParse(Console.ReadLine(), out choise);
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                    }
-                    if (choise == 1)
-                    {
-                        bsnPrice += 100;
-                    }
-                    else
-                    {
-                        user.Remove(user[nextPlayer]);
-                    }
-                }
-                nextPlayer++;
-            }
-            if (nextPlayer >= user.Count)
-            {
-                nextPlayer = 0;
-            }
-            if (user.Count == 0)
-            {
-                return;
-            }
-            if (user[nextPlayer].GetType() == typeof(Bot))
-            {
-                user[nextPlayer].Balance -= ((Business)bulding).Price;
-                if (businessType.GetType() == typeof(Business))
-                {
-                    ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
-                }
-                if (businessType.GetType() == typeof(CarInterior))
-                {
-                    ((CarInterior)bulding).BusinessOwner = user[nextPlayer].Symbol;
-                }
-                if (businessType.GetType() == typeof(GamingCompanies))
-                {
-                    ((GamingCompanies)bulding).BusinessOwner = user[nextPlayer].Symbol;
-                }
-            }
+            //Random random = new Random();
+            //int nextPlayer = 0;
+            //int bsnPrice = 0;
+            //BusinessType businessType = (BusinessType)0;
+            //if (bulding.GetType() == typeof(Business))
+            //{
+            //    bsnPrice = ((Business)bulding).Price + 100;
+            //    businessType = ((Business)bulding).BusinessType;
+            //}
+            //else if (bulding.GetType() == typeof(CarInterior))
+            //{
+            //    bsnPrice = ((CarInterior)bulding).Price + 100;
+            //    businessType = ((CarInterior)bulding).BusinessType;
+            //}
+            //else if (bulding.GetType() == typeof(GamingCompanies))
+            //{
+            //    bsnPrice = ((GamingCompanies)bulding).Price + 100;
+            //    businessType = ((GamingCompanies)bulding).BusinessType;
+            //}
+            //List<User> user = new List<User>();
+            //for (int i = 0; i < Users.Count; i++)
+            //{
+            //    user.Add(Users[i]);
+            //}
+            //bool isWork = true;
+            //while (isWork)
+            //{
+            //    if (nextPlayer >= user.Count)
+            //    {
+            //        nextPlayer = 0;
+            //    }
+            //    if (user.Count <= 1)
+            //    {
+            //        isWork = false;
+            //        break;
+            //    }
+            //    if (user[nextPlayer].GetType() == typeof(Bot))
+            //    {
+            //        bool startOrStop = false;
+            //        if (((Bot)user[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))//fix
+            //        {
+            //            user.Remove(user[nextPlayer]);
+            //        }
+            //        else
+            //        {
+            //            if (((Bot)user[nextPlayer]).IsHaveBusinessThisType(businessType, Field.Buldings) == true ||
+            //                ((Bot)user[nextPlayer]).IsHaveEnemyBusinessType(Users, businessType, Field.Buldings))
+            //            {
+            //                startOrStop = true;
+            //            }
+            //            if (user[nextPlayer].Balance > bsnPrice * 2)
+            //            {
+            //                startOrStop = true;
+            //            }
+            //            else
+            //            {
+            //                user.Remove(user[nextPlayer]);
+            //                if (user.Count == 1)
+            //                {
+            //                    isWork = false;
+            //                    break;
+            //                }
+            //                break;
+            //            }
+            //            if (startOrStop)
+            //            {
+            //                bsnPrice += 100;
+            //            }
+            //            else
+            //            {
+            //                user.Remove(user[nextPlayer]);//fix
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine($"Цена бизнеса = {bsnPrice}");
+            //        Console.WriteLine("{ 1 } Поднять ставку | { 2 } отказатся ");
+            //        Console.Write("{ Ввод } >> ");
+            //        int.TryParse(Console.ReadLine(), out int choise);
+            //        while (choise < 1 || choise > 2)
+            //        {
+            //            Console.ForegroundColor = ConsoleColor.DarkRed;
+            //            Console.Write("{ Ввод } >> ");
+            //            int.TryParse(Console.ReadLine(), out choise);
+            //            Console.ForegroundColor = ConsoleColor.Gray;
+            //        }
+            //        if (choise == 1)
+            //        {
+            //            bsnPrice += 100;
+            //        }
+            //        else
+            //        {
+            //            user.Remove(user[nextPlayer]);
+            //        }
+            //    }
+            //    nextPlayer++;
+            //}
+            //if (nextPlayer >= user.Count)
+            //{
+            //    nextPlayer = 0;
+            //}
+            //if (user.Count == 0)
+            //{
+            //    return;
+            //}
+            //if (user[nextPlayer].GetType() == typeof(Bot))
+            //{
+            //    user[nextPlayer].Balance -= ((Business)bulding).Price;
+            //    if (businessType.GetType() == typeof(Business))
+            //    {
+            //        ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
+            //    }
+            //    if (businessType.GetType() == typeof(CarInterior))
+            //    {
+            //        ((CarInterior)bulding).BusinessOwner = user[nextPlayer].Symbol;
+            //    }
+            //    if (businessType.GetType() == typeof(GamingCompanies))
+            //    {
+            //        ((GamingCompanies)bulding).BusinessOwner = user[nextPlayer].Symbol;
+            //    }
+            //}
         }//fix
         //Method
 
@@ -496,10 +496,10 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[0].Balance -= 11000;
-            //Users[1].Balance -= 11000;
-            //Users[2].Balance -= 11000;
-            //Users[3].Balance -= 11000;
+            Users[0].Balance -= 11000;
+            Users[1].Balance -= 11000;
+            Users[2].Balance -= 11000;
+            Users[3].Balance -= 11000;
             Random rand = new Random();
             int prisonPrice = 500;
             int numberCell;
@@ -572,12 +572,13 @@ namespace MonopolyV20
                         {
                             ((Bot)Users[nextPlayer]).Prison = true;
                         }
-                        Console.Clear();
+                        //Console.Clear();
                         ShowField("");
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
                         ShowGameCube(firstCube);
                         ShowGameCube(secondCube);
+                        Console.WriteLine($"Ход игрока {Users[nextPlayer].Symbol}");
                         Thread.Sleep(2000);
                         if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
                         {
