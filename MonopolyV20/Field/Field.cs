@@ -75,7 +75,7 @@ namespace MonopolyV20
             Buldings.Add(new Chance("Шанс", 17));
             ((Chance)Buldings[Buldings.Count - 1]).AddChance();
             Buldings.Add(new Business("Pepsi", 18, 1800, 900, 1080, 0, 1000, new List<int>() { 140, 700, 2000, 5500, 7500, 9500 }, BusinessType.BeverageCompanies));
-            Buldings.Add(new Business("Fanta", 19, 2000, 1000, 1200, 0, 100, new List<int>() { 160, 800, 2200, 6000, 8000, 10000 }, BusinessType.BeverageCompanies));
+            Buldings.Add(new Business("Fanta", 19, 2000, 1000, 1200, 0, 1000, new List<int>() { 160, 800, 2200, 6000, 8000, 10000 }, BusinessType.BeverageCompanies));
             Buldings.Add(new Jackpot("JACKPOT", 20));
             Buldings.Add(new Business("AmerAirlin", 21, 2200, 1100, 1320, 0, 1250, new List<int>() { 180, 900, 2500, 7000, 8750, 10500 }, BusinessType.Airlines));
             Buldings.Add(new Chance("Шанс", 22));
@@ -1685,7 +1685,6 @@ namespace MonopolyV20
                                 Console.Write(" ");
                             }
                             Console.Write("│");
-
                         }
                     }
                     if (i == 0)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace MonopolyV20
 {
@@ -97,6 +98,8 @@ namespace MonopolyV20
                             if (((Business)bulding).BusinessOwner == users[i].Symbol)
                             {
                                 users[i].Balance += ((Business)bulding).Rent[((Business)bulding).Level];
+                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {((Business)bulding).Rent[((Business)bulding).Level]}");
+                                Thread.Sleep(2000);
                             }
                         }
 
@@ -116,6 +119,8 @@ namespace MonopolyV20
                             if (((CarInterior)bulding).BusinessOwner == users[i].Symbol)
                             {
                                 users[i].Balance += ((CarInterior)bulding).Rent[((CarInterior)bulding).Level];
+                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {((CarInterior)bulding).Rent[((CarInterior)bulding).Level]}");
+                                Thread.Sleep(2000);
                             }
                         }
                     }
@@ -133,6 +138,8 @@ namespace MonopolyV20
                             if (((GamingCompanies)bulding).BusinessOwner == users[i].Symbol)
                             {
                                 users[i].Balance += ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level]}");
+                                Thread.Sleep(2000);
                             }
                         }
                     }
