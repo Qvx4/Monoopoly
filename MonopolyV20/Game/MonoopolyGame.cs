@@ -500,12 +500,19 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             //Users[0].Balance -= 11000;
-            //Users[1].Balance -= 11000;
+            //Users[1].Balance -= 15000;
             //Users[2].Balance -= 11000;
             //Users[3].Balance -= 11000;
+
             //((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
+
+            //((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[1]).Level = 5;
+            //((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[3]).Level = 5;
+
             Random rand = new Random();
             int prisonPrice = 500;
             int numberCell;
@@ -578,7 +585,7 @@ namespace MonopolyV20
                         {
                             ((Bot)Users[nextPlayer]).Prison = true;
                         }
-                        //Console.Clear();
+                        Console.Clear();
                         ShowField("");
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);

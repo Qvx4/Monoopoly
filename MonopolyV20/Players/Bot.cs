@@ -917,6 +917,14 @@ namespace MonopolyV20
             }
             return result;
         }//все заложенные бизнесы 
+        public  bool SurrenderLogic(List<Building> buildings)
+        {
+            if (Balance == 0)
+            {
+                return true;
+            }
+            return true;
+        }
     }
 }
 
