@@ -499,9 +499,9 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[0].Balance -= 11000;
-            //Users[1].Balance -= 15000;
-            //Users[2].Balance -= 11000;
+            //Users[0].Balance -= 10000;
+            //Users[1].Balance -= 13000;
+            //Users[2].Balance -= 12000;
             //Users[3].Balance -= 11000;
 
             //((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
@@ -526,12 +526,16 @@ namespace MonopolyV20
             //int lastCellNumber = 0;
             while (true)
             {
+                ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
                 if (Users[nextPlayer].Surrender == true)
                 {
-                    nextPlayer++;
                     if (nextPlayer >= Users.Count)
                     {
                         nextPlayer = 0;
+                    }
+                    else
+                    {
+                        nextPlayer++;
                     }
                 }
                 if (Users[nextPlayer].Prison == true)
@@ -548,6 +552,7 @@ namespace MonopolyV20
                     bool check = true;
                     while (check)
                     {
+                        ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
                         if (((Bot)Users[nextPlayer]).MortagagedBusinesses(Field.Buldings))
                         {
                             if (!((Bot)Users[nextPlayer]).BusinessBuyout(Field.Buldings))

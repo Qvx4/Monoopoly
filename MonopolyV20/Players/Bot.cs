@@ -917,13 +917,44 @@ namespace MonopolyV20
             }
             return result;
         }//все заложенные бизнесы 
+        public bool Bsn(List<Building> buildings)
+        {
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                if (buildings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buildings[i]).BusinessOwner == Symbol)
+                    {
+                        return true;
+                    }
+                }
+                if (buildings[i].GetType() == typeof(CarInterior))
+                {
+                    if (((CarInterior)buildings[i]).BusinessOwner == Symbol)
+                    {
+                        return true;
+                    }
+                }
+                if (buildings[i].GetType() == typeof(GamingCompanies))
+                {
+                    if (((GamingCompanies)buildings[i]).BusinessOwner == Symbol)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public  bool SurrenderLogic(List<Building> buildings)
         {
-            if (Balance == 0)
+            if (Balance == 0 && !Bsn(buildings))
             {
+                buildings[CordinationPlayer].Symbol.Remove(Symbol);  
+                CordinationPlayer = 0;
+                Surrender = true;
                 return true;
             }
-            return true;
+            return false;
         }
     }
 }
