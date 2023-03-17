@@ -499,20 +499,19 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
+            #region TestBot
             //Users[0].Balance -= 10000;
             //Users[1].Balance -= 13000;
-            //Users[2].Balance -= 12000;
+            //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
             //((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[16]).Level = 5;
             //((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[18]).Level = 5;
             //((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
-
-            //((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[1]).Level = 5;
-            //((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[3]).Level = 5;
-
+            //((Business)Field.Buldings[19]).Level = 5;
+            #endregion
             Random rand = new Random();
             int prisonPrice = 500;
             int numberCell;
@@ -526,7 +525,10 @@ namespace MonopolyV20
             //int lastCellNumber = 0;
             while (true)
             {
-                ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
+                if (Users[nextPlayer].GetType() == typeof(Bot))
+                {
+                    ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
+                }
                 if (Users[nextPlayer].Surrender == true)
                 {
                     if (nextPlayer >= Users.Count)

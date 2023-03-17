@@ -401,16 +401,18 @@ namespace MonopolyV20
             int numberCell;
             Random random = new Random();
             int min = 0, max = 0;
-            List<Building> monopolyBusiness = new List<Building>();
-            for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
-            {
-                if (IsMonopolyByType((BusinessType)i, buildings))
-                {
-                    monopolyBusiness = buildings.Where(x => x.GetType() == typeof(Business)).
-                        Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList();
-                    break;
-                }
-            }
+            List<Building> monopolyBusiness = buildings;
+            #region TestCode
+            //for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
+            //{
+            //    if (IsMonopolyByType((BusinessType)i, buildings))
+            //    {
+            //        monopolyBusiness = buildings.Where(x => x.GetType() == typeof(Business)).
+            //            Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList();
+            //        break;
+            //    }
+            //}
+            #endregion
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
                 for (int j = 0; j < monopolyBusiness.Count; j++)
@@ -435,7 +437,7 @@ namespace MonopolyV20
                     }
                 }
             }
-            numberCell = random.Next(0, buildings.Count);
+            numberCell = random.Next(0, monopolyBusiness.Count);
             if (((Business)buildings[numberCell]).UpgradePrice <= Balance)
             {
                 if (((Business)buildings[numberCell]).Level != 5)
@@ -717,7 +719,7 @@ namespace MonopolyV20
                         else
                         {
                             ((Business)myBuilding[i]).Level -= 1;
-                            Balance -= ((Business)myBuilding[i]).UpgradePrice;
+                            Balance += ((Business)myBuilding[i]).UpgradePrice;
                             Console.WriteLine($"Игрок {Symbol} продал филиал бизнеса цена {((Business)myBuilding[i]).UpgradePrice}");
                             Thread.Sleep(2000);
                         }
@@ -740,7 +742,7 @@ namespace MonopolyV20
                     }
                 }
             }
-        }
+        } //fix 50/50
         public bool IsMonopolyPossible(Building business, List<Building> building)
         {
             for (int i = 0; i < building.Count; i++)
@@ -944,7 +946,7 @@ namespace MonopolyV20
                 }
             }
             return false;
-        }
+        } //проверка куплен ли хоть один бизнес 
         public  bool SurrenderLogic(List<Building> buildings)
         {
             if (Balance == 0 && !Bsn(buildings))
@@ -955,7 +957,7 @@ namespace MonopolyV20
                 return true;
             }
             return false;
-        }
+        } // бот сдаётся 
     }
 }
 
