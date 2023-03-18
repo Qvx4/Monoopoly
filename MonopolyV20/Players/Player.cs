@@ -17,17 +17,17 @@ namespace MonopolyV20
             Console.WriteLine($"Никнейм Игрока [ {Name} ]");
             Console.WriteLine($"Символ Игрока [ {Symbol} ]");
         }
-        public bool IsCheckCellNotBis(Building buldings)
+        public bool IsCheckCellNotBis(Building buildings)
         {
-            if (buldings.GetType() == typeof(Business))
+            if (buildings.GetType() == typeof(Business))
             {
                 return false;
             }
-            else if (buldings.GetType() == typeof(CarInterior))
+            else if (buildings.GetType() == typeof(CarInterior))
             {
                 return false;
             }
-            else if (buldings.GetType() == typeof(GamingCompanies))
+            else if (buildings.GetType() == typeof(GamingCompanies))
             {
                 return false;
             }
@@ -57,30 +57,36 @@ namespace MonopolyV20
             }
             return false;
         }
-        public void IsByCell(Building bulding)
+        public void IsByCell(Building building)
         {
-            if (bulding.GetType() == typeof(Business))
+            if (building.GetType() == typeof(Business))
             {
-                if (((Business)bulding).Price <= Balance)
+                if (((Business)building).Price <= Balance)
                 {
-                    ((Business)bulding).BusinessOwner = Symbol;
-                    Balance -= ((Business)bulding).Price;
+                    ((Business)building).BusinessOwner = Symbol;
+                    Balance -= ((Business)building).Price;
+                    Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((Business)building).Price}");
+                    Thread.Sleep(2000);
                 }
             }
-            else if (bulding.GetType() == typeof(CarInterior))
+            else if (building.GetType() == typeof(CarInterior))
             {
-                if (((CarInterior)bulding).Price <= Balance)
+                if (((CarInterior)building).Price <= Balance)
                 {
-                    ((CarInterior)bulding).BusinessOwner = Symbol;
-                    Balance -= ((CarInterior)bulding).Price;
+                    ((CarInterior)building).BusinessOwner = Symbol;
+                    Balance -= ((CarInterior)building).Price;
+                    Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((CarInterior)building).Price}");
+                    Thread.Sleep(2000);
                 }
             }
-            else if (bulding.GetType() == typeof(GamingCompanies))
+            else if (building.GetType() == typeof(GamingCompanies))
             {
-                if (((GamingCompanies)bulding).Price <= Balance)
+                if (((GamingCompanies)building).Price <= Balance)
                 {
-                    ((GamingCompanies)bulding).BusinessOwner = Symbol;
-                    Balance -= ((GamingCompanies)bulding).Price;
+                    ((GamingCompanies)building).BusinessOwner = Symbol;
+                    Balance -= ((GamingCompanies)building).Price;
+                    Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((GamingCompanies)building).Price}");
+                    Thread.Sleep(2000);
                 }
             }
         }//Покупка ячейки 
@@ -162,63 +168,75 @@ namespace MonopolyV20
             }
             return false;
         }//Проверка ячейки киплина ли она 
-        public bool LayACell(Building bulding)
+        public bool LayACell(Building building)
         {
-            if (bulding.GetType() == typeof(Business))
+            if (building.GetType() == typeof(Business))
             {
-                if (((Business)bulding).BusinessOwner == Symbol)
+                if (((Business)building).BusinessOwner == Symbol)
                 {
-                    ((Business)bulding).Mortgaged = true;
-                    Balance += ((Business)bulding).ValueOfCollaterel;
+                    ((Business)building).Mortgaged = true;
+                    Balance += ((Business)building).ValueOfCollaterel;
+                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((Business)building).ValueOfCollaterel}");
+                    Thread.Sleep(2000);
                     return true;
                 }
             }
-            if (bulding.GetType() == typeof(CarInterior))
+            if (building.GetType() == typeof(CarInterior))
             {   
-                if (((CarInterior)bulding).BusinessOwner == Symbol)
+                if (((CarInterior)building).BusinessOwner == Symbol)
                 {
-                    ((CarInterior)bulding).Mortgaged = true;
-                    Balance += ((CarInterior)bulding).ValueOfCollaterel;
+                    ((CarInterior)building).Mortgaged = true;
+                    Balance += ((CarInterior)building).ValueOfCollaterel;
+                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((CarInterior)building).ValueOfCollaterel}");
+                    Thread.Sleep(2000);
                     return true;
                 }
             }
-            if (bulding.GetType() == typeof(GamingCompanies))
+            if (building.GetType() == typeof(GamingCompanies))
             {               
-                if (((GamingCompanies)bulding).BusinessOwner == Symbol)
+                if (((GamingCompanies)building).BusinessOwner == Symbol)
                 {
-                    ((GamingCompanies)bulding).Mortgaged = true;
-                    Balance += ((GamingCompanies)bulding).ValueOfCollaterel;
+                    ((GamingCompanies)building).Mortgaged = true;
+                    Balance += ((GamingCompanies)building).ValueOfCollaterel;
+                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((GamingCompanies)building).ValueOfCollaterel}");
+                    Thread.Sleep(2000);
                     return true;
                 }
             }
             return false;
         }//заложить бизнес игрока
-        public bool BsnBuyout(Building bulding)//выкуп своего бизнеса
+        public bool BsnBuyout(Building building)//выкуп своего бизнеса
         {
-            if (bulding.GetType() == typeof(Business))
+            if (building.GetType() == typeof(Business))
             {
-                if (Balance >= ((Business)bulding).RansomValue)
+                if (Balance >= ((Business)building).RansomValue)
                 {
-                    ((Business)bulding).Mortgaged = false;
-                    Balance -= ((Business)bulding).RansomValue;
+                    ((Business)building).Mortgaged = false;
+                    Balance -= ((Business)building).RansomValue;
+                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((Business)building).ValueOfCollaterel}");
+                    Thread.Sleep(2000);
                     return true;
                 }
             }
-            else if (bulding.GetType() == typeof(CarInterior))
+            else if (building.GetType() == typeof(CarInterior))
             {
-                if (Balance >= ((CarInterior)bulding).RansomValue)
+                if (Balance >= ((CarInterior)building).RansomValue)
                 {
-                    ((CarInterior)bulding).Mortgaged = false;
-                    Balance -= ((CarInterior)bulding).RansomValue;
+                    ((CarInterior)building).Mortgaged = false;
+                    Balance -= ((CarInterior)building).RansomValue;
+                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((Business)building).ValueOfCollaterel}");
+                    Thread.Sleep(2000);
                     return true;
                 }
             }
-            else if (bulding.GetType() == typeof(GamingCompanies))
+            else if (building.GetType() == typeof(GamingCompanies))
             {
-                if (Balance >= ((GamingCompanies)bulding).RansomValue)
+                if (Balance >= ((GamingCompanies)building).RansomValue)
                 {
-                    ((GamingCompanies)bulding).Mortgaged = false;
-                    Balance -= ((GamingCompanies)bulding).RansomValue;
+                    ((GamingCompanies)building).Mortgaged = false;
+                    Balance -= ((GamingCompanies)building).RansomValue;
+                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((Business)building).ValueOfCollaterel}");
+                    Thread.Sleep(2000);
                     return true;
                 }
             }
