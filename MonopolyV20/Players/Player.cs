@@ -213,7 +213,7 @@ namespace MonopolyV20
                 {
                     ((Business)building).Mortgaged = false;
                     Balance -= ((Business)building).RansomValue;
-                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((Business)building).ValueOfCollaterel}");
+                    Console.WriteLine($"Игрок {Symbol} выкупает свой бизнес {building.Title} цена {((Business)building).RansomValue}");
                     Thread.Sleep(2000);
                     return true;
                 }
@@ -224,7 +224,7 @@ namespace MonopolyV20
                 {
                     ((CarInterior)building).Mortgaged = false;
                     Balance -= ((CarInterior)building).RansomValue;
-                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((Business)building).ValueOfCollaterel}");
+                    Console.WriteLine($"Игрок {Symbol} выкупает свой бизнес {building.Title} цена {((CarInterior)building).RansomValue}");
                     Thread.Sleep(2000);
                     return true;
                 }
@@ -235,7 +235,7 @@ namespace MonopolyV20
                 {
                     ((GamingCompanies)building).Mortgaged = false;
                     Balance -= ((GamingCompanies)building).RansomValue;
-                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((Business)building).ValueOfCollaterel}");
+                    Console.WriteLine($"Игрок {Symbol} выкупает свой бизнес {building.Title} цена {((GamingCompanies)building).RansomValue}");
                     Thread.Sleep(2000);
                     return true;
                 }
@@ -267,6 +267,8 @@ namespace MonopolyV20
                         ((GamingCompanies)field.Buldings[i]).BusinessOwner = '\0';
                     }
                 }
+                Console.WriteLine($"Игрок {Symbol} решил сдатся и покинуть игру ");
+                Thread.Sleep(2000);
             }
         }//сдатся
         public bool IsMonopolyContains(Field field)

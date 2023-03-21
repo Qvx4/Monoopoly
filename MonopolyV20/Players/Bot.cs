@@ -660,7 +660,7 @@ namespace MonopolyV20
                 return false;
             }
             return true;
-        } //fix
+        }
         public List<Building> BotBusinesses(List<Building> building)
         {
             List<Building> bsn = new List<Building>();

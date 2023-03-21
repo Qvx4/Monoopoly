@@ -505,11 +505,11 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            //((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
+            ((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[16]).Level = 5;
-            //((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
+            ((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[18]).Level = 5;
-            //((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
+            ((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[19]).Level = 5;
             #endregion
             Random rand = new Random();

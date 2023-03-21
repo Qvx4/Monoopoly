@@ -68,7 +68,7 @@ namespace MonopolyV20
             Buldings.Add(new Prison("Тюрьма", 10, 500, 3));
             Buldings.Add(new Business("Vk", 11, 1400, 700, 840, 0, 750, new List<int>() { 100, 500, 1500, 4500, 6250, 7500 }, BusinessType.WebServices));
             Buldings.Add(new GamingCompanies("Rockstar Games", 12, 1500, 750, 900, 0, new List<int>() { 100, 250 }, BusinessType.GameCorparation));
-            Buldings.Add(new Business("Facebook", 13, 1400, 700, 840, 0, 750, new List<int>() { 102, 513, 1537, 4613, 6406, 7687 }, BusinessType.WebServices));
+            Buldings.Add(new Business("Facebook", 13, 1400, 700, 840, 0, 750, new List<int>() { 100, 513, 1537, 4613, 6406, 7687 }, BusinessType.WebServices));
             Buldings.Add(new Business("Twitter", 14, 1600, 800, 960, 0, 750, new List<int>() { 120, 600, 1800, 5000, 7000, 9000 }, BusinessType.WebServices));
             Buldings.Add(new CarInterior("Audi", 15, 2000, 1000, 1200, 0, new List<int>() { 250, 500, 1000, 2000 }, BusinessType.Car));
             Buldings.Add(new Business("Coca-Cola", 16, 1800, 900, 1080, 0, 1000, new List<int>() { 140, 700, 2000, 5500, 7500, 9500 }, BusinessType.BeverageCompanies));
