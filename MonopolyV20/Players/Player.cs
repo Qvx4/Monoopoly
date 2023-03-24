@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 
 namespace MonopolyV20
@@ -298,28 +299,28 @@ namespace MonopolyV20
             }
             return false;
         }
-        public void ShowMonopolyBsn(Field field)//Доделать вывод монополии ( Ряд бизнесов которых можно улучшить )
-        {
-            List<Business> list = new List<Business>();
-            for (int i = 0; i < field.Buldings.Count; i++)
-            {
-                if (field.Buldings[i].GetType() == typeof(Business))
-                {
-                    if (((Business)field.Buldings[i]).BusinessOwner == Symbol)
-                    {
-                        for (int j = 0; j < field.Buldings.Count; j++)
-                        {
-                            if (((Business)field.Buldings[i]).BusinessType == ((Business)field.Buldings[j]).BusinessType &&
-                                ((Business)field.Buldings[j]).BusinessOwner == Symbol)
-                            {
+        //public void ShowMonopolyBsn(Field field)//Доделать вывод монополии ( Ряд бизнесов которых можно улучшить )
+        //{
+        //    List<Business> list = new List<Business>();
+        //    for (int i = 0; i < field.Buldings.Count; i++)
+        //    {
+        //        if (field.Buldings[i].GetType() == typeof(Business))
+        //        {
+        //            if (((Business)field.Buldings[i]).BusinessOwner == Symbol)
+        //            {
+        //                for (int j = 0; j < field.Buldings.Count; j++)
+        //                {
+        //                    if (((Business)field.Buldings[i]).BusinessType == ((Business)field.Buldings[j]).BusinessType &&
+        //                        ((Business)field.Buldings[j]).BusinessOwner == Symbol)
+        //                    {
 
-                            }
-                        }
-                    }
-                }
-            }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
 
-        }
+        //}
         public void ChanceAnalysis(Chances chances,Field field)
         {
             if (chances.GetType() == typeof(Profit))
@@ -407,19 +408,22 @@ namespace MonopolyV20
             }
             return false;
         }//проверка есть ли хоть одна купленная монополия 
-        public void ShowBsn(List<Building> buldings)
+        public void ShowBsn(List<Building> buldings) //переделать список бизнесов которые можно улучшить 
         {
             int min = 0, max = 0;
-            List<Building> monopolyBusiness = new List<Building>();
-            for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
-            {
-                if (IsMonopolyByType((BusinessType)i, buldings))
-                {
-                    monopolyBusiness = buldings.Where(x => x.GetType() == typeof(Business)).
-                        Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList();
-                    break;
-                }
-            }
+            int index = 0;
+            List<Building> monopolyBusiness = buldings;
+            #region Test
+            //for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
+            //{
+            //    if (IsMonopolyByType((BusinessType)i, buldings))
+            //    { // nen 
+            //        monopolyBusiness = buldings.Where(x => x.GetType() == typeof(Business)).
+            //            Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList();
+            //        break;
+            //    }
+            //}
+            #endregion
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
                 for (int j = 0; j < monopolyBusiness.Count; j++)
@@ -438,9 +442,14 @@ namespace MonopolyV20
             {
                 if (max != min)
                 {
-                    if (((Business)monopolyBusiness[i]).Level == max)
+                    if (((Business)monopolyBusiness[index]).Level == max)
                     {
-                        monopolyBusiness.RemoveAt(i);
+                        monopolyBusiness.RemoveAt(index);
+                        index = 0;
+                    }
+                    else
+                    {
+                        index++;
                     }
                 }
             }
