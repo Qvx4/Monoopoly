@@ -424,6 +424,16 @@ namespace MonopolyV20
             //    }
             //}
             #endregion
+            for (int i =0; i < buldings.Count;i++)
+            {
+                if (buldings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buldings[i]).BusinessOwner == Symbol)
+                    {
+                        monopolyBusiness.Add(buldings[i]);
+                    }
+                }
+            }
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
                 for (int j = 0; j < monopolyBusiness.Count; j++)
@@ -463,7 +473,7 @@ namespace MonopolyV20
             business.Level += 1;
             Balance -= business.UpgradePrice;
         }//улучшение бизнеса 
-        public bool CheckCell(Building buldings, Field field)//проверк ячейки на которую попал бот 
+        public bool CheckCell(Building buldings, Field field)//проверк ячейки на которую попал игрок 
         {
             if (buldings.GetType() == typeof(Jackpot))
             {
