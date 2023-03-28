@@ -825,7 +825,7 @@ namespace MonopolyV20
                                 {
                                     if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
                                     {
-                                        ((Player)Users[nextPlayer]).ShowBsn(Field.Buldings);
+                                        ((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings));
                                         int.TryParse(Console.ReadLine(), out numberCell);
                                         ((Player)Users[nextPlayer]).MonoopolyImprovement((Business)Field.Buldings[numberCell]);
                                     }

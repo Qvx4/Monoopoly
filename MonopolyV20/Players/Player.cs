@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 
 namespace MonopolyV20
@@ -183,7 +182,7 @@ namespace MonopolyV20
                 }
             }
             if (building.GetType() == typeof(CarInterior))
-            {   
+            {
                 if (((CarInterior)building).BusinessOwner == Symbol)
                 {
                     ((CarInterior)building).Mortgaged = true;
@@ -194,7 +193,7 @@ namespace MonopolyV20
                 }
             }
             if (building.GetType() == typeof(GamingCompanies))
-            {               
+            {
                 if (((GamingCompanies)building).BusinessOwner == Symbol)
                 {
                     ((GamingCompanies)building).Mortgaged = true;
@@ -299,29 +298,41 @@ namespace MonopolyV20
             }
             return false;
         }
-        //public void ShowMonopolyBsn(Field field)//Доделать вывод монополии ( Ряд бизнесов которых можно улучшить )
-        //{
-        //    List<Business> list = new List<Business>();
-        //    for (int i = 0; i < field.Buldings.Count; i++)
-        //    {
-        //        if (field.Buldings[i].GetType() == typeof(Business))
-        //        {
-        //            if (((Business)field.Buldings[i]).BusinessOwner == Symbol)
-        //            {
-        //                for (int j = 0; j < field.Buldings.Count; j++)
-        //                {
-        //                    if (((Business)field.Buldings[i]).BusinessType == ((Business)field.Buldings[j]).BusinessType &&
-        //                        ((Business)field.Buldings[j]).BusinessOwner == Symbol)
-        //                    {
-
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //}
-        public void ChanceAnalysis(Chances chances,Field field)
+        public List<Building> ShowMonopolyBsn(List<Building> buldings)//Доделать вывод монополии ( Ряд бизнесов которых можно улучшить )
+        {
+            List<Building> list = new List<Building>();
+            for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
+            {
+                if (IsMonopolyByType((BusinessType)i, buldings))
+                { 
+                    list = buldings.Where(x => x.GetType() == typeof(Business)).
+                        Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList();
+                    break;
+                }
+            }
+            //for (int i = 0; i < buldings.Count; i++)
+            //{
+            //    if (buldings[i].GetType() == typeof(Business))
+            //    {
+            //        if (((Business)buldings[i]).BusinessOwner == Symbol)
+            //        {
+            //            for (int j = 0; j < buldings.Count; j++)
+            //            {
+            //                if (buldings[j].GetType() == typeof(Business))
+            //                {
+            //                    if (((Business)buldings[i]).BusinessType == ((Business)buldings[j]).BusinessType &&
+            //                        ((Business)buldings[j]).BusinessOwner == Symbol)
+            //                    {
+            //                        list.Add(((Business)buldings[j]));
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            return list;
+        }
+        public void ChanceAnalysis(Chances chances, Field field)
         {
             if (chances.GetType() == typeof(Profit))
             {
@@ -411,7 +422,6 @@ namespace MonopolyV20
         public void ShowBsn(List<Building> buldings) //переделать список бизнесов которые можно улучшить 
         {
             int min = 0, max = 0;
-            int index = 0;
             List<Building> monopolyBusiness = buldings;
             #region Test
             //for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
@@ -424,16 +434,6 @@ namespace MonopolyV20
             //    }
             //}
             #endregion
-            for (int i =0; i < buldings.Count;i++)
-            {
-                if (buldings[i].GetType() == typeof(Business))
-                {
-                    if (((Business)buldings[i]).BusinessOwner == Symbol)
-                    {
-                        monopolyBusiness.Add(buldings[i]);
-                    }
-                }
-            }
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
                 for (int j = 0; j < monopolyBusiness.Count; j++)
@@ -452,20 +452,15 @@ namespace MonopolyV20
             {
                 if (max != min)
                 {
-                    if (((Business)monopolyBusiness[index]).Level == max)
+                    if (((Business)monopolyBusiness[i]).Level == max)
                     {
-                        monopolyBusiness.RemoveAt(index);
-                        index = 0;
-                    }
-                    else
-                    {
-                        index++;
+                        monopolyBusiness.RemoveAt(i);
                     }
                 }
             }
-            for (int i = 0; i < monopolyBusiness.Count; i++)
+            for (int i = 0; i < buldings.Count; i++)
             {
-                Console.WriteLine($"Название: {monopolyBusiness[i].Title} Номер: {monopolyBusiness[i].Number} {((Business)monopolyBusiness[i]).UpgradePrice}");
+                Console.WriteLine($"Название: {buldings[i].Title} Номер: {buldings[i].Number} {((Business)buldings[i]).UpgradePrice}");
             }
         }//добовление бизнесов которых можно улучшить 
         public void MonoopolyImprovement(Business business)
@@ -515,7 +510,7 @@ namespace MonopolyV20
             {
                 ((Chance)buldings).AddChance();
                 Random random = new Random();
-                ChanceAnalysis(((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)],field);
+                ChanceAnalysis(((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)], field);
 
             }//проверка что ячейка шанс //доделать боту шанс 
             return false;
