@@ -415,17 +415,27 @@ namespace MonopolyV20
             #endregion
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
-                for (int j = 0; j < monopolyBusiness.Count; j++)
-                {
-                    if (((Business)monopolyBusiness[i]).Level > ((Business)monopolyBusiness[j]).Level)
+                    if (max < (((Business)monopolyBusiness[i]).Level))
                     {
                         max = ((Business)monopolyBusiness[i]).Level;
                     }
-                    else
+                    if (min > (((Business)monopolyBusiness[i]).Level))
                     {
-                        min = ((Business)monopolyBusiness[j]).Level;
+                        min = ((Business)monopolyBusiness[i]).Level;
                     }
-                }
+                #region Test
+                //for (int j = 0; j < monopolyBusiness.Count; j++)
+                //{
+                //    if (((Business)monopolyBusiness[i]).Level > ((Business)monopolyBusiness[j]).Level)
+                //    {
+                //        max = ((Business)monopolyBusiness[i]).Level;
+                //    }
+                //    else
+                //    {
+                //        min = ((Business)monopolyBusiness[j]).Level;
+                //    }
+                //}
+                #endregion
             }
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
@@ -437,8 +447,8 @@ namespace MonopolyV20
                     }
                 }
             }
-            numberCell = random.Next(0, monopolyBusiness.Count);
-            if (((Business)buildings[numberCell]).UpgradePrice <= Balance)
+            numberCell = random.Next(monopolyBusiness.Count);
+            if (((Business)monopolyBusiness[numberCell]).UpgradePrice <= Balance)
             {
                 if (((Business)buildings[numberCell]).Level != 5)
                 {
@@ -857,7 +867,7 @@ namespace MonopolyV20
         }//проверка если заложенный бизнес 
         public void BotsBusinessDownturn(List<Building> building)
         {
-           const int numberLaps = 15;
+            const int numberLaps = 15;
             for (int i = 0; i < building.Count; i++)
             {
                 if (building[i].GetType() == typeof(Business))
@@ -947,11 +957,11 @@ namespace MonopolyV20
             }
             return false;
         } //проверка куплен ли хоть один бизнес 
-        public  bool SurrenderLogic(List<Building> buildings)
+        public bool SurrenderLogic(List<Building> buildings)
         {
             if (Balance == 0 && !Bsn(buildings))
             {
-                buildings[CordinationPlayer].Symbol.Remove(Symbol);  
+                buildings[CordinationPlayer].Symbol.Remove(Symbol);
                 CordinationPlayer = 0;
                 Surrender = true;
                 return true;
