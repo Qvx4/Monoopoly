@@ -355,7 +355,6 @@ namespace MonopolyV20
         }//проверка есть ли хоть одна купленная монополия 
         public List<Building> MonoopolyImprovement(List<Building> buldings)
         {
-            int min = 0, max = 0;
             List<Building> monopolyBusiness = new List<Building>();
             for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
             {
@@ -364,30 +363,6 @@ namespace MonopolyV20
                     monopolyBusiness = buldings.Where(x => x.GetType() == typeof(Business)).
                         Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList();
                     break;
-                }
-            }
-            for (int i = 0; i < monopolyBusiness.Count; i++)
-            {
-                for (int j = 0; j < monopolyBusiness.Count; j++)
-                {
-                    if (((Business)monopolyBusiness[i]).Level > ((Business)monopolyBusiness[j]).Level)
-                    {
-                        max = ((Business)monopolyBusiness[i]).Level;
-                    }
-                    else
-                    {
-                        min = ((Business)monopolyBusiness[j]).Level;
-                    }
-                }
-            }
-            for (int i = 0; i < monopolyBusiness.Count; i++)
-            {
-                if (max != min)
-                {
-                    if (((Business)monopolyBusiness[i]).Level == max)
-                    {
-                        monopolyBusiness.RemoveAt(i);
-                    }
                 }
             }
             return monopolyBusiness;
@@ -400,7 +375,7 @@ namespace MonopolyV20
             }
             int numberCell;
             Random random = new Random();
-            int min = 0, max = 0;
+            int min = int.MaxValue, max = int.MinValue;
             List<Building> monopolyBusiness = buildings;
             #region TestCode
             //for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
@@ -415,11 +390,11 @@ namespace MonopolyV20
             #endregion
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
-                    if (max < (((Business)monopolyBusiness[i]).Level))
+                    if ((((Business)monopolyBusiness[i]).Level) > max)
                     {
                         max = ((Business)monopolyBusiness[i]).Level;
                     }
-                    if (min > (((Business)monopolyBusiness[i]).Level))
+                    if ((((Business)monopolyBusiness[i]).Level) < min)
                     {
                         min = ((Business)monopolyBusiness[i]).Level;
                     }
@@ -437,7 +412,7 @@ namespace MonopolyV20
                 //}
                 #endregion
             }
-            for (int i = 0; i < monopolyBusiness.Count; i++)
+            for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
             {
                 if (max != min)
                 {
@@ -447,20 +422,16 @@ namespace MonopolyV20
                     }
                 }
             }
+
+            if (min == 5) return;
+
             numberCell = random.Next(monopolyBusiness.Count);
             if (((Business)monopolyBusiness[numberCell]).UpgradePrice <= Balance)
             {
-                if (((Business)buildings[numberCell]).Level != 5)
-                {
-                    ((Business)buildings[numberCell]).Level += 1;
-                }
-                Balance -= ((Business)buildings[numberCell]).UpgradePrice;
-                Console.WriteLine($"Игрок {Symbol} строит филиал цена {((Business)buildings[numberCell]).UpgradePrice}");
+                ((Business)(monopolyBusiness[numberCell])).Level += 1;
+                Balance -= ((Business)monopolyBusiness[numberCell]).UpgradePrice;
+                Console.WriteLine($"Игрок {Symbol} строит филиал цена {((Business)monopolyBusiness[numberCell]).UpgradePrice}");
                 Thread.Sleep(2000);
-            }
-            else
-            {
-                return;
             }
             //Balance -= ((Business)buildings[numberCell]).Upgradeprise;
         }//улучшение бизнеса
