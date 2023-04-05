@@ -636,11 +636,7 @@ namespace MonopolyV20
                 Console.WriteLine($"Игрок {Symbol} выкупает бизнес {listBuilding[pos].Title} цена выкупа {((Business)listBuilding[pos]).RansomValue}");
                 Thread.Sleep(2000);
             }
-            else
-            {
-                return false;
-            }
-            return true;
+            return false;
         }
         public List<Building> BotBusinesses(List<Building> building)
         {

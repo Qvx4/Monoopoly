@@ -522,6 +522,7 @@ namespace MonopolyV20
             bool surrender = false;
             bool prison = false;
             bool skipping = false;
+            bool opportunityEnter = false;
             //int lastCellNumber = 0;
             while (true)
             {
@@ -788,6 +789,83 @@ namespace MonopolyV20
                                             check = false;
                                         }
                                     }
+                                    if (surrender != true || prison != true || skipping != true)
+                                    {
+                                        ShowGameCube(firstCube);
+                                        ShowGameCube(secondCube);
+                                        Thread.Sleep(2000);
+                                        if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
+                                        {
+                                            if (Users[nextPlayer].ReverseStroke == true)
+                                            {
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                                                Users[nextPlayer].CordinationPlayer -= firstCube + secondCube + Field.Buldings.Count;
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                                                Users[nextPlayer].ReverseStroke = false;
+                                            }//если игроку выпал шанс ход в обратную сторону
+                                            else
+                                            {
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                                                Users[nextPlayer].CordinationPlayer += firstCube + secondCube - Field.Buldings.Count;
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                                                Users[nextPlayer].Balance += 2000;
+                                            }
+                                        }//если игрок вышел за приделы поля 
+                                        else
+                                        {
+                                            if (Users[nextPlayer].ReverseStroke == true)
+                                            {
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                                                Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                                                Users[nextPlayer].ReverseStroke = false;
+                                            }//если игроку выпал шанс ход в обратную сторону
+                                            else
+                                            {
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                                                Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                                            }
+                                        }//если игрок дивгается по пределам поля 
+                                        Console.Clear();
+                                        ShowField("");
+                                        if (((Player)Users[nextPlayer]).IsCheckCellNotBis(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
+                                        {
+                                            if (((Player)Users[nextPlayer]).IsCehckByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
+                                            {
+                                                Console.WriteLine("Купить бизнес {1} Да / {2} Нет");
+                                                Console.Write("{ Ввод } > ");
+                                                int.TryParse(Console.ReadLine(), out int number);
+                                                if (number == 1)
+                                                {
+                                                    ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]);
+                                                }
+                                                else
+                                                {
+                                                    Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]);
+                                                }
+                                            }//покупка ячейки 
+                                            else
+                                            {
+                                                Console.WriteLine("{1} Оплатить ренту / {2} Сдатся");
+                                                Console.Write("{ Ввод } > ");
+                                                int.TryParse(Console.ReadLine(), out int number);
+                                                if (number == 1)
+                                                {
+                                                    ((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users);
+                                                }
+                                                else
+                                                {
+                                                    Users[nextPlayer].Surrender = true;
+                                                }//сдатся
+                                            }//выплата ренты ячейки
+                                        }
+                                        ShowField($"Игрок {Users[nextPlayer].Name} кинул кубики число первого кубика [{firstCube}] число второго кубика [{secondCube}]");
+                                    }
                                 }
                                 break;
                             case GameMenu.SellTheBusiness://заложить бизнес
@@ -821,13 +899,23 @@ namespace MonopolyV20
                                     Console.ForegroundColor = ConsoleColor.Gray;
                                 }
                                 break;
-                            case GameMenu.PurchaseBranch://доделать постойку улучшений 
+                            case GameMenu.PurchaseBranch://постойка улучшений 
                                 {
-                                    if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
+                                    if (!opportunityEnter)
                                     {
-                                        ((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings));
-                                        int.TryParse(Console.ReadLine(), out numberCell);
-                                        ((Player)Users[nextPlayer]).MonoopolyImprovement((Business)Field.Buldings[numberCell]);
+                                        if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
+                                        {
+                                            ((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings));
+                                            int.TryParse(Console.ReadLine(), out numberCell);
+                                            ((Player)Users[nextPlayer]).MonoopolyImprovement((Business)Field.Buldings[numberCell]);
+                                        }
+                                        opportunityEnter = true;
+                                    }else
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("нельзя посторить улучшение больше одного раза за ход");
+                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                        Thread.Sleep(2000);
                                     }
                                 }
                                 break;
@@ -841,83 +929,85 @@ namespace MonopolyV20
                                 }
                                 break;
                         }
-                        if (surrender != true || prison != true || skipping != true)
-                        {
-                            ShowGameCube(firstCube);
-                            ShowGameCube(secondCube);
-                            Thread.Sleep(2000);
-                            if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
-                            {
-                                if (Users[nextPlayer].ReverseStroke == true)
-                                {
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
-                                    Users[nextPlayer].CordinationPlayer -= firstCube + secondCube + Field.Buldings.Count;
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
-                                    ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
-                                    Users[nextPlayer].ReverseStroke = false;
-                                }//если игроку выпал шанс ход в обратную сторону
-                                else
-                                {
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
-                                    Users[nextPlayer].CordinationPlayer += firstCube + secondCube - Field.Buldings.Count;
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
-                                    ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
-                                    Users[nextPlayer].Balance += 2000;
-                                }
-                            }//если игрок вышел за приделы поля 
-                            else
-                            {
-                                if (Users[nextPlayer].ReverseStroke == true)
-                                {
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
-                                    Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
-                                    ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
-                                    Users[nextPlayer].ReverseStroke = false;
-                                }//если игроку выпал шанс ход в обратную сторону
-                                else
-                                {
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
-                                    Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
-                                    ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
-                                }
-                            }//если игрок дивгается по пределам поля 
-                            Console.Clear();
-                            ShowField("");
-                            if (((Player)Users[nextPlayer]).IsCheckCellNotBis(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
-                            {
-                                if (((Player)Users[nextPlayer]).IsCehckByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
-                                {
-                                    Console.WriteLine("Купить бизнес {1} Да / {2} Нет");
-                                    Console.Write("{ Ввод } > ");
-                                    int.TryParse(Console.ReadLine(), out int number);
-                                    if (number == 1)
-                                    {
-                                        ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]);
-                                    }
-                                    else
-                                    {
-                                        Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]);
-                                    }
-                                }//покупка ячейки 
-                                else
-                                {
-                                    Console.WriteLine("{1} Оплатить ренту / {2} Сдатся");
-                                    Console.Write("{ Ввод } > ");
-                                    int.TryParse(Console.ReadLine(), out int number);
-                                    if (number == 1)
-                                    {
-                                        ((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users);
-                                    }
-                                    else
-                                    {
-                                        Users[nextPlayer].Surrender = true;
-                                    }//сдатся
-                                }//выплата ренты ячейки
-                            }
-                            ShowField($"Игрок {Users[nextPlayer].Name} кинул кубики число первого кубика [{firstCube}] число второго кубика [{secondCube}]");
-                        }
+                        #region TestCode
+                        //if (surrender != true || prison != true || skipping != true)
+                        //{
+                        //    ShowGameCube(firstCube);
+                        //    ShowGameCube(secondCube);
+                        //    Thread.Sleep(2000);
+                        //    if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
+                        //    {
+                        //        if (Users[nextPlayer].ReverseStroke == true)
+                        //        {
+                        //            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                        //            Users[nextPlayer].CordinationPlayer -= firstCube + secondCube + Field.Buldings.Count;
+                        //            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
+                        //            ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                        //            Users[nextPlayer].ReverseStroke = false;
+                        //        }//если игроку выпал шанс ход в обратную сторону
+                        //        else
+                        //        {
+                        //            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                        //            Users[nextPlayer].CordinationPlayer += firstCube + secondCube - Field.Buldings.Count;
+                        //            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
+                        //            ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                        //            Users[nextPlayer].Balance += 2000;
+                        //        }
+                        //    }//если игрок вышел за приделы поля 
+                        //    else
+                        //    {
+                        //        if (Users[nextPlayer].ReverseStroke == true)
+                        //        {
+                        //            Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);
+                        //            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                        //            Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
+                        //            ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                        //            Users[nextPlayer].ReverseStroke = false;
+                        //        }//если игроку выпал шанс ход в обратную сторону
+                        //        else
+                        //        {
+                        //            Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
+                        //            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                        //            Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
+                        //            ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                        //        }
+                        //    }//если игрок дивгается по пределам поля 
+                        //    Console.Clear();
+                        //    ShowField("");
+                        //    if (((Player)Users[nextPlayer]).IsCheckCellNotBis(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
+                        //    {
+                        //        if (((Player)Users[nextPlayer]).IsCehckByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
+                        //        {
+                        //            Console.WriteLine("Купить бизнес {1} Да / {2} Нет");
+                        //            Console.Write("{ Ввод } > ");
+                        //            int.TryParse(Console.ReadLine(), out int number);
+                        //            if (number == 1)
+                        //            {
+                        //                ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]);
+                        //            }
+                        //            else
+                        //            {
+                        //                Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]);
+                        //            }
+                        //        }//покупка ячейки 
+                        //        else
+                        //        {
+                        //            Console.WriteLine("{1} Оплатить ренту / {2} Сдатся");
+                        //            Console.Write("{ Ввод } > ");
+                        //            int.TryParse(Console.ReadLine(), out int number);
+                        //            if (number == 1)
+                        //            {
+                        //                ((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users);
+                        //            }
+                        //            else
+                        //            {
+                        //                Users[nextPlayer].Surrender = true;
+                        //            }//сдатся
+                        //        }//выплата ренты ячейки
+                        //    }
+                        //    ShowField($"Игрок {Users[nextPlayer].Name} кинул кубики число первого кубика [{firstCube}] число второго кубика [{secondCube}]");
+                        //}
+                        #endregion
                     }
                 }//логика хода игрока 
                 nextPlayer++;

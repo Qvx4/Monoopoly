@@ -174,10 +174,20 @@ namespace MonopolyV20
             {
                 if (((Business)building).BusinessOwner == Symbol)
                 {
-                    ((Business)building).Mortgaged = true;
-                    Balance += ((Business)building).ValueOfCollaterel;
-                    Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((Business)building).ValueOfCollaterel}");
-                    Thread.Sleep(2000);
+                    if (((Business)building).Level > 0)
+                    {
+                        ((Business)building).Level--;
+                        Balance += ((Business)building).ValueOfCollaterel;
+                        Console.WriteLine($"Игрок {Symbol} продаёт улучшение {building.Title} цена {((Business)building).ValueOfCollaterel}");
+                        Thread.Sleep(2000);
+                    }
+                    else
+                    {
+                        ((Business)building).Mortgaged = true;
+                        Balance += ((Business)building).ValueOfCollaterel;
+                        Console.WriteLine($"Игрок {Symbol} закладывает бизнес {building.Title} цена {((Business)building).ValueOfCollaterel}");
+                        Thread.Sleep(2000);
+                    }
                     return true;
                 }
             }
@@ -304,32 +314,12 @@ namespace MonopolyV20
             for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
             {
                 if (IsMonopolyByType((BusinessType)i, buldings))
-                { 
+                {
                     list = buldings.Where(x => x.GetType() == typeof(Business)).
                         Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList();
                     break;
                 }
             }
-            //for (int i = 0; i < buldings.Count; i++)
-            //{
-            //    if (buldings[i].GetType() == typeof(Business))
-            //    {
-            //        if (((Business)buldings[i]).BusinessOwner == Symbol)
-            //        {
-            //            for (int j = 0; j < buldings.Count; j++)
-            //            {
-            //                if (buldings[j].GetType() == typeof(Business))
-            //                {
-            //                    if (((Business)buldings[i]).BusinessType == ((Business)buldings[j]).BusinessType &&
-            //                        ((Business)buldings[j]).BusinessOwner == Symbol)
-            //                    {
-            //                        list.Add(((Business)buldings[j]));
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
             return list;
         }
         public void ChanceAnalysis(Chances chances, Field field)
@@ -421,7 +411,7 @@ namespace MonopolyV20
         }//проверка есть ли хоть одна купленная монополия 
         public void ShowBsn(List<Building> buldings) //переделать список бизнесов которые можно улучшить 
         {
-            int min = 0, max = 0;
+            int min = int.MaxValue, max = int.MinValue;
             List<Building> monopolyBusiness = buldings;
             #region Test
             //for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
@@ -436,19 +426,16 @@ namespace MonopolyV20
             #endregion
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
-                for (int j = 0; j < monopolyBusiness.Count; j++)
+                if ((((Business)monopolyBusiness[i]).Level) > max)
                 {
-                    if (((Business)monopolyBusiness[i]).Level > ((Business)monopolyBusiness[j]).Level)
-                    {
-                        max = ((Business)monopolyBusiness[i]).Level;
-                    }
-                    else
-                    {
-                        min = ((Business)monopolyBusiness[j]).Level;
-                    }
+                    max = ((Business)monopolyBusiness[i]).Level;
+                }
+                if ((((Business)monopolyBusiness[i]).Level) < min)
+                {
+                    min = ((Business)monopolyBusiness[i]).Level;
                 }
             }
-            for (int i = 0; i < monopolyBusiness.Count; i++)
+            for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
             {
                 if (max != min)
                 {
@@ -460,7 +447,7 @@ namespace MonopolyV20
             }
             for (int i = 0; i < buldings.Count; i++)
             {
-                Console.WriteLine($"Название: {buldings[i].Title} Номер: {buldings[i].Number} {((Business)buldings[i]).UpgradePrice}");
+                Console.WriteLine($"Название: {monopolyBusiness[i].Title} Номер: {monopolyBusiness[i].Number} {((Business)monopolyBusiness[i]).UpgradePrice}");
             }
         }//добовление бизнесов которых можно улучшить 
         public void MonoopolyImprovement(Business business)
