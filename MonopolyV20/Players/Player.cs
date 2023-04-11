@@ -277,9 +277,9 @@ namespace MonopolyV20
                         ((GamingCompanies)field.Buldings[i]).BusinessOwner = '\0';
                     }
                 }
-                Console.WriteLine($"Игрок {Symbol} решил сдатся и покинуть игру ");
-                Thread.Sleep(2000);
             }
+            Console.WriteLine($"Игрок {Symbol} решил сдатся и покинуть игру ");
+            Thread.Sleep(2000);
         }//сдатся
         public bool IsMonopolyContains(Field field)
         {
@@ -409,7 +409,7 @@ namespace MonopolyV20
             }
             return false;
         }//проверка есть ли хоть одна купленная монополия 
-        public void ShowBsn(List<Building> buldings) //переделать список бизнесов которые можно улучшить 
+        public List<Building> ShowBsn(List<Building> buldings) //переделать список бизнесов которые можно улучшить 
         {
             int min = int.MaxValue, max = int.MinValue;
             List<Building> monopolyBusiness = buldings;
@@ -449,6 +449,7 @@ namespace MonopolyV20
             {
                 Console.WriteLine($"Название: {monopolyBusiness[i].Title} Номер: {monopolyBusiness[i].Number} {((Business)monopolyBusiness[i]).UpgradePrice}");
             }
+            return monopolyBusiness;
         }//добовление бизнесов которых можно улучшить 
         public void MonoopolyImprovement(Business business)
         {
@@ -501,6 +502,21 @@ namespace MonopolyV20
 
             }//проверка что ячейка шанс //доделать боту шанс 
             return false;
+        }
+        public bool BusinessLiquidityCheck(List<Building> buldings, int index)//проверка на номер бизнеса
+        {
+            if (index == 0)
+            {
+                return true;
+            }
+            for (int i = 0; i < buldings.Count; i++)
+            {
+                if (buldings[i].Number == index)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

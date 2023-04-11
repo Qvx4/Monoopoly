@@ -1760,7 +1760,7 @@ namespace MonopolyV20
                 }//Нижнии линии рисовкия
                 Console.WriteLine();
             }
-        }//Вывод боковых полей //баг с покраской поля 
+        }//Вывод боковых полей
         public void ShowPlayersIsBloock(List<User> users)
         {
             string skelet;
@@ -1890,13 +1890,18 @@ namespace MonopolyV20
                     }
                     else
                     {
-
+                        //Console.WriteLine("           ");
                         Console.Write("│");
                         Console.BackgroundColor = users[j].Color;
                         if (i == 3)
                         {
-                            Console.Write($"           {users[j].Name}");
-                            for (int k = 0; k < countSpace - users[j].Name.Length - 11; k++)
+                            int number = (countSpace - users[j].Name.Length ) / 2;
+                            for (int k = 0; k < number; k++)
+                            {
+                                Console.Write(" ");
+                            }
+                            Console.Write($"{users[j].Name}");
+                            for (int k = 0; k < number + 1/*countSpace - users[j].Name.Length - 11*/; k++)
                             {
                                 Console.Write(" ");
                             }
@@ -1909,7 +1914,6 @@ namespace MonopolyV20
                                 Console.Write(" ");
                             }
                         }
-
                         if (i == 7)
                         {
                             Console.Write($"          S{users[j].Symbol}");
@@ -1918,7 +1922,6 @@ namespace MonopolyV20
                                 Console.Write(" ");
                             }
                         }
-
                         if (i != 3 && i != 5 && i != 7)
                         {
                             for (int k = 0; k < countSpace; k++)

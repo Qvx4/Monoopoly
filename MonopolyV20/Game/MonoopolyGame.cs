@@ -66,7 +66,8 @@ namespace MonopolyV20
         }//Проверка не занят ли символ 
         public bool IsCheckName(string name)
         {
-            if (name == "" || name == " ")
+            const int length = 22;
+            if (name == "" || name == " " || name == "\0" || name.Length >= length)
             {
                 return true;
             }
@@ -738,7 +739,7 @@ namespace MonopolyV20
                         {
                             ((Player)Users[nextPlayer]).Prison = true;
                         }
-                        Console.Clear();
+                        //Console.Clear();
                         ShowField("");
                         ShowGameMenu();
                         Console.Write("{ Ввод } > ");
@@ -906,11 +907,19 @@ namespace MonopolyV20
                                         if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
                                         {
                                             ((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings));
+                                            Console.Write("Введите номер бизнеса : > ");
                                             int.TryParse(Console.ReadLine(), out numberCell);
+                                            while (((Player)Users[nextPlayer]).BusinessLiquidityCheck(((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings)), numberCell))
+                                            {
+                                                Console.WriteLine("Неверныый номер бизнеса введите ещё раз");
+                                                Console.Write("Введите номер бизнеса : > ");
+                                                int.TryParse(Console.ReadLine(), out numberCell);
+                                            }
                                             ((Player)Users[nextPlayer]).MonoopolyImprovement((Business)Field.Buldings[numberCell]);
                                         }
                                         opportunityEnter = true;
-                                    }else
+                                    }
+                                    else
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                         Console.WriteLine("нельзя посторить улучшение больше одного раза за ход");

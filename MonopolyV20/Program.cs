@@ -124,7 +124,7 @@ namespace MonopolyV20
                             while (game.IsCheckSymbol(symbol))
                             {
                                 Console.ForegroundColor = ConsoleColor.DarkBlue;
-                                Console.Write("{ Введите Символ Бота } >> ");
+                                Console.Write("{ Введите Символ Игрока } >> ");
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 char.TryParse(Console.ReadLine(), out  symbol);
                             }
