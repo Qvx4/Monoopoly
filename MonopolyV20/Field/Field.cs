@@ -1900,8 +1900,10 @@ namespace MonopolyV20
                             {
                                 Console.Write(" ");
                             }
+
                             Console.Write($"{users[j].Name}");
-                            for (int k = 0; k < number + 1/*countSpace - users[j].Name.Length - 11*/; k++)
+                            number = countSpace - (number + users[j].Name.Length);
+                            for (int k = 0; k < number/*countSpace - users[j].Name.Length - 11*/; k++)
                             {
                                 Console.Write(" ");
                             }

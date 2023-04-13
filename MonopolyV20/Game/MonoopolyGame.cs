@@ -67,6 +67,13 @@ namespace MonopolyV20
         public bool IsCheckName(string name)
         {
             const int length = 22;
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (!char.IsLetterOrDigit(name[i]))
+                {
+                    return true;
+                }
+            }
             if (name == "" || name == " " || name == "\0" || name.Length >= length)
             {
                 return true;
@@ -121,8 +128,9 @@ namespace MonopolyV20
                 }
             }
         }//Вывод бизнесов игрока которые не заложенные
-        public void ShowMortgagedBsn(char symbol)
+        public bool ShowMortgagedBsn(char symbol)
         {
+            int countBsn = 0;
             for (int i = 0; i < Field.Buldings.Count; i++)
             {
                 if (Field.Buldings[i].GetType() == typeof(Business))
@@ -132,6 +140,7 @@ namespace MonopolyV20
                         if (((Business)Field.Buldings[i]).Mortgaged == true)
                         {
                             Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ]");
+                            countBsn++;
                         }
                     }
                 }
@@ -142,6 +151,7 @@ namespace MonopolyV20
                         if (((CarInterior)Field.Buldings[i]).Mortgaged == true)
                         {
                             Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ]");
+                            countBsn++;
                         }
                     }
                 }
@@ -152,10 +162,16 @@ namespace MonopolyV20
                         if (((GamingCompanies)Field.Buldings[i]).Mortgaged == true)
                         {
                             Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ]");
+                            countBsn++;
                         }
                     }
                 }
             }
+            if (countBsn == 0)
+            {
+                return true;
+            }
+            return false;
         }//вывод заложенных бизнесов
         public void ShowAllBsn(char symbol)
         {
@@ -381,10 +397,18 @@ namespace MonopolyV20
         public void AddBot(Bot Bot)
         {
             Users.Add(Bot);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Бот был добавлен в игру ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Thread.Sleep(500);
         }//Добовление Бота
         public void AddPlayer(Player player)
         {
             Users.Add(player);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Игрок был добавлен в игру ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Thread.Sleep(500);
         }//Добовление Игрока
         public bool DeletUser(string name)
         {
@@ -393,6 +417,10 @@ namespace MonopolyV20
                 if (Users[i].Name == name)
                 {
                     Users.RemoveAt(i);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Плеер был удалён из игры");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Thread.Sleep(500);
                     return true;
                 }
             }
@@ -879,7 +907,13 @@ namespace MonopolyV20
                                 break;
                             case GameMenu.BuyOutYourBusiness://выкупить бизнеса
                                 {
-                                    ShowMortgagedBsn(((Player)Users[nextPlayer]).Symbol);
+                                    if (ShowMortgagedBsn(((Player)Users[nextPlayer]).Symbol))
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("Нету бизнесов которые можно выкупить ");
+                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                        Thread.Sleep(2000);
+                                    }
                                     Console.Write("{ Ввод } > ");
                                     int.TryParse(Console.ReadLine(), out numberCell);
                                     ((Player)Users[nextPlayer]).BsnBuyout(Field.Buldings[numberCell]);
@@ -897,6 +931,7 @@ namespace MonopolyV20
                                     //char.TryParse(Console.ReadLine(), out char symbol);
                                     Console.ForegroundColor = ConsoleColor.DarkRed;
                                     Console.WriteLine("Трейд в заработке пока что не работает");
+                                    Thread.Sleep(2000);
                                     Console.ForegroundColor = ConsoleColor.Gray;
                                 }
                                 break;
@@ -928,7 +963,7 @@ namespace MonopolyV20
                                     }
                                 }
                                 break;
-                            case GameMenu.Surrender://сдатся 
+                            case GameMenu.Surrender://сдатся         
                                 {
                                     Users[nextPlayer].Surrender = true;
                                     ((Player)Users[nextPlayer]).Surrendered(Field);
