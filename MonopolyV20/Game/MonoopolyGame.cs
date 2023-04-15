@@ -92,8 +92,9 @@ namespace MonopolyV20
             int cube = rand.Next(1, 7);
             return cube;
         }
-        public void ShowMyBsn(char symbol)
+        public bool ShowMyBsn(char symbol)
         {
+            bool checkBsn = true;
             for (int i = 0; i < Field.Buldings.Count; i++)
             {
                 if (Field.Buldings[i].GetType() == typeof(Business))
@@ -103,6 +104,7 @@ namespace MonopolyV20
                         if (((Business)Field.Buldings[i]).Mortgaged == false)
                         {
                             Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
+                            checkBsn = false;
                         }
                     }
                 }
@@ -113,6 +115,7 @@ namespace MonopolyV20
                         if (((CarInterior)Field.Buldings[i]).Mortgaged == false)
                         {
                             Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
+                            checkBsn = false;
                         }
                     }
                 }
@@ -123,10 +126,12 @@ namespace MonopolyV20
                         if (((GamingCompanies)Field.Buldings[i]).Mortgaged == false)
                         {
                             Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
+                            checkBsn = false;
                         }
                     }
                 }
             }
+            return checkBsn;
         }//Вывод бизнесов игрока которые не заложенные
         public bool ShowMortgagedBsn(char symbol)
         {
@@ -534,14 +539,15 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            ((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[16]).Level = 5;
-            ((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[18]).Level = 5;
-            ((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[19]).Level = 5;
             #endregion
             Random rand = new Random();
+            int maxFieldCount = 40;
             int prisonPrice = 500;
             int numberCell;
             int nextPlayer = 0;
@@ -899,10 +905,24 @@ namespace MonopolyV20
                                 break;
                             case GameMenu.SellTheBusiness://заложить бизнес
                                 {
-                                    ShowMyBsn(((Player)Users[nextPlayer]).Symbol);
+                                    if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("Нету бизнесов которые можно заложить");
+                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                        Thread.Sleep(2000);
+                                        break;
+                                    }
                                     Console.Write("{ Ввод } > ");
                                     int.TryParse(Console.ReadLine(), out numberCell);
-                                    ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell]);
+                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell))
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("Неверный номер бизнеса введите новый");
+                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                        Thread.Sleep(2000);
+                                        break;
+                                    }
                                 }
                                 break;
                             case GameMenu.BuyOutYourBusiness://выкупить бизнеса
@@ -913,10 +933,18 @@ namespace MonopolyV20
                                         Console.WriteLine("Нету бизнесов которые можно выкупить ");
                                         Console.ForegroundColor = ConsoleColor.Gray;
                                         Thread.Sleep(2000);
+                                        break;
                                     }
                                     Console.Write("{ Ввод } > ");
                                     int.TryParse(Console.ReadLine(), out numberCell);
-                                    ((Player)Users[nextPlayer]).BsnBuyout(Field.Buldings[numberCell]);
+                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).BsnBuyout(Field.Buldings[numberCell], numberCell))
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("Неверный номер бизнеса введите новый");
+                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                        Thread.Sleep(2000);
+                                        break;
+                                    }
                                 }
                                 break;
                             case GameMenu.QuitTheTrade://доделать трейд 
