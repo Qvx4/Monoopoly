@@ -460,14 +460,15 @@ namespace MonopolyV20
         {
             Field.ShowAllField(Users, text);
         }//Вывод Поля
-        public void ShowGameMenu()
+        public void ShowGameMenu()  
         {
-            Console.WriteLine("{1} Кинуть кубики ");
-            Console.WriteLine("{2} Заложить Бизнес ");
-            Console.WriteLine("{3} Выкупить свой бизнес ");
-            Console.WriteLine("{4} Предложить трейд игроку ");
-            Console.WriteLine("{5} Покупка филиала ");
-            Console.WriteLine("{6} Сдатся ");
+            Console.WriteLine($"{{{(int)GameMenu.ThrowCubes}}} Кинуть кубики ");
+            Console.WriteLine($"{{{(int)GameMenu.SellTheBusiness}}} Заложить Бизнес ");
+            Console.WriteLine($"{{{(int)GameMenu.BuyOutYourBusiness}}} Выкупить свой бизнес ");
+            Console.WriteLine($"{{{(int)GameMenu.QuitTheTrade}}} Предложить трейд игроку ");
+            Console.WriteLine($"{{{(int)GameMenu.PurchaseBranch}}} Покупка филиала ");
+            Console.WriteLine($"{{{(int)GameMenu.SellBranch}}} Продажа филиала ");
+            Console.WriteLine($"{{{(int)GameMenu.Surrender}}} Сдатся ");
         }//Вывод игрового меню
         public void ShowGameCube(int numberCube)
         {
@@ -539,11 +540,11 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            //((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
+            ((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[16]).Level = 5;
-            //((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
+            ((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[18]).Level = 5;
-            //((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
+            ((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[19]).Level = 5;
             #endregion
             Random rand = new Random();
@@ -561,6 +562,7 @@ namespace MonopolyV20
             //int lastCellNumber = 0;
             while (true)
             {
+                opportunityEnter = false;
                 if (Users[nextPlayer].GetType() == typeof(Bot))
                 {
                     ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
@@ -988,6 +990,24 @@ namespace MonopolyV20
                                         Console.WriteLine("нельзя посторить улучшение больше одного раза за ход");
                                         Console.ForegroundColor = ConsoleColor.Gray;
                                         Thread.Sleep(2000);
+                                    }
+                                }
+                                break;
+                            case GameMenu.SellBranch://продажа улучшения 
+                                {
+                                    if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
+                                    {
+                                        ((Player)Users[nextPlayer]).ShowImprovedBsn(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings));
+                                        Console.Write("Введите номер бизнеса : > ");
+                                        int.TryParse(Console.ReadLine(), out numberCell);
+                                        if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).BranchSale(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings), numberCell))
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                                            Console.WriteLine("Неверный номер бизнеса введите новый");
+                                            Console.ForegroundColor = ConsoleColor.Gray;
+                                            Thread.Sleep(2000);
+                                            break;
+                                        }
                                     }
                                 }
                                 break;

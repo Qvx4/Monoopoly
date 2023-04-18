@@ -176,10 +176,7 @@ namespace MonopolyV20
                 {
                     if (((Business)building).Level > 0)
                     {
-                        ((Business)building).Level--;
-                        Balance += ((Business)building).ValueOfCollaterel;
-                        Console.WriteLine($"Игрок {Symbol} продаёт улучшение {building.Title} цена {((Business)building).ValueOfCollaterel}");
-                        Thread.Sleep(2000);
+                        return true;
                     }
                     else
                     {
@@ -514,6 +511,90 @@ namespace MonopolyV20
                 if (buldings[i].Number == index)
                 {
                     return false;
+                }
+            }
+            return true;
+        }
+        public List<Business> SerchImporvedBsn(List<Building> buldings)
+        {
+            int min = int.MaxValue, max = int.MinValue;
+            List<Business> result = new List<Business>();
+            for (int i = 0; i < buldings.Count; i++)
+            {
+                if (buldings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buldings[i]).BusinessOwner == Symbol)
+                    {
+                        if (((Business)buldings[i]).Level > 0)
+                        {
+                            result.Add((Business)buldings[i]);
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < result.Count; i++)
+            {
+                if ((((Business)result[i]).Level) > max)
+                {
+                    max = ((Business)result[i]).Level;
+                }
+                if ((((Business)result[i]).Level) < min)
+                {
+                    min = ((Business)result[i]).Level;
+                }
+            }
+            for (int i = result.Count - 1; i >= 0; i--)
+            {
+                if (max != min)
+                {
+                    if (((Business)result[i]).Level == max)
+                    {
+                        result.RemoveAt(i);
+                    }
+                }
+            }
+            return result;
+        }//поиск улучшеных бизнесов монополии
+        public void ShowImprovedBsn(List<Business> businesses)
+        {
+            #region Test
+            //int min = int.MaxValue, max = int.MinValue;
+            //for (int i = 0; i < businesses.Count; i++)
+            //{
+            //    if ((((Business)businesses[i]).Level) > max)
+            //    {
+            //        max = ((Business)businesses[i]).Level;
+            //    }
+            //    if ((((Business)businesses[i]).Level) < min)
+            //    {
+            //        min = ((Business)businesses[i]).Level;
+            //    }
+            //}
+            //for (int i = businesses.Count - 1; i >= 0; i--)
+            //{
+            //    if (max != min)
+            //    {
+            //        if (((Business)businesses[i]).Level == max)
+            //        {
+            //            businesses.RemoveAt(i);
+            //        }
+            //    }
+            //}
+            #endregion
+            for (int i = 0; i < businesses.Count; i++)
+            {
+                Console.WriteLine($"Название: {businesses[i].Title} Номер: {businesses[i].Number} {((Business)businesses[i]).UpgradePrice}");
+            }
+        }//вывод улучшеных бизнесов 
+        public bool BranchSale(List<Business> businesses,int index)
+        {
+            for (int i = 0; i < businesses.Count; i++)
+            {
+                if (businesses[i].Number == index)
+                {
+                    businesses[i].Level--;
+                    Balance += businesses[i].UpgradePrice;
+                    return true;
                 }
             }
             return true;

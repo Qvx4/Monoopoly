@@ -13,6 +13,7 @@ namespace MonopolyV20
         BuyOutYourBusiness,
         QuitTheTrade,
         PurchaseBranch,
+        SellBranch,
         Surrender,
     }
 }
