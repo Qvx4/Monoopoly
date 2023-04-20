@@ -101,7 +101,7 @@ namespace MonopolyV20
                 {
                     if (((Business)Field.Buldings[i]).BusinessOwner == symbol)
                     {
-                        if (((Business)Field.Buldings[i]).Mortgaged == false)
+                        if (((Business)Field.Buldings[i]).Mortgaged == false && ((Business)Field.Buldings[i]).Level == 0)
                         {
                             Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
                             checkBsn = false;
@@ -110,7 +110,7 @@ namespace MonopolyV20
                 }
                 else if (Field.Buldings[i].GetType() == typeof(CarInterior))
                 {
-                    if (((CarInterior)Field.Buldings[i]).BusinessOwner == symbol)
+                    if (((CarInterior)Field.Buldings[i]).BusinessOwner == symbol && ((CarInterior)Field.Buldings[i]).Level == 0 )
                     {
                         if (((CarInterior)Field.Buldings[i]).Mortgaged == false)
                         {
@@ -121,7 +121,7 @@ namespace MonopolyV20
                 }
                 else if (Field.Buldings[i].GetType() == typeof(GamingCompanies))
                 {
-                    if (((GamingCompanies)Field.Buldings[i]).BusinessOwner == symbol)
+                    if (((GamingCompanies)Field.Buldings[i]).BusinessOwner == symbol && ((GamingCompanies)Field.Buldings[i]).Level == 0)
                     {
                         if (((GamingCompanies)Field.Buldings[i]).Mortgaged == false)
                         {
