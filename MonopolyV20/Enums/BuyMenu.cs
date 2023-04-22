@@ -11,6 +11,7 @@ namespace MonopolyV20
         BuyBsn = 1,
         MortagageBsn,
         BranchSale,
-        Surrender
+        Auction,
+        Surrender,
     }
 }

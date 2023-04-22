@@ -110,7 +110,7 @@ namespace MonopolyV20
                 }
                 else if (Field.Buldings[i].GetType() == typeof(CarInterior))
                 {
-                    if (((CarInterior)Field.Buldings[i]).BusinessOwner == symbol && ((CarInterior)Field.Buldings[i]).Level == 0 )
+                    if (((CarInterior)Field.Buldings[i]).BusinessOwner == symbol && ((CarInterior)Field.Buldings[i]).Level == 0)
                     {
                         if (((CarInterior)Field.Buldings[i]).Mortgaged == false)
                         {
@@ -460,7 +460,7 @@ namespace MonopolyV20
         {
             Field.ShowAllField(Users, text);
         }//Вывод Поля
-        public void ShowGameMenu()  
+        public void ShowGameMenu()
         {
             Console.WriteLine($"{{{(int)GameMenu.ThrowCubes}}} Кинуть кубики ");
             Console.WriteLine($"{{{(int)GameMenu.SellTheBusiness}}} Заложить Бизнес ");
@@ -527,15 +527,25 @@ namespace MonopolyV20
                     "└─────────┘");
             }
         }//Вывыод кубиков
-        public void ShowPayMenu(string text)
+        public void ShowPayMenu(string text, int number)
         {
-            Console.WriteLine($"{{{1}}} {text}");
-            Console.WriteLine("{2} Заложить бизнес ");
-            Console.WriteLine("{3} Продать филиал ");
-            Console.WriteLine("");
+            if (number == 0)
+            {
+                Console.WriteLine($"{{{(int)BuyMenu.BuyBsn}}} {text}");
+                Console.WriteLine($"{{{(int)BuyMenu.MortagageBsn}}} Заложить бизнес ");
+                Console.WriteLine($"{{{(int)BuyMenu.BranchSale}}} Продать филиал ");
+                Console.WriteLine($"{{{(int)BuyMenu.Auction}}} Отказатся от покупки   ");
+                Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
+                Console.Write("Ввод > ");
+                return;
+            }
+            Console.WriteLine($"{{{(int)PayMenu.RentPayment}}} {text}");
+            Console.WriteLine($"{{{(int)PayMenu.MortagageBsn}}} Заложить бизнес ");
+            Console.WriteLine($"{{{(int)PayMenu.BranchSale}}} Продать филиал ");
+            Console.WriteLine($"{{{(int)PayMenu.Surrender}}} Сдаться");
             Console.Write("Ввод > ");
         }
-         //Show
+        //Show
         public void StartGame()
         {
             for (int i = 0; i < Users.Count; i++)
@@ -567,6 +577,10 @@ namespace MonopolyV20
             bool prison = false;
             bool skipping = false;
             bool opportunityEnter = false;
+            int choose = 0; ;
+            bool menu = true;
+            PayMenu payMenu;
+            BuyMenu buyMenu;
             //int lastCellNumber = 0;
             while (true)
             {
@@ -882,35 +896,132 @@ namespace MonopolyV20
                                         {
                                             if (((Player)Users[nextPlayer]).IsCehckByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
                                             {
-                                                ShowPayMenu("Купить бизнес");
-                                                Console.WriteLine("Купить бизнес {1} Да / {2} Нет");
-                                                Console.Write("{ Ввод } > ");
-                                                int.TryParse(Console.ReadLine(), out int number);
-                                                if (number == 1)
+                                                while (menu)
                                                 {
-                                                    ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]);
-                                                }
-                                                else
-                                                {
-                                                    Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]);
+                                                    ShowPayMenu("Купить бизнес", choose = 0);
+                                                    Console.Write("{ Ввод } > ");
+                                                    Enum.TryParse(Console.ReadLine(), out buyMenu);
+                                                    switch (buyMenu)
+                                                    {
+                                                        case BuyMenu.BuyBsn:
+                                                            { ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]); menu = false; }
+                                                            break;
+                                                        case BuyMenu.MortagageBsn:
+                                                            {
+                                                                if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                                                {
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("Нету бизнесов которые можно заложить");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                    Thread.Sleep(2000);
+                                                                    break;
+                                                                }
+                                                                Console.Write("{ Ввод } > ");
+                                                                int.TryParse(Console.ReadLine(), out numberCell);
+                                                                if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell))
+                                                                {
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("Неверный номер бизнеса введите новый");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                    Thread.Sleep(2000);
+                                                                    break;
+                                                                }
+                                                            }
+                                                            break;
+                                                        case BuyMenu.BranchSale:
+                                                            {
+                                                                if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
+                                                                {
+                                                                    ((Player)Users[nextPlayer]).ShowImprovedBsn(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings));
+                                                                    Console.Write("Введите номер бизнеса : > ");
+                                                                    int.TryParse(Console.ReadLine(), out numberCell);
+                                                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).BranchSale(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings), numberCell))
+                                                                    {
+                                                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                        Console.WriteLine("Неверный номер бизнеса введите новый");
+                                                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                                                        Thread.Sleep(2000);
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case BuyMenu.Auction:
+                                                            { Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]); }
+                                                            break;
+                                                        case BuyMenu.Surrender:
+                                                            { Users[nextPlayer].Surrender = true; menu = false; }
+                                                            break;
+
+                                                    }
+                                                    //Console.Clear();
+                                                    ShowField("");
                                                 }
                                             }//покупка ячейки 
                                             else
                                             {
-                                                Console.WriteLine("{1} Оплатить ренту / {2} Сдатся ");
-                                                Console.Write("{ Ввод } > ");
-                                                int.TryParse(Console.ReadLine(), out int number);
-                                                if (number == 1)
+                                                while (menu)
                                                 {
-                                                    ((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users);
+                                                    ShowPayMenu("Оплатить ренту", choose = 1);
+                                                    Console.Write("{ Ввод } > ");
+                                                    Enum.TryParse(Console.ReadLine(), out payMenu);
+                                                    switch (payMenu)
+                                                    {
+                                                        case PayMenu.RentPayment:
+                                                            { ((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users); menu = false; }
+                                                            break;
+                                                        case PayMenu.MortagageBsn:
+                                                            {
+                                                                if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                                                {
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("Нету бизнесов которые можно заложить");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                    Thread.Sleep(2000);
+                                                                    break;
+                                                                }
+                                                                Console.Write("{ Ввод } > ");
+                                                                int.TryParse(Console.ReadLine(), out numberCell);
+                                                                if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell))
+                                                                {
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("Неверный номер бизнеса введите новый");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                    Thread.Sleep(2000);
+                                                                    break;
+                                                                }
+                                                            }
+                                                            break;
+                                                        case PayMenu.BranchSale:
+                                                            {
+                                                                if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
+                                                                {
+                                                                    ((Player)Users[nextPlayer]).ShowImprovedBsn(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings));
+                                                                    Console.Write("Введите номер бизнеса : > ");
+                                                                    int.TryParse(Console.ReadLine(), out numberCell);
+                                                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).BranchSale(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings), numberCell))
+                                                                    {
+                                                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                        Console.WriteLine("Неверный номер бизнеса введите новый");
+                                                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                                                        Thread.Sleep(2000);
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case PayMenu.Surrender:
+                                                            { Users[nextPlayer].Surrender = true; menu = false; }
+                                                            break;
+
+                                                    }
+                                                    //Console.Clear()
+                                                    ShowField("");
                                                 }
-                                                else
-                                                {
-                                                    Users[nextPlayer].Surrender = true;
-                                                }//сдатся
                                             }//выплата ренты ячейки
                                         }
                                         ShowField($"Игрок {Users[nextPlayer].Name} кинул кубики число первого кубика [{firstCube}] число второго кубика [{secondCube}]");
+                                        menu = true;
                                     }
                                 }
                                 break;
