@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\BuyMenu.cs" />
+    <Compile Include="Enums\PayMenu.cs" />
     <Compile Include="Game\Applicationcs.cs" />
     <Compile Include="Game\Trade.cs" />
     <Compile Include="Enums\Actions.cs" />

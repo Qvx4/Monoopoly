@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace MonopolyV20
 {
-    internal class BuyMenu
+    enum BuyMenu
     {
+        BuyBsn = 1,
+        MortagageBsn,
+        BranchSale,
+        Surrender
     }
 }

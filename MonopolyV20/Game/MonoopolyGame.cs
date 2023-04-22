@@ -527,6 +527,14 @@ namespace MonopolyV20
                     "└─────────┘");
             }
         }//Вывыод кубиков
+        public void ShowPayMenu(string text)
+        {
+            Console.WriteLine($"{{{1}}} {text}");
+            Console.WriteLine("{2} Заложить бизнес ");
+            Console.WriteLine("{3} Продать филиал ");
+            Console.WriteLine("");
+            Console.Write("Ввод > ");
+        }
          //Show
         public void StartGame()
         {
@@ -874,6 +882,7 @@ namespace MonopolyV20
                                         {
                                             if (((Player)Users[nextPlayer]).IsCehckByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
                                             {
+                                                ShowPayMenu("Купить бизнес");
                                                 Console.WriteLine("Купить бизнес {1} Да / {2} Нет");
                                                 Console.Write("{ Ввод } > ");
                                                 int.TryParse(Console.ReadLine(), out int number);
@@ -888,7 +897,7 @@ namespace MonopolyV20
                                             }//покупка ячейки 
                                             else
                                             {
-                                                Console.WriteLine("{1} Оплатить ренту / {2} Сдатся");
+                                                Console.WriteLine("{1} Оплатить ренту / {2} Сдатся ");
                                                 Console.Write("{ Ввод } > ");
                                                 int.TryParse(Console.ReadLine(), out int number);
                                                 if (number == 1)
