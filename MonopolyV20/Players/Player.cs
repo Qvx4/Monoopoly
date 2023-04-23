@@ -373,7 +373,7 @@ namespace MonopolyV20
                 }
             }
         }//анализ шанса 
-        public bool IsMonopolyByType(BusinessType type, List<Building> building)
+        public bool IsMonopolyByType(BusinessType type, List<Building> building) //проверка типа моноплии
         {
             for (int i = 0; i < building.Count; i++)
             {
@@ -555,7 +555,7 @@ namespace MonopolyV20
             }
             return result;
         }//поиск улучшеных бизнесов монополии
-        public void ShowImprovedBsn(List<Business> businesses)
+        public bool ShowImprovedBsn(List<Business> businesses)
         {
             #region Test
             //int min = int.MaxValue, max = int.MinValue;
@@ -583,8 +583,13 @@ namespace MonopolyV20
             #endregion
             for (int i = 0; i < businesses.Count; i++)
             {
+                if (businesses[i].Mortgaged == true)
+                {
+                    return true;
+                }
                 Console.WriteLine($"Название: {businesses[i].Title} Номер: {businesses[i].Number} {((Business)businesses[i]).UpgradePrice}");
             }
+            return false;
         }//вывод улучшеных бизнесов 
         public bool BranchSale(List<Business> businesses,int index)
         {
@@ -598,6 +603,23 @@ namespace MonopolyV20
                 }
             }
             return true;
-        }
+        } // продажа филиала 
+        public bool GetBsnWithBranch(List<Building> buldings)
+        {
+            for (int i = 0; i < buldings.Count; i++)
+            {
+                if (buldings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buldings[i]).BusinessOwner == Symbol)
+                    {
+                        if (((Business)buldings[i]).Level > 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        } //проверка бизнесов на филиалы
     }
 }
