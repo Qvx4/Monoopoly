@@ -444,6 +444,10 @@ namespace MonopolyV20
             }
             for (int i = 0; i < buldings.Count; i++)
             {
+                if (buldings[i].GetType() == typeof(Business) && ((Business)buldings[i]).Mortgaged == true)
+                {
+                    return new List<Building>();
+                }
                 Console.WriteLine($"Название: {monopolyBusiness[i].Title} Номер: {monopolyBusiness[i].Number} {((Business)monopolyBusiness[i]).UpgradePrice}");
             }
             return monopolyBusiness;
@@ -621,5 +625,20 @@ namespace MonopolyV20
             }
             return false;
         } //проверка бизнесов на филиалы
+        public bool CheckingBranchImproved(List<Building> buldings)
+        {
+            if (buldings.Count == 0)
+            {
+                return true;
+            }
+            for (int i = 0; i < buldings.Count; i++)
+            {
+                if (buldings[i].GetType() == typeof(Business) && ((Business)buldings[i]).Mortgaged == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

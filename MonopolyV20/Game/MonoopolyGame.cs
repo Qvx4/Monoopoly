@@ -1139,6 +1139,14 @@ namespace MonopolyV20
                                     {
                                         if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
                                         {
+                                            if (((Player)Users[nextPlayer]).CheckingBranchImproved(((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings))))
+                                            {
+                                                Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                Console.WriteLine("Нету бизнесов котоыре можно улучшить");
+                                                Console.ForegroundColor = ConsoleColor.Gray;
+                                                Thread.Sleep(2000);
+                                                break;
+                                            }
                                             ((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings));
                                             Console.Write("Введите номер бизнеса : > ");
                                             int.TryParse(Console.ReadLine(), out numberCell);
