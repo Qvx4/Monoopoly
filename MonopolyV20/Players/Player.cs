@@ -168,7 +168,7 @@ namespace MonopolyV20
             }
             return false;
         }//Проверка ячейки киплина ли она 
-        public bool LayACell(Building building,int index)
+        public bool LayACell(Building building, int index)
         {
             if (building.GetType() == typeof(Business))
             {
@@ -212,7 +212,7 @@ namespace MonopolyV20
             }
             return true;
         }//заложить бизнес игрока
-        public bool BsnBuyout(Building building,int index)//выкуп своего бизнеса
+        public bool BsnBuyout(Building building, int index)//выкуп своего бизнеса
         {
             if (building.GetType() == typeof(Business))
             {
@@ -595,7 +595,7 @@ namespace MonopolyV20
             }
             return false;
         }//вывод улучшеных бизнесов 
-        public bool BranchSale(List<Business> businesses,int index)
+        public bool BranchSale(List<Business> businesses, int index)
         {
             for (int i = 0; i < businesses.Count; i++)
             {
@@ -637,6 +637,92 @@ namespace MonopolyV20
                 {
                     return true;
                 }
+            }
+            return false;
+        }
+        public bool CheckingMonopolyCollected(BusinessType businessType, List<Building> buldings)
+        {
+            int countBsn = 0;
+            for (int i = 0; i < buldings.Count; i++)
+            {
+                if (buldings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buldings[i]).BusinessType == businessType && ((Business)buldings[i]).BusinessOwner == Symbol)
+                    {
+                        countBsn++;
+                    }
+                }
+            }
+            if (countBsn == 3)
+            {
+                return true;
+            }
+            return false;
+        }//проверка собрана ли монополия 
+        public List<Building> GetAllBsn(List<Building> buldings)
+        {
+            BusinessType businessType;
+            List<Building> result = new List<Building>();
+            for (int i = 0; i < buldings.Count; i++)
+            {
+                if (buldings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buldings[i]).BusinessOwner == Symbol && ((Business)buldings[i]).Mortgaged != true)
+                    {
+                        result.Add(buldings[i]);
+                    }
+                }
+                else if (buldings[i].GetType() == typeof(CarInterior))
+                {
+                    if (((CarInterior)buldings[i]).BusinessOwner == Symbol && ((CarInterior)buldings[i]).Mortgaged != true)
+                    {
+                        result.Add(buldings[i]);
+                    }
+                }
+                else if (buldings[i].GetType() == typeof(GamingCompanies))
+                {
+                    if (((GamingCompanies)buldings[i]).BusinessOwner == Symbol && ((GamingCompanies)buldings[i]).Mortgaged != true)
+                    {
+                        result.Add(buldings[i]);
+                    }
+                }
+            }
+            for (int i = 0; i < result.Count; i++)
+            {
+                if (IsHaveMeMonoopoly(buldings))
+                {
+                    if (result[i].GetType() == typeof(Business))
+                    {
+                        if (CheckingMonopolyCollected(((Business)result[i]).BusinessType, result))
+                        {
+                            businessType = ((Business)result[i]).BusinessType;
+                            for (int j = 0; j < result.Count; i++)
+                            {
+                                if (result[j].GetType() == typeof(Business))
+                                {
+                                    if (((Business)result[j]).BusinessType == businessType)
+                                    {
+                                        result.Remove(result[j]);
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            return result;
+        }//все бизнесы игрока
+        public bool ShowALlBsn(List<Building> buldings)
+        {
+            if (buldings.Count == 0)
+            {
+                return true;
+            }
+            for (int i = 0; i < buldings.Count; i++)
+            {
+                Console.WriteLine(buldings[i].Title);
             }
             return false;
         }

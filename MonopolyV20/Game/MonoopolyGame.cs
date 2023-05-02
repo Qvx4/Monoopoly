@@ -178,33 +178,6 @@ namespace MonopolyV20
             }
             return false;
         }//вывод заложенных бизнесов
-        public void ShowAllBsn(char symbol)
-        {
-            for (int i = 0; i < Field.Buldings.Count; i++)
-            {
-                if (Field.Buldings[i].GetType() == typeof(Business))
-                {
-                    if (((Business)Field.Buldings[i]).BusinessOwner == symbol)
-                    {
-                        Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
-                    }
-                }
-                else if (Field.Buldings[i].GetType() == typeof(CarInterior))
-                {
-                    if (((CarInterior)Field.Buldings[i]).BusinessOwner == symbol)
-                    {
-                        Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
-                    }
-                }
-                else if (Field.Buldings[i].GetType() == typeof(GamingCompanies))
-                {
-                    if (((GamingCompanies)Field.Buldings[i]).BusinessOwner == symbol)
-                    {
-                        Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
-                    }
-                }
-            }
-        }//вывод всех бизнесов
         public bool IsCheckWinGame()
         {
             int playerIsWin = 0;
@@ -1075,7 +1048,15 @@ namespace MonopolyV20
                                 break;
                             case GameMenu.SellTheBusiness://заложить бизнес
                                 {
-                                    if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                    //if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                    //{
+                                    //    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                    //    Console.WriteLine("Нету бизнесов которые можно заложить");
+                                    //    Console.ForegroundColor = ConsoleColor.Gray;
+                                    //    Thread.Sleep(2000);
+                                    //    break;
+                                    //}
+                                    if (((Player)Users[nextPlayer]).ShowALlBsn(((Player)Users[nextPlayer]).GetAllBsn(Field.Buldings)))
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                         Console.WriteLine("Нету бизнесов которые можно заложить");
