@@ -305,7 +305,7 @@ namespace MonopolyV20
             }
             return false;
         }
-        public List<Building> ShowMonopolyBsn(List<Building> buldings)//Доделать вывод монополии ( Ряд бизнесов которых можно улучшить )
+        public List<Building> CreatMonopolyBsn(List<Building> buldings)//Доделать вывод монополии ( Ряд бизнесов которых можно улучшить )
         {
             List<Building> list = new List<Building>();
             for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
@@ -406,7 +406,7 @@ namespace MonopolyV20
             }
             return false;
         }//проверка есть ли хоть одна купленная монополия 
-        public List<Building> ShowBsn(List<Building> buldings) //переделать список бизнесов которые можно улучшить 
+        public List<Building> ShowBsn(List<Building> buldings) //переделать список бизнесов которые можно улучшить // поменять название метода 
         {
             int min = int.MaxValue, max = int.MinValue;
             List<Building> monopolyBusiness = buldings;
@@ -447,11 +447,17 @@ namespace MonopolyV20
                 if (buldings[i].GetType() == typeof(Business) && ((Business)buldings[i]).Mortgaged == true)
                 {
                     return new List<Building>();
-                }
-                Console.WriteLine($"Название: {monopolyBusiness[i].Title} Номер: {monopolyBusiness[i].Number} {((Business)monopolyBusiness[i]).UpgradePrice}");
+                }       
             }
             return monopolyBusiness;
-        }//добовление бизнесов которых можно улучшить 
+        }//добовление бизнесов которых можно улучшить
+        public void ShowUpdateBsn(List<Building> buldings)
+        {
+            for (int i = 0; i < buldings.Count; i++)
+            {
+                Console.WriteLine($"Название: {buldings[i].Title} Номер: {buldings[i].Number} {((Business)buldings[i]).UpgradePrice}");
+            }
+        }
         public void MonoopolyImprovement(Business business)
         {
             business.Level += 1;
@@ -693,7 +699,7 @@ namespace MonopolyV20
                 {
                     if (result[i].GetType() == typeof(Business))
                     {
-                        if (CheckingMonopolyCollected(((Business)result[i]).BusinessType, result))
+                        if (CheckingMonopolyCollected(((Business)result[i]).BusinessType, result) && ((Business)result[i]).Level > 0)
                         {
                             businessType = ((Business)result[i]).BusinessType;
                             for (int j = 0; j < result.Count; i++)
@@ -725,6 +731,6 @@ namespace MonopolyV20
                 Console.WriteLine(buldings[i].Title);
             }
             return false;
-        }
+        }//вывод всех бизнесов которые можно заложить 
     }
 }

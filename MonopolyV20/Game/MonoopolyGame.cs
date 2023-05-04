@@ -531,11 +531,11 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            ((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[16]).Level = 5;
-            ((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[18]).Level = 5;
-            ((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[19]).Level = 5;
             #endregion
             Random rand = new Random();
@@ -1120,7 +1120,7 @@ namespace MonopolyV20
                                     {
                                         if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
                                         {
-                                            if (((Player)Users[nextPlayer]).CheckingBranchImproved(((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings))))
+                                            if (((Player)Users[nextPlayer]).CheckingBranchImproved(((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).CreatMonopolyBsn(Field.Buldings))))
                                             {
                                                 Console.ForegroundColor = ConsoleColor.DarkRed;
                                                 Console.WriteLine("Нету бизнесов котоыре можно улучшить");
@@ -1128,10 +1128,10 @@ namespace MonopolyV20
                                                 Thread.Sleep(2000);
                                                 break;
                                             }
-                                            ((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings));
+                                            ((Player)Users[nextPlayer]).ShowUpdateBsn(((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).CreatMonopolyBsn(Field.Buldings)));
                                             Console.Write("Введите номер бизнеса : > ");
                                             int.TryParse(Console.ReadLine(), out numberCell);
-                                            while (((Player)Users[nextPlayer]).BusinessLiquidityCheck(((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).ShowMonopolyBsn(Field.Buldings)), numberCell))
+                                            while (((Player)Users[nextPlayer]).BusinessLiquidityCheck(((Player)Users[nextPlayer]).ShowBsn(((Player)Users[nextPlayer]).CreatMonopolyBsn(Field.Buldings)), numberCell))
                                             {
                                                 Console.WriteLine("Неверныый номер бизнеса введите ещё раз");
                                                 Console.Write("Введите номер бизнеса : > ");
