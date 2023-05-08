@@ -1139,6 +1139,13 @@ namespace MonopolyV20
                                             }
                                             ((Player)Users[nextPlayer]).MonoopolyImprovement((Business)Field.Buldings[numberCell]);
                                         }
+                                        else
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                                            Console.WriteLine("Монополий нету нельзя попасть в этот пункт");
+                                            Console.ForegroundColor = ConsoleColor.Gray;
+                                            Thread.Sleep(2000);
+                                        }
                                         opportunityEnter = true;
                                     }
                                     else
