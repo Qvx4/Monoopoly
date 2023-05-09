@@ -390,14 +390,14 @@ namespace MonopolyV20
             #endregion
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
-                    if ((((Business)monopolyBusiness[i]).Level) > max)
-                    {
-                        max = ((Business)monopolyBusiness[i]).Level;
-                    }
-                    if ((((Business)monopolyBusiness[i]).Level) < min)
-                    {
-                        min = ((Business)monopolyBusiness[i]).Level;
-                    }
+                if ((((Business)monopolyBusiness[i]).Level) > max)
+                {
+                    max = ((Business)monopolyBusiness[i]).Level;
+                }
+                if ((((Business)monopolyBusiness[i]).Level) < min)
+                {
+                    min = ((Business)monopolyBusiness[i]).Level;
+                }
                 #region Test
                 //for (int j = 0; j < monopolyBusiness.Count; j++)
                 //{
@@ -479,6 +479,8 @@ namespace MonopolyV20
                 {
                     if (Balance > priceGame)
                     {
+                        Console.WriteLine($"Бот попал на джекпот и начинает игру запалтив {priceGame}");
+                        Thread.Sleep(2000);
                         Balance -= priceGame;
                         int[] arrayCell = new int[random.Next(1, 4)];
                         for (int i = 0; i < arrayCell.Length; i++)
@@ -496,28 +498,45 @@ namespace MonopolyV20
                                 }
                             }
                         }
+                        Console.WriteLine($"Бот кинул кубик и ему выпало {numberCubs}");
+                        Thread.Sleep(2000);
                         //firstCube = RollTheCube(rand);    
                         for (int i = 0; i < arrayCell.Length; i++)
                         {
                             if (arrayCell[i] == /*firstCube*/numberCubs)
                             {
+                                Console.WriteLine("Кубики совпали");
+                                Thread.Sleep(2000);
                                 if (arrayCell.Length == 3)
                                 {
                                     Balance += 2000;
+                                    Console.WriteLine("Бот выиграл 2000 ");
+                                    Thread.Sleep(2000);
                                 }
                                 else if (arrayCell.Length == 2)
                                 {
                                     Balance += 3000;
+                                    Console.WriteLine("Бот выиграл 3000 ");
+                                    Thread.Sleep(2000);
                                 }
                                 else if (arrayCell.Length == 1)
                                 {
                                     Balance += 6000;
+                                    Console.WriteLine("Бот выиграл 6000 ");
+                                    Thread.Sleep(2000);
                                 }
                                 break;
                             }
+                            Console.WriteLine("Кубики не совпали бот проиграл");
+                            Thread.Sleep(2000);
                         }
                     }
+                    Console.WriteLine("У бота не хватило денег на игру в джекпот");
+                    Thread.Sleep(2000);
                 }
+                Console.WriteLine("бот отказался от игры в джекпот");
+                Thread.Sleep(2000);
+
             }//проверка что ячейка джекпот 
             else if (buldings.GetType() == typeof(Bank))
             {

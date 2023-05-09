@@ -728,7 +728,8 @@ namespace MonopolyV20
             }
             for (int i = 0; i < buldings.Count; i++)
             {
-                Console.WriteLine(buldings[i].Title);
+                Console.WriteLine($"номер {{{buldings[i].Number}}} название {{{buldings[i].Title}}}");
+
             }
             return false;
         }//вывод всех бизнесов которые можно заложить 
