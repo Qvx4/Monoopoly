@@ -181,15 +181,19 @@ namespace MonopolyV20
         public bool IsCheckWinGame()
         {
             int playerIsWin = 0;
+            List<User> lastUser = new List<User>();
             for (int i = 0; i < Users.Count; i++)
             {
                 if (Users[i].Surrender != true)
                 {
                     playerIsWin++;
+                    lastUser.Add(Users[i]);
                 }
             }
             if (playerIsWin == 1)
             {
+                ShowWinGame();
+                Console.WriteLine($"Никнейм [ {lastUser[0].Name} ][ {lastUser[0].Symbol} ] Символ");
                 return true;
             }
             return false;
@@ -518,6 +522,18 @@ namespace MonopolyV20
             Console.WriteLine($"{{{(int)PayMenu.Surrender}}} Сдаться");
             Console.Write("Ввод > ");
         }
+        public void ShowWinGame()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine(
+                "       ,--.                                             ,--.         \n" +
+                " ,---. |  | ,--,--.,--. ,--.,---. ,--.--.    ,--.   ,--.`--',--,--,  \n" +
+                "| .-. ||  |' ,-.  | \\  '  /| .-. :|  .--'    |  |.'.|  |,--.|      \\ \n" +
+                "| '-' '|  |\\ '-'  |  \\   ' \\   --.|  |       |   .'.   ||  ||  ||  | \n" +
+                "|  |-' `--' `--`--'.-'  /   `----'`--'       '--'   '--'`--'`--''--' \n" +
+                "`--'               `---'                                             \n");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }// вывод картинки выигрыша 
         //Show
         public void StartGame()
         {
@@ -557,6 +573,12 @@ namespace MonopolyV20
             //int lastCellNumber = 0;
             while (true)
             {
+                if (IsCheckWinGame())
+                {
+                    Console.Write("Нажмите любую кнопку что бы вернуться на начальную страницу >>> ");
+                    Console.ReadLine();
+                    break;
+                }
                 opportunityEnter = false;
                 if (Users[nextPlayer].GetType() == typeof(Bot))
                 {

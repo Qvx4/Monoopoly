@@ -529,6 +529,7 @@ namespace MonopolyV20
                             }
                             Console.WriteLine("Кубики не совпали бот проиграл");
                             Thread.Sleep(2000);
+                            break;
                         }
                     }
                     Console.WriteLine("У бота не хватило денег на игру в джекпот");
