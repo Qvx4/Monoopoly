@@ -192,6 +192,7 @@ namespace MonopolyV20
             }
             if (playerIsWin == 1)
             {
+                Console.Clear();
                 ShowWinGame();
                 Console.WriteLine($"Никнейм [ {lastUser[0].Name} ][ {lastUser[0].Symbol} ] Символ");
                 return true;
@@ -408,6 +409,13 @@ namespace MonopolyV20
             }
             return false;
         }//Удаление Игроков
+        public void DeletAllUser()
+        {
+            for (int i = 0; i < Users.Count; i++)
+            {
+                Users.Remove(Users[i]);
+            }
+        }
          //AddDelet
 
         //Show
@@ -577,6 +585,7 @@ namespace MonopolyV20
                 {
                     Console.Write("Нажмите любую кнопку что бы вернуться на начальную страницу >>> ");
                     Console.ReadLine();
+                    DeletAllUser();
                     break;
                 }
                 opportunityEnter = false;
