@@ -514,21 +514,18 @@ namespace MonopolyV20
         }//Вывыод кубиков
         public void ShowPayMenu(string text, int number)
         {
-            if (number == 0)
-            {
-                Console.WriteLine($"{{{(int)BuyMenu.BuyBsn}}} {text}");
-                Console.WriteLine($"{{{(int)BuyMenu.MortagageBsn}}} Заложить бизнес ");
-                Console.WriteLine($"{{{(int)BuyMenu.BranchSale}}} Продать филиал ");
-                Console.WriteLine($"{{{(int)BuyMenu.Auction}}} Отказатся от покупки   ");
-                Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
-                Console.Write("Ввод > ");
-                return;
-            }
-            Console.WriteLine($"{{{(int)PayMenu.RentPayment}}} {text}");
-            Console.WriteLine($"{{{(int)PayMenu.MortagageBsn}}} Заложить бизнес ");
-            Console.WriteLine($"{{{(int)PayMenu.BranchSale}}} Продать филиал ");
-            Console.WriteLine($"{{{(int)PayMenu.Surrender}}} Сдаться");
+            if (number == 0) Console.WriteLine($"{{{(int)BuyMenu.BuyBsn}}} {text}");
+            else  Console.WriteLine($"{{{(int)PayMenu.RentPayment}}} {text}");
+            
+            Console.WriteLine($"{{{(int)BuyMenu.MortagageBsn}}} Заложить бизнес ");
+            Console.WriteLine($"{{{(int)BuyMenu.BranchSale}}} Продать филиал ");
+
+            if(number == 0) Console.WriteLine($"{{{(int)BuyMenu.Auction}}} Отказатся от покупки   ");
+
+            Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
             Console.Write("Ввод > ");
+
+
         }
         public void ShowWinGame()
         {
@@ -894,7 +891,7 @@ namespace MonopolyV20
                                                 ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
                                             }
                                         }//если игрок дивгается по пределам поля 
-                                        Console.Clear();
+                                        //Console.Clear();
                                         ShowField("");
                                         if (((Player)Users[nextPlayer]).IsCheckCellNotBis(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
                                         {
@@ -903,7 +900,6 @@ namespace MonopolyV20
                                                 while (menu)
                                                 {
                                                     ShowPayMenu("Купить бизнес", choose = 0);
-                                                    Console.Write("{ Ввод } > ");
                                                     Enum.TryParse(Console.ReadLine(), out buyMenu);
                                                     switch (buyMenu)
                                                     {

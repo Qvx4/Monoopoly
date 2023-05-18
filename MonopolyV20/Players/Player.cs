@@ -474,6 +474,8 @@ namespace MonopolyV20
                 if (Balance >= ((Bank)buldings).Summa)
                 {
                     Balance -= ((Bank)buldings).Summa;
+                    Console.WriteLine($"Игрок {Symbol} попал на банк и у него снимают списывают {((Bank)buldings).Summa}");
+                    Thread.Sleep(2000);
                 }
 
             }//проверка что ячейка налог
@@ -482,6 +484,8 @@ namespace MonopolyV20
                 if (Balance >= ((Tax)buldings).Summa)
                 {
                     Balance -= ((Tax)buldings).Summa;
+                    Console.WriteLine($"Игрок {Symbol} вы попали на ячейку налог {((Tax)buldings).Summa}");
+                    Thread.Sleep(2000);
                 }
             }//проверка что ячейка налог на богадство 
             else if (buldings.GetType() == typeof(PoliceStation))
@@ -490,6 +494,7 @@ namespace MonopolyV20
                 {
                     if (field.Buldings[i].GetType() == typeof(Prison))
                     {
+                        Console.WriteLine($"Игрок {Symbol} попал на клетку тюрьмы и по этому он отправляется в тюрьму");;
                         field.Buldings[CordinationPlayer].Symbol.Remove(Symbol);
                         field.Buldings[i].Symbol.Add(Symbol);
                         CordinationPlayer = field.Buldings[i].Number;
@@ -500,6 +505,8 @@ namespace MonopolyV20
             else if (buldings.GetType() == typeof(Start))
             {
                 Balance += ((Start)buldings).Summa;
+                Console.WriteLine($"Игрок {Symbol} прошел круг и получает {((Start)buldings).Summa}");
+                Thread.Sleep(2000);
             }//проверка что ячейка старт 
             else if (buldings.GetType() == typeof(Chance))
             {
