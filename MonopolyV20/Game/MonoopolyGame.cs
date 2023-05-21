@@ -861,7 +861,7 @@ namespace MonopolyV20
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer -= firstCube + secondCube + Field.Buldings.Count;
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
                                                 Users[nextPlayer].ReverseStroke = false;
                                             }//если игроку выпал шанс ход в обратную сторону
                                             else
@@ -869,7 +869,7 @@ namespace MonopolyV20
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube - Field.Buldings.Count;
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
                                                 Users[nextPlayer].Balance += 2000;
                                             }
                                         }//если игрок вышел за приделы поля 
@@ -880,7 +880,7 @@ namespace MonopolyV20
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
                                                 Users[nextPlayer].ReverseStroke = false;
                                             }//если игроку выпал шанс ход в обратную сторону
                                             else
@@ -888,7 +888,7 @@ namespace MonopolyV20
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
                                             }
                                         }//если игрок дивгается по пределам поля 
                                         //Console.Clear();
@@ -1068,7 +1068,7 @@ namespace MonopolyV20
                                                 }
                                             }//выплата ренты ячейки
                                         }
-                                        ShowField($"Игрок {Users[nextPlayer].Name} кинул кубики число первого кубика [{firstCube}] число второго кубика [{secondCube}]");
+                                        ShowField("");
                                         menu = true;
                                     }
                                 }
