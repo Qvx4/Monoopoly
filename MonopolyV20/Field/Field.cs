@@ -998,7 +998,7 @@ namespace MonopolyV20
                                     {
                                         if (!users[k].Prison)
                                         {
-                                            Console.ForegroundColor = ConsoleColor.Black;
+                                            Console.ForegroundColor = ConsoleColor.White;
                                             Console.Write($"{Buldings[cellNumber[j]].Symbol[k]}");
                                             if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
                                             {
@@ -1028,7 +1028,7 @@ namespace MonopolyV20
                                         isColor = !isColor;
                                         if (!users[k].Prison)
                                         {
-                                            Console.ForegroundColor = ConsoleColor.Black;
+                                            Console.ForegroundColor = ConsoleColor.White;
                                             Console.Write($"{Buldings[cellNumber[j]].Symbol[k]}");
                                             if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
                                             {
@@ -1082,7 +1082,7 @@ namespace MonopolyV20
                                         isColor = !isColor;
                                         if (!users[k].Prison)
                                         {
-                                            Console.ForegroundColor = ConsoleColor.Black;
+                                            Console.ForegroundColor = ConsoleColor.White;
                                             Console.Write($"{Buldings[cellNumber[j]].Symbol[k]}");
                                             if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
                                             {

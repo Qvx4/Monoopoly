@@ -578,6 +578,7 @@ namespace MonopolyV20
             //int lastCellNumber = 0;
             while (true)
             {
+                prison = false;
                 if (IsCheckWinGame())
                 {
                     Console.Write("Нажмите любую кнопку что бы вернуться на начальную страницу >>> ");
@@ -830,6 +831,12 @@ namespace MonopolyV20
                                                 prison = false;
                                                 ((Player)Users[nextPlayer]).Prison = false;
                                             }
+                                        }
+                                        else
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                                            Console.WriteLine("Неверное здначение для выбора !");
+                                            Console.ForegroundColor = ConsoleColor.Gray;
                                         }
                                     }
                                     else

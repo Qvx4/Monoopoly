@@ -531,12 +531,15 @@ namespace MonopolyV20
                             Thread.Sleep(2000);
                             break;
                         }
+                        return true;
                     }
                     Console.WriteLine("У бота не хватило денег на игру в джекпот");
                     Thread.Sleep(2000);
+                    return true;
                 }
                 Console.WriteLine("бот отказался от игры в джекпот");
                 Thread.Sleep(2000);
+                return true;
 
             }//проверка что ячейка джекпот 
             else if (buldings.GetType() == typeof(Bank))
