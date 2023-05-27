@@ -9,9 +9,10 @@ namespace MonopolyV20
     {
         public bool BankCheck { get; set; }
         public bool TaxCheck { get; set; }
-        public Player(string name, char symbol, int balance, bool stepSkip, bool prison) : base(name, symbol, balance, stepSkip, prison)
+        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck,bool taxCheck) : base(name, symbol, balance, stepSkip, prison)
         {
-
+            BankCheck = bankCheck;
+            TaxCheck = taxCheck;
         }
         public override void Show()
         {
@@ -471,25 +472,27 @@ namespace MonopolyV20
             {
                 Jackpot = true;
             }//проверка что ячейка джекпот //доделать боту логику джекпота
-            else if (buldings.GetType() == typeof(Bank))
-            {
-                if (Balance >= ((Bank)buldings).Summa)
-                {
-                    Balance -= ((Bank)buldings).Summa;
-                    Console.WriteLine($"Игрок {Symbol} попал на банк и у него снимают списывают {((Bank)buldings).Summa}");
-                    Thread.Sleep(2000);
-                }
+            #region Test
+            //else if (buldings.GetType() == typeof(Bank))
+            //{
+            //    if (Balance >= ((Bank)buldings).Summa)
+            //    {
+            //        Balance -= ((Bank)buldings).Summa;
+            //        Console.WriteLine($"Игрок {Symbol} попал на банк и у него снимают списывают {((Bank)buldings).Summa}");
+            //        Thread.Sleep(2000);
+            //    }
 
-            }//проверка что ячейка налог
-            else if (buldings.GetType() == typeof(Tax))
-            {
-                if (Balance >= ((Tax)buldings).Summa)
-                {
-                    Balance -= ((Tax)buldings).Summa;
-                    Console.WriteLine($"Игрок {Symbol} вы попали на ячейку налог {((Tax)buldings).Summa}");
-                    Thread.Sleep(2000);
-                }
-            }//проверка что ячейка налог на богадство 
+            //}//проверка что ячейка налог
+            //else if (buldings.GetType() == typeof(Tax))
+            //{
+            //    if (Balance >= ((Tax)buldings).Summa)
+            //    {
+            //        Balance -= ((Tax)buldings).Summa;
+            //        Console.WriteLine($"Игрок {Symbol} вы попали на ячейку налог {((Tax)buldings).Summa}");
+            //        Thread.Sleep(2000);
+            //    }
+            //}//проверка что ячейка налог на богадство 
+            #endregion
             else if (buldings.GetType() == typeof(PoliceStation))
             {
                 for (int i = 0; i < field.Buldings.Count; i++)

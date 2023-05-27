@@ -130,7 +130,7 @@ namespace MonopolyV20
                             }
                             Console.ForegroundColor = ConsoleColor.Gray;
                             int balance = 15000;
-                            Player player = new Player(name, symbol, balance, false, false);
+                            Player player = new Player(name, symbol, balance, false, false,false,false);
                             game.AddPlayer(player);
                         }
                         break;
