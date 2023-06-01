@@ -884,9 +884,9 @@ namespace MonopolyV20
                                         {
                                             if (Users[nextPlayer].ReverseStroke == true)
                                             {
-                                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
-                                                Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
+                                                Users[nextPlayer].CordinationPlayer -= firstCube + secondCube + Field.Buldings.Count;
                                                 ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
                                                 Users[nextPlayer].ReverseStroke = false;
                                             }//если игроку выпал шанс ход в обратную сторону
