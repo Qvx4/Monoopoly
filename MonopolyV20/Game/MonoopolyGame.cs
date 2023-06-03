@@ -411,10 +411,7 @@ namespace MonopolyV20
         }//Удаление Игроков
         public void DeletAllUser()
         {
-            for (int i = 0; i < Users.Count; i++)
-            {
-                Users.Remove(Users[i]);
-            }
+            Users.Clear();
         }
         //AddDelet
 
@@ -1153,7 +1150,7 @@ namespace MonopolyV20
                                                             }
                                                             break;
                                                         case BuyMenu.Auction:
-                                                            { Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]); }
+                                                            { Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]); break; }
                                                             break;
                                                         case BuyMenu.Surrender:
                                                             {
@@ -1250,7 +1247,6 @@ namespace MonopolyV20
                                                                 check = false;
                                                             }
                                                             break;
-
                                                     }
                                                     //Console.Clear()
                                                     ShowField("");
