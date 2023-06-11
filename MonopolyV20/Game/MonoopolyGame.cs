@@ -412,6 +412,37 @@ namespace MonopolyV20
         public void DeletAllUser()
         {
             Users.Clear();
+        }//удаление всех игроков 
+        public void ClearingField(List<User> users,List<Building> buildings)
+        {
+            for (int i = 0; i < users.Count; i++)
+            {
+                users[i].CordinationPlayer = 0;
+                for (int j = 0; j < buildings.Count; j++)
+                {
+                    if(buildings[j].GetType() == typeof(Business))
+                    {
+                        if (((Business)buildings[j]).BusinessOwner == users[i].Symbol)
+                        {
+                            ((Business)buildings[j]).BusinessOwner = ' ';
+                        }
+                    }
+                    if (buildings[j].GetType() == typeof(CarInterior))
+                    {
+                        if (((CarInterior)buildings[j]).BusinessOwner == users[i].Symbol)
+                        {
+                            ((CarInterior)buildings[j]).BusinessOwner = ' ';
+                        }
+                    }
+                    if (buildings[j].GetType() == typeof(GamingCompanies))
+                    {
+                        if (((GamingCompanies)buildings[j]).BusinessOwner == users[i].Symbol)
+                        {
+                            ((GamingCompanies)buildings[j]).BusinessOwner = ' ';
+                        }
+                    }
+                }
+            }
         }
         //AddDelet
 
@@ -580,6 +611,7 @@ namespace MonopolyV20
                 {
                     Console.Write("Нажмите любую кнопку что бы вернуться на начальную страницу >>> ");
                     Console.ReadLine();
+                    ClearingField(Users, Field.Buldings);
                     DeletAllUser();
                     break;
                 }
