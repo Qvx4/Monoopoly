@@ -199,7 +199,7 @@ namespace MonopolyV20
             }
             return false;
         }//проверка на победу 
-        public void Auction(List<User> users, Building bulding)
+        public void Auction(Building bulding, char symbol)
         {
             Random random = new Random();
             int nextPlayer = 0;
@@ -223,7 +223,10 @@ namespace MonopolyV20
             List<User> user = new List<User>();
             for (int i = 0; i < Users.Count; i++)
             {
-                user.Add(Users[i]);
+                if (Users[i].Symbol != symbol)
+                {
+                    user.Add(Users[i]);
+                }
             }
             bool isWork = true;
             while (isWork)
@@ -302,27 +305,27 @@ namespace MonopolyV20
             if (nextPlayer >= user.Count)
             {
                 nextPlayer = 0;
-            }
+            }   
             if (user.Count == 0)
             {
                 return;
             }
-            if (user[nextPlayer].GetType() == typeof(Bot))
+            if (user[nextPlayer].GetType() == typeof(Bot) || user[nextPlayer].GetType() == typeof(Player))
             {
                 if (user[nextPlayer].Balance > ((Business)bulding).Price)
                 {
                     user[nextPlayer].Balance -= ((Business)bulding).Price;
                 }
                 else return;
-                if (businessType.GetType() == typeof(Business))
+                if (bulding.GetType() == typeof(Business))
                 {
                     ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
                 }
-                if (businessType.GetType() == typeof(CarInterior))
+                if (bulding.GetType() == typeof(CarInterior))
                 {
                     ((CarInterior)bulding).BusinessOwner = user[nextPlayer].Symbol;
                 }
-                if (businessType.GetType() == typeof(GamingCompanies))
+                if (bulding.GetType() == typeof(GamingCompanies))
                 {
                     ((GamingCompanies)bulding).BusinessOwner = user[nextPlayer].Symbol;
                 }
@@ -413,14 +416,14 @@ namespace MonopolyV20
         {
             Users.Clear();
         }//удаление всех игроков 
-        public void ClearingField(List<User> users,List<Building> buildings)
+        public void ClearingField(List<User> users, List<Building> buildings)
         {
             for (int i = 0; i < users.Count; i++)
             {
                 users[i].CordinationPlayer = 0;
                 for (int j = 0; j < buildings.Count; j++)
                 {
-                    if(buildings[j].GetType() == typeof(Business))
+                    if (buildings[j].GetType() == typeof(Business))
                     {
                         if (((Business)buildings[j]).BusinessOwner == users[i].Symbol)
                         {
@@ -581,11 +584,9 @@ namespace MonopolyV20
             //Users[3].Balance -= 11000;
 
             //((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
-            //((Business)Field.Buldings[16]).Level = 5;
             //((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
-            //((Business)Field.Buldings[18]).Level = 5;
             //((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
-            //((Business)Field.Buldings[19]).Level = 5;
+
             #endregion
             Random rand = new Random();
             int maxFieldCount = 40;
@@ -744,7 +745,7 @@ namespace MonopolyV20
                         }
                         if (((Bot)Users[nextPlayer]).Auction)
                         {
-                            Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]);
+                            Auction(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users[nextPlayer].Symbol);
                             ((Bot)Users[nextPlayer]).Auction = false;
                         }
                         ShowField($"Бот кинул кубики число первого кубика [{firstCube}] число второго кубика [{secondCube}]");
@@ -1004,7 +1005,10 @@ namespace MonopolyV20
                                                             }
                                                             break;
                                                         case BuyMenu.Auction:
-                                                            { Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]); }
+                                                            {
+                                                                Auction(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users[nextPlayer].Symbol);
+                                                                menu = false;
+                                                            }
                                                             break;
                                                         case BuyMenu.Surrender:
                                                             {
@@ -1016,7 +1020,6 @@ namespace MonopolyV20
                                                                 check = false;
                                                             }
                                                             break;
-
                                                     }
                                                     //Console.Clear();
                                                     ShowField("");
@@ -1095,7 +1098,7 @@ namespace MonopolyV20
                                                             }
                                                             break;
                                                         case BuyMenu.Auction:
-                                                            { Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]); }
+                                                            { Auction(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users[nextPlayer].Symbol); }
                                                             break;
                                                         case BuyMenu.Surrender:
                                                             {
@@ -1182,7 +1185,10 @@ namespace MonopolyV20
                                                             }
                                                             break;
                                                         case BuyMenu.Auction:
-                                                            { Auction(Users, Field.Buldings[Users[nextPlayer].CordinationPlayer]); break; }
+                                                            {
+                                                                Auction(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users[nextPlayer].Symbol);
+                                                                menu = false;
+                                                            }
                                                             break;
                                                         case BuyMenu.Surrender:
                                                             {
@@ -1194,7 +1200,6 @@ namespace MonopolyV20
                                                                 check = false;
                                                             }
                                                             break;
-
                                                     }
                                                     //Console.Clear();
                                                     ShowField("");
