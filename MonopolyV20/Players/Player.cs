@@ -9,7 +9,7 @@ namespace MonopolyV20
     {
         public bool BankCheck { get; set; }
         public bool TaxCheck { get; set; }
-        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck,bool taxCheck) : base(name, symbol, balance, stepSkip, prison)
+        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck, bool taxCheck) : base(name, symbol, balance, stepSkip, prison)
         {
             BankCheck = bankCheck;
             TaxCheck = taxCheck;
@@ -20,21 +20,30 @@ namespace MonopolyV20
             Console.WriteLine($"Никнейм Игрока [ {Name} ]");
             Console.WriteLine($"Символ Игрока [ {Symbol} ]");
         }
-        public bool IsCheckCellNotBis(Building buildings)
+        public bool IsCheckCellNotBsn(Building buildings)
         {
-            if (buildings.GetType() == typeof(Business))
-            {
-                return false;
-            }
-            else if (buildings.GetType() == typeof(CarInterior))
-            {
-                return false;
-            }
-            else if (buildings.GetType() == typeof(GamingCompanies))
+            if (buildings.GetType() == typeof(Business) ||
+                buildings.GetType() == typeof(Tax) ||
+                buildings.GetType() == typeof(CarInterior) ||
+                buildings.GetType() == typeof(GamingCompanies) ||
+                buildings.GetType() == typeof(Chance) ||
+                buildings.GetType() == typeof(Bank) ||
+                buildings.GetType() == typeof(Prison) ||
+                buildings.GetType() == typeof(Jackpot))
             {
                 return false;
             }
             return true;
+        }//проверка что это не бизнес 
+        public bool IsCheckCellBsn(Building buildings)
+        {
+            if (buildings.GetType() == typeof(Business) |
+              buildings.GetType() == typeof(CarInterior) ||
+              buildings.GetType() == typeof(GamingCompanies))
+            {
+                return true;
+            }
+            return false;
         }
         public bool IsCheckCellBy(Business business)//Проверка куплен ли бизнес 
         {
@@ -327,10 +336,14 @@ namespace MonopolyV20
             if (chances.GetType() == typeof(Profit))
             {
                 Balance += ((Profit)chances).GettingMoney;
+                Console.WriteLine($"Игрок {Symbol} {((Profit)chances).Description}");
+                Thread.Sleep(2000);
             }
             else if (chances.GetType() == typeof(Lesion))
             {
                 Balance -= ((Lesion)chances).WriteOffMoney;
+                Console.WriteLine($"Игрок {Symbol} {((Lesion)chances).Description}");
+                Thread.Sleep(2000);
             }
             else if (chances.GetType() == typeof(RandomActions))
             {
@@ -342,11 +355,15 @@ namespace MonopolyV20
                             Random random = new Random();
                             CordinationPlayer += random.Next(0, 20);
                             field.Buldings[CordinationPlayer].Symbol.Add(Symbol);
+                            Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
+                            Thread.Sleep(2000);
                         }
                         break;
                     case Actions.WalkBackWards:
                         {
                             ReverseStroke = true;
+                            Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
+                            Thread.Sleep(2000);
                         }
                         break;
                     case Actions.GoToJail:
@@ -359,6 +376,7 @@ namespace MonopolyV20
                                     field.Buldings[i].Symbol.Add(Symbol);
                                     CordinationPlayer = field.Buldings[i].Number;
                                     Prison = true;
+                                    Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
                                 }
                             }
                         }
@@ -366,11 +384,14 @@ namespace MonopolyV20
                     case Actions.Skipping:
                         {
                             StepSkip = true;
+                            Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
+                            Thread.Sleep(2000);
                         }
                         break;
                     case Actions.Empty:
                         {
-
+                            Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
+                            Thread.Sleep(2000);
                         }
                         break;
                 }
@@ -450,7 +471,7 @@ namespace MonopolyV20
                 if (buldings[i].GetType() == typeof(Business) && ((Business)buldings[i]).Mortgaged == true)
                 {
                     return new List<Building>();
-                }       
+                }
             }
             return monopolyBusiness;
         }//добовление бизнесов которых можно улучшить

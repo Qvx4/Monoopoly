@@ -873,8 +873,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        //firstCube = 4;
-                                        //secondCube = 6;
+                                        //firstCube = 7;
+                                        //secondCube = 0;
                                         if (firstCube == secondCube)
                                         {
                                             luck++;
@@ -930,7 +930,7 @@ namespace MonopolyV20
                                         }//если игрок дивгается по пределам поля 
                                         //Console.Clear();
                                         ShowField("");
-                                        if (((Player)Users[nextPlayer]).IsCheckCellNotBis(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
+                                        if (((Player)Users[nextPlayer]).IsCheckCellNotBsn(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == true)
                                         {
                                             if (Field.Buldings[Users[nextPlayer].CordinationPlayer].GetType() == typeof(Bank))
                                             {
@@ -1116,7 +1116,10 @@ namespace MonopolyV20
                                                     ShowField("");
                                                 }
                                             }
-                                            else if (((Player)Users[nextPlayer]).IsCehckByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == false)
+                                        }
+                                        else if(((Player)Users[nextPlayer]).IsCheckCellBsn(Field.Buldings[Users[nextPlayer].CordinationPlayer]))
+                                        {
+                                            if (((Player)Users[nextPlayer]).IsCehckByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == true)
                                             {
                                                 while (menu)
                                                 {
@@ -1204,7 +1207,7 @@ namespace MonopolyV20
                                                     //Console.Clear();
                                                     ShowField("");
                                                 }
-                                            }//покупка ячейки 
+                                            }//покупка ячейки
                                             else
                                             {
                                                 while (menu)
