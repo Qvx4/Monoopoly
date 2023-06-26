@@ -22,18 +22,12 @@ namespace MonopolyV20
         }
         public bool IsCheckCellNotBsn(Building buildings)
         {
-            if (buildings.GetType() == typeof(Business) ||
-                buildings.GetType() == typeof(Tax) ||
-                buildings.GetType() == typeof(CarInterior) ||
-                buildings.GetType() == typeof(GamingCompanies) ||
-                buildings.GetType() == typeof(Chance) ||
-                buildings.GetType() == typeof(Bank) ||
-                buildings.GetType() == typeof(Prison) ||
-                buildings.GetType() == typeof(Jackpot))
+            if (buildings.GetType() == typeof(Tax) ||
+                buildings.GetType() == typeof(Bank))
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }//проверка что это не бизнес 
         public bool IsCheckCellBsn(Building buildings)
         {

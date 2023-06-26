@@ -873,7 +873,7 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        //firstCube = 7;
+                                        //firstCube = 36;
                                         //secondCube = 0;
                                         if (firstCube == secondCube)
                                         {
@@ -930,7 +930,7 @@ namespace MonopolyV20
                                         }//если игрок дивгается по пределам поля 
                                         //Console.Clear();
                                         ShowField("");
-                                        if (((Player)Users[nextPlayer]).IsCheckCellNotBsn(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == true)
+                                        if (((Player)Users[nextPlayer]).IsCheckCellNotBsn(Field.Buldings[Users[nextPlayer].CordinationPlayer]))
                                         {
                                             if (Field.Buldings[Users[nextPlayer].CordinationPlayer].GetType() == typeof(Bank))
                                             {
@@ -945,6 +945,7 @@ namespace MonopolyV20
                                                                 ((Player)Users[nextPlayer]).Balance -= ((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa;
                                                                 Console.WriteLine($"Игрок {((Player)Users[nextPlayer]).Symbol} попал на банк и у него снимают списывают {((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
                                                                 Thread.Sleep(2000);
+                                                                menu = false;
                                                             }
                                                             break;
                                                         case BuyMenu.MortagageBsn:
@@ -1038,6 +1039,7 @@ namespace MonopolyV20
                                                                 ((Player)Users[nextPlayer]).Balance -= ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa;
                                                                 Console.WriteLine($"Игрок {((Player)Users[nextPlayer]).Symbol} вы попали на ячейку налог {((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
                                                                 Thread.Sleep(2000);
+                                                                menu = false;
                                                             }
                                                             break;
                                                         case BuyMenu.MortagageBsn:
@@ -1098,7 +1100,7 @@ namespace MonopolyV20
                                                             }
                                                             break;
                                                         case BuyMenu.Auction:
-                                                            { Auction(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users[nextPlayer].Symbol); }
+                                                            { Auction(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users[nextPlayer].Symbol); menu = false; }
                                                             break;
                                                         case BuyMenu.Surrender:
                                                             {
