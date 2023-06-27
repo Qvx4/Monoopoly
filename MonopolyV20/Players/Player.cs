@@ -41,7 +41,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(Business business)//Проверка куплен ли бизнес 
         {
-            if (business.BusinessOwner != 0)
+            if (business.BusinessOwner == 0)
             {
                 return true;
             }

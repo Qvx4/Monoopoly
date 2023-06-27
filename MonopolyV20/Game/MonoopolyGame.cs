@@ -305,7 +305,7 @@ namespace MonopolyV20
             if (nextPlayer >= user.Count)
             {
                 nextPlayer = 0;
-            }   
+            }
             if (user.Count == 0)
             {
                 return;
@@ -629,7 +629,14 @@ namespace MonopolyV20
                     }
                     else
                     {
-                        nextPlayer++;
+                        if (nextPlayer++ >= Users.Count)
+                        {
+                            nextPlayer = 0;
+                        }
+                        else
+                        {
+                            nextPlayer++;
+                        }
                     }
                 }
                 if (Users[nextPlayer].Prison == true)
@@ -1119,7 +1126,7 @@ namespace MonopolyV20
                                                 }
                                             }
                                         }
-                                        else if(((Player)Users[nextPlayer]).IsCheckCellBsn(Field.Buldings[Users[nextPlayer].CordinationPlayer]))
+                                        else if (((Player)Users[nextPlayer]).IsCheckCellBsn(Field.Buldings[Users[nextPlayer].CordinationPlayer]))
                                         {
                                             if (((Player)Users[nextPlayer]).IsCehckByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == true)
                                             {
