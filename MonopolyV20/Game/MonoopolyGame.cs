@@ -223,7 +223,7 @@ namespace MonopolyV20
             List<User> user = new List<User>();
             for (int i = 0; i < Users.Count; i++)
             {
-                if (Users[i].Symbol != symbol)
+                if (Users[i].Symbol != symbol || !Users[i].Surrender)
                 {
                     user.Add(Users[i]);
                 }
@@ -379,7 +379,7 @@ namespace MonopolyV20
         }//Правила Игры
          //Other
 
-        //AddDelet
+        //AddDelet 
         public void AddBot(Bot Bot)
         {
             Users.Add(Bot);
@@ -620,7 +620,7 @@ namespace MonopolyV20
                 if (Users[nextPlayer].GetType() == typeof(Bot))
                 {
                     ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
-                }
+                }           
                 if (Users[nextPlayer].Surrender == true)
                 {
                     if (nextPlayer >= Users.Count)
@@ -629,7 +629,7 @@ namespace MonopolyV20
                     }
                     else
                     {
-                        if (nextPlayer++ >= Users.Count)
+                        if (nextPlayer + 1 >= Users.Count)
                         {
                             nextPlayer = 0;
                         }
@@ -921,7 +921,7 @@ namespace MonopolyV20
                                         {
                                             if (Users[nextPlayer].ReverseStroke == true)
                                             {
-                                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);//f
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer -= firstCube + secondCube + Field.Buldings.Count;
                                                 ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
