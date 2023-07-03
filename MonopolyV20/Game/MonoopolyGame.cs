@@ -280,24 +280,27 @@ namespace MonopolyV20
                 }
                 else
                 {
-                    Console.WriteLine($"Цена бизнеса = {bsnPrice}");
-                    Console.WriteLine("{ 1 } Поднять ставку | { 2 } отказатся ");
-                    Console.Write("{ Ввод } >> ");
-                    int.TryParse(Console.ReadLine(), out int choise);
-                    while (choise < 1 || choise > 2)
+                    if (!user[nextPlayer].Surrender)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine($"Цена бизнеса = {bsnPrice}");
+                        Console.WriteLine("{ 1 } Поднять ставку | { 2 } отказатся ");
                         Console.Write("{ Ввод } >> ");
-                        int.TryParse(Console.ReadLine(), out choise);
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                    }
-                    if (choise == 1)
-                    {
-                        bsnPrice += 100;
-                    }
-                    else
-                    {
-                        user.Remove(user[nextPlayer]);
+                        int.TryParse(Console.ReadLine(), out int choise);
+                        while (choise < 1 || choise > 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.Write("{ Ввод } >> ");
+                            int.TryParse(Console.ReadLine(), out choise);
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        }
+                        if (choise == 1)
+                        {
+                            bsnPrice += 100;
+                        }
+                        else
+                        {
+                            user.Remove(user[nextPlayer]);
+                        }
                     }
                 }
                 nextPlayer++;
@@ -579,7 +582,7 @@ namespace MonopolyV20
             }
             #region TestBot
             //Users[0].Balance -= 10000;
-            //Users[1].Balance -= 13000;
+            Users[1].Balance -= 14000;
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
@@ -620,7 +623,7 @@ namespace MonopolyV20
                 if (Users[nextPlayer].GetType() == typeof(Bot))
                 {
                     ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
-                }           
+                }
                 if (Users[nextPlayer].Surrender == true)
                 {
                     if (nextPlayer >= Users.Count)
