@@ -223,12 +223,12 @@ namespace MonopolyV20
             List<User> user = new List<User>();
             for (int i = 0; i < Users.Count; i++)
             {
-                if (Users[i].Symbol != symbol || !Users[i].Surrender)
+                if (Users[i].Symbol != symbol && !Users[i].Surrender)
                 {
                     user.Add(Users[i]);
                 }
             }
-            bool isWork = true;
+                bool isWork = true;
             while (isWork)
             {
                 if (nextPlayer >= user.Count)
@@ -282,6 +282,7 @@ namespace MonopolyV20
                 {
                     if (!user[nextPlayer].Surrender)
                     {
+                        Console.WriteLine($"Ставка игрока {user[nextPlayer].Symbol}");
                         Console.WriteLine($"Цена бизнеса = {bsnPrice}");
                         Console.WriteLine("{ 1 } Поднять ставку | { 2 } отказатся ");
                         Console.Write("{ Ввод } >> ");
@@ -296,7 +297,7 @@ namespace MonopolyV20
                         if (choise == 1)
                         {
                             bsnPrice += 100;
-                        }
+                        }   
                         else
                         {
                             user.Remove(user[nextPlayer]);
@@ -582,7 +583,7 @@ namespace MonopolyV20
             }
             #region TestBot
             //Users[0].Balance -= 10000;
-            Users[1].Balance -= 14000;
+            //Users[1].Balance -= 14000;
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
