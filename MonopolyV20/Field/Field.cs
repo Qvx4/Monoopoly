@@ -51,7 +51,7 @@ namespace MonopolyV20
             }
             return ConsoleColor.Black;
         }
-        public void AddingField()
+        public void AddingField()   
         {
             Buldings.Add(new Start("Старт", 0, 1000));
             Buldings.Add(new Business("CHANEL", 1, 600, 360, 300, 0, 500, new List<int>() { 20, 100, 300, 900, 1600, 2500 }, BusinessType.Perfumery));
@@ -1052,7 +1052,7 @@ namespace MonopolyV20
                                     {
                                         if (!users[k].Prison)
                                         {
-                                            Console.ForegroundColor = ConsoleColor.Black;
+                                            Console.ForegroundColor = ConsoleColor.White;
                                             Console.Write($"{Buldings[cellNumber[j]].Symbol[k]}");
                                             if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
                                             {
@@ -1106,7 +1106,7 @@ namespace MonopolyV20
                                     {
                                         if (!users[k].Prison)
                                         {
-                                            Console.ForegroundColor = ConsoleColor.Black;
+                                            Console.ForegroundColor = ConsoleColor.White;
                                             Console.Write($"{Buldings[cellNumber[j]].Symbol[k]}");
                                             if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
                                             {

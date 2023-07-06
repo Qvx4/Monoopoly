@@ -49,7 +49,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(CarInterior carInterior)//проверка куплен ли автоцентр
         {
-            if (carInterior.BusinessOwner != 0)
+            if (carInterior.BusinessOwner == 0)
             {
                 return true;
             }
@@ -57,7 +57,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(GamingCompanies gamingCompanies)//проверка куплена ли игровая компания
         {
-            if (gamingCompanies.BusinessOwner != 0)
+            if (gamingCompanies.BusinessOwner == 0)
             {
                 return true;
             }
@@ -534,7 +534,12 @@ namespace MonopolyV20
                 Random random = new Random();
                 ChanceAnalysis(((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)], field);
 
-            }//проверка что ячейка шанс //доделать боту шанс 
+            }//проверка что ячейка шанс //доделать боту шанс
+            else if (buldings.GetType() == typeof(Prison))
+            {
+                Console.WriteLine($"Игрок {Symbol} попал на ячейку тюрьма в качестве прогулки");
+                Thread.Sleep(2000);
+            }//проверка если игрок попал в тюрьму на прогулке 
             return false;
         }
         public bool BusinessLiquidityCheck(List<Building> buldings, int index)//проверка на номер бизнеса

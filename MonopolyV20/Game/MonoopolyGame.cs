@@ -302,7 +302,7 @@ namespace MonopolyV20
                         {
                             user.Remove(user[nextPlayer]);
                         }
-                    }
+                    }       
                 }
                 nextPlayer++;
             }
@@ -587,9 +587,10 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            //((Business)Field.Buldings[16]).BusinessOwner = Users[2].Symbol;
-            //((Business)Field.Buldings[18]).BusinessOwner = Users[2].Symbol;
-            //((Business)Field.Buldings[19]).BusinessOwner = Users[2].Symbol;
+            ((CarInterior)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
+            ((CarInterior)Field.Buldings[15]).BusinessOwner = Users[1].Symbol;
+            ((CarInterior)Field.Buldings[25]).BusinessOwner = Users[1].Symbol;
+            ((CarInterior)Field.Buldings[35]).BusinessOwner = Users[1].Symbol;
 
             #endregion
             Random rand = new Random();
@@ -884,8 +885,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        //firstCube = 36;
-                                        //secondCube = 0;
+                                        firstCube = /*1*/25;
+                                        secondCube = 0;
                                         if (firstCube == secondCube)
                                         {
                                             luck++;

@@ -592,7 +592,12 @@ namespace MonopolyV20
                 ((Chance)buldings).AddChance();
                 Random random = new Random();
                 ChanceAnalysis(((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)], field, users);
-            }//проверка что ячейка шанс 
+            }//проверка что ячейка шанс
+            else if (buldings.GetType() == typeof(Prison))
+            {
+                Console.WriteLine($"Бот {Symbol} попал на ячейку тюрьма в качестве прогулки");
+                Thread.Sleep(2000);
+            }//проверка если бот попал в тюрьму на прогулке 
             return false;
         }
         public bool BusinessBuyout(List<Building> building)//выкуп заложенного бизнеса
