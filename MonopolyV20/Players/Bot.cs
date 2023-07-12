@@ -11,7 +11,7 @@ namespace MonopolyV20
     public class Bot : User
     {
         public bool Auction { get; set; }
-        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison) : base(name, symbol, balance, stepSkip, prison)
+        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison,int countCarBsn) : base(name, symbol, balance, stepSkip, prison, countCarBsn)
         {
 
         }

@@ -9,7 +9,7 @@ namespace MonopolyV20
     {
         public bool BankCheck { get; set; }
         public bool TaxCheck { get; set; }
-        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck, bool taxCheck) : base(name, symbol, balance, stepSkip, prison)
+        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck, bool taxCheck,int countCarBsn) : base(name, symbol, balance, stepSkip, prison ,countCarBsn)
         {
             BankCheck = bankCheck;
             TaxCheck = taxCheck;
@@ -63,7 +63,7 @@ namespace MonopolyV20
             }
             return false;
         }
-        public void IsByCell(Building building)
+        public void IsByCell(Building building,List<Building> buildings)
         {
             if (building.GetType() == typeof(Business))
             {
@@ -79,8 +79,19 @@ namespace MonopolyV20
             {
                 if (((CarInterior)building).Price <= Balance)
                 {
+                    CountCarBsn+= 1;
                     ((CarInterior)building).BusinessOwner = Symbol;
                     Balance -= ((CarInterior)building).Price;
+                    for (int i = 0; i < buildings.Count; i++)
+                    {
+                        if (buildings[i].GetType() == typeof(CarInterior))
+                        {
+                            if (((CarInterior)buildings[i]).BusinessOwner == Symbol)
+                            {
+                                ((CarInterior)buildings[i]).Level = CountCarBsn;
+                            }
+                        }
+                    }
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((CarInterior)building).Price}");
                     Thread.Sleep(2000);
                 }

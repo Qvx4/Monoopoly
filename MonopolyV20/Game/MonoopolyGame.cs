@@ -228,7 +228,7 @@ namespace MonopolyV20
                     user.Add(Users[i]);
                 }
             }
-                bool isWork = true;
+            bool isWork = true;
             while (isWork)
             {
                 if (nextPlayer >= user.Count)
@@ -297,12 +297,12 @@ namespace MonopolyV20
                         if (choise == 1)
                         {
                             bsnPrice += 100;
-                        }   
+                        }
                         else
                         {
                             user.Remove(user[nextPlayer]);
                         }
-                    }       
+                    }
                 }
                 nextPlayer++;
             }
@@ -587,10 +587,10 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            ((CarInterior)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
-            ((CarInterior)Field.Buldings[15]).BusinessOwner = Users[1].Symbol;
-            ((CarInterior)Field.Buldings[25]).BusinessOwner = Users[1].Symbol;
-            ((CarInterior)Field.Buldings[35]).BusinessOwner = Users[1].Symbol;
+            //((CarInterior)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
+            //((CarInterior)Field.Buldings[15]).BusinessOwner = Users[1].Symbol;
+            //((CarInterior)Field.Buldings[25]).BusinessOwner = Users[1].Symbol;
+            //((CarInterior)Field.Buldings[35]).BusinessOwner = Users[1].Symbol;
 
             #endregion
             Random rand = new Random();
@@ -607,6 +607,7 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
+            int test = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
             //int lastCellNumber = 0;
@@ -885,8 +886,30 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        firstCube = /*1*/25;
-                                        secondCube = 0;
+                                        if (nextPlayer == 1)
+                                        {
+                                            if (test == 0)
+                                            {
+                                                firstCube = 5;
+                                                secondCube = 0;
+                                            }
+                                            else if (test == 1)
+                                            {
+                                                firstCube = 10;
+                                                secondCube = 0;
+                                            }
+                                            else if (test == 2)
+                                            {
+                                                firstCube = 10;
+                                                secondCube = 0;
+                                            }
+                                            else if (test == 3)
+                                            {
+                                                firstCube = 10;
+                                                secondCube = 0;
+                                            }
+                                            test++;
+                                        }
                                         if (firstCube == secondCube)
                                         {
                                             luck++;
@@ -1142,7 +1165,7 @@ namespace MonopolyV20
                                                     switch (buyMenu)
                                                     {
                                                         case BuyMenu.BuyBsn:
-                                                            { ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]); menu = false; }
+                                                            { ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer],Field.Buldings); menu = false; }
                                                             break;
                                                         case BuyMenu.MortagageBsn:
                                                             {

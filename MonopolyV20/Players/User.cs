@@ -18,8 +18,9 @@ namespace MonopolyV20
         public int CordinationPlayer { get; set; }
         public bool Surrender { get; set; }
         public bool Jackpot { get; set; }
+        public int CountCarBsn { get; set; }
         public User() { }
-        public User(string name,char symbol,int balance,bool stepSkip,bool prison)
+        public User(string name,char symbol,int balance,bool stepSkip,bool prison,int countCarBsn)
         {
             Name = name;
             Symbol = symbol;
@@ -27,6 +28,7 @@ namespace MonopolyV20
             StepSkip = stepSkip;
             Prison = prison;
             CordinationPlayer = 0;
+            CountCarBsn = countCarBsn;
         }
         public User(User user)
         {
