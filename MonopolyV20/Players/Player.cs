@@ -9,7 +9,7 @@ namespace MonopolyV20
     {
         public bool BankCheck { get; set; }
         public bool TaxCheck { get; set; }
-        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck, bool taxCheck,int countCarBsn) : base(name, symbol, balance, stepSkip, prison ,countCarBsn)
+        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck, bool taxCheck,int countCarBsn, int countGameBsn) : base(name, symbol, balance, stepSkip, prison ,countCarBsn, countGameBsn)
         {
             BankCheck = bankCheck;
             TaxCheck = taxCheck;
@@ -79,7 +79,6 @@ namespace MonopolyV20
             {
                 if (((CarInterior)building).Price <= Balance)
                 {
-                    CountCarBsn+= 1;
                     ((CarInterior)building).BusinessOwner = Symbol;
                     Balance -= ((CarInterior)building).Price;
                     for (int i = 0; i < buildings.Count; i++)
@@ -92,6 +91,7 @@ namespace MonopolyV20
                             }
                         }
                     }
+                    CountCarBsn += 1;
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((CarInterior)building).Price}");
                     Thread.Sleep(2000);
                 }
@@ -102,6 +102,17 @@ namespace MonopolyV20
                 {
                     ((GamingCompanies)building).BusinessOwner = Symbol;
                     Balance -= ((GamingCompanies)building).Price;
+                    for (int i = 0; i < buildings.Count; i++)
+                    {
+                        if (buildings[i].GetType() == typeof(GamingCompanies))
+                        {
+                            if (((GamingCompanies)buildings[i]).BusinessOwner == Symbol)
+                            {
+                                ((GamingCompanies)buildings[i]).Level = CountGameBsn;
+                            }
+                        }
+                    }
+                    CountGameBsn += 1;
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((GamingCompanies)building).Price}");
                     Thread.Sleep(2000);
                 }

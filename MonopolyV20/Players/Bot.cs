@@ -11,7 +11,7 @@ namespace MonopolyV20
     public class Bot : User
     {
         public bool Auction { get; set; }
-        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison,int countCarBsn) : base(name, symbol, balance, stepSkip, prison, countCarBsn)
+        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison,int countCarBsn, int countGameBsn) : base(name, symbol, balance, stepSkip, prison, countCarBsn,countGameBsn)
         {
 
         }
@@ -45,7 +45,7 @@ namespace MonopolyV20
             }
             return false;
         }
-        public bool IsByCell(Building building)
+        public bool IsByCell(Building building,List<Building> buildings)
         {
             if (building.GetType() == typeof(Business))
             {
@@ -64,6 +64,17 @@ namespace MonopolyV20
                 {
                     ((CarInterior)building).BusinessOwner = Symbol;
                     Balance -= ((CarInterior)building).Price;
+                    for (int i = 0; i < buildings.Count; i++)
+                    {
+                        if (buildings[i].GetType() == typeof(CarInterior))
+                        {
+                            if (((CarInterior)buildings[i]).BusinessOwner == Symbol)
+                            {
+                                ((CarInterior)buildings[i]).Level = CountCarBsn;
+                            }
+                        }
+                    }
+                    CountCarBsn += 1;
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((CarInterior)building).Price}");
                     Thread.Sleep(2000);
                     return true;
@@ -75,6 +86,17 @@ namespace MonopolyV20
                 {
                     ((GamingCompanies)building).BusinessOwner = Symbol;
                     Balance -= ((GamingCompanies)building).Price;
+                    for (int i = 0; i < buildings.Count; i++)
+                    {
+                        if (buildings[i].GetType() == typeof(CarInterior))
+                        {
+                            if (((CarInterior)buildings[i]).BusinessOwner == Symbol)
+                            {
+                                ((CarInterior)buildings[i]).Level = CountGameBsn;
+                            }
+                        }
+                    }
+                    CountGameBsn += 1;
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((GamingCompanies)building).Price}");
                     Thread.Sleep(2000);
                     return true;
@@ -444,7 +466,7 @@ namespace MonopolyV20
                     PayRent(buldings, users, field);
                     return true;
                 }
-                if (!IsByCell(buldings))
+                if (!IsByCell(buldings,field.Buldings))
                 {
                     Auction = true;
                 }
@@ -457,7 +479,7 @@ namespace MonopolyV20
                     PayRent(buldings, users, field);
                     return true;
                 }
-                IsByCell(buldings);
+                IsByCell(buldings, field.Buldings);
 
             }//проверка что ячейка автоцентр
             else if (buldings.GetType() == typeof(GamingCompanies))
@@ -467,7 +489,7 @@ namespace MonopolyV20
                     PayRent(buldings, users, field);
                     return true;
                 }
-                IsByCell(buldings);
+                IsByCell(buldings, field.Buldings);
 
             }//проверка что ячейка игровая компания 
             else if (buldings.GetType() == typeof(Jackpot))

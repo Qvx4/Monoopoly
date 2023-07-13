@@ -583,14 +583,17 @@ namespace MonopolyV20
             }
             #region TestBot
             //Users[0].Balance -= 10000;
-            //Users[1].Balance -= 14000;
+            Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            //((CarInterior)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
-            //((CarInterior)Field.Buldings[15]).BusinessOwner = Users[1].Symbol;
-            //((CarInterior)Field.Buldings[25]).BusinessOwner = Users[1].Symbol;
-            //((CarInterior)Field.Buldings[35]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[16]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[18]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
+
+            ((Business)Field.Buldings[16]).Level = 4;
+            ((Business)Field.Buldings[18]).Level = 4;
+            ((Business)Field.Buldings[19]).Level = 4;
 
             #endregion
             Random rand = new Random();
@@ -607,7 +610,7 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
-            int test = 0;
+            //int test = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
             //int lastCellNumber = 0;
@@ -886,30 +889,32 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        if (nextPlayer == 1)
-                                        {
-                                            if (test == 0)
-                                            {
-                                                firstCube = 5;
-                                                secondCube = 0;
-                                            }
-                                            else if (test == 1)
-                                            {
-                                                firstCube = 10;
-                                                secondCube = 0;
-                                            }
-                                            else if (test == 2)
-                                            {
-                                                firstCube = 10;
-                                                secondCube = 0;
-                                            }
-                                            else if (test == 3)
-                                            {
-                                                firstCube = 10;
-                                                secondCube = 0;
-                                            }
-                                            test++;
-                                        }
+                                        #region Test
+                                        //if (nextPlayer == 1)
+                                        //{
+                                        //    if (test == 0)
+                                        //    {
+                                        //        firstCube = 5;
+                                        //        secondCube = 0;
+                                        //    }
+                                        //    else if (test == 1)
+                                        //    {
+                                        //        firstCube = 10;
+                                        //        secondCube = 0;
+                                        //    }
+                                        //    else if (test == 2)
+                                        //    {
+                                        //        firstCube = 10;
+                                        //        secondCube = 0;
+                                        //    }
+                                        //    else if (test == 3)
+                                        //    {
+                                        //        firstCube = 10;
+                                        //        secondCube = 0;
+                                        //    }
+                                        //    test++;
+                                        //}
+                                        #endregion
                                         if (firstCube == secondCube)
                                         {
                                             luck++;
