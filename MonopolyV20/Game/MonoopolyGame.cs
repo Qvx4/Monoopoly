@@ -591,9 +591,9 @@ namespace MonopolyV20
             ((Business)Field.Buldings[18]).BusinessOwner = Users[1].Symbol;
             ((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
 
-            ((Business)Field.Buldings[16]).Level = 4;
-            ((Business)Field.Buldings[18]).Level = 4;
-            ((Business)Field.Buldings[19]).Level = 4;
+            ((Business)Field.Buldings[16]).Level = 5;
+            ((Business)Field.Buldings[18]).Level = 5;
+            ((Business)Field.Buldings[19]).Level = 5;
 
             #endregion
             Random rand = new Random();
@@ -610,7 +610,7 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
-            //int test = 0;
+            int test = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
             //int lastCellNumber = 0;
@@ -890,30 +890,30 @@ namespace MonopolyV20
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
                                         #region Test
-                                        //if (nextPlayer == 1)
-                                        //{
-                                        //    if (test == 0)
-                                        //    {
-                                        //        firstCube = 5;
-                                        //        secondCube = 0;
-                                        //    }
-                                        //    else if (test == 1)
-                                        //    {
-                                        //        firstCube = 10;
-                                        //        secondCube = 0;
-                                        //    }
-                                        //    else if (test == 2)
-                                        //    {
-                                        //        firstCube = 10;
-                                        //        secondCube = 0;
-                                        //    }
-                                        //    else if (test == 3)
-                                        //    {
-                                        //        firstCube = 10;
-                                        //        secondCube = 0;
-                                        //    }
-                                        //    test++;
-                                        //}
+                                        if (nextPlayer == 1)
+                                        {
+                                            if (test == 0)
+                                            {
+                                                firstCube = 5;
+                                                secondCube = 0;
+                                            }
+                                            else if (test == 1)
+                                            {
+                                                firstCube = 10;
+                                                secondCube = 0;
+                                            }
+                                            else if (test == 2)
+                                            {
+                                                firstCube = 10;
+                                                secondCube = 0;
+                                            }
+                                            else if (test == 3)
+                                            {
+                                                firstCube = 10;
+                                                secondCube = 0;
+                                            }
+                                            test++;
+                                        }
                                         #endregion
                                         if (firstCube == secondCube)
                                         {

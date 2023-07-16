@@ -11,7 +11,7 @@ namespace MonopolyV20
     public class Bot : User
     {
         public bool Auction { get; set; }
-        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison,int countCarBsn, int countGameBsn) : base(name, symbol, balance, stepSkip, prison, countCarBsn,countGameBsn)
+        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison, int countCarBsn, int countGameBsn) : base(name, symbol, balance, stepSkip, prison, countCarBsn, countGameBsn)
         {
 
         }
@@ -45,7 +45,33 @@ namespace MonopolyV20
             }
             return false;
         }
-        public bool IsByCell(Building building,List<Building> buildings)
+        public bool IsCheckBsnHaveBot(Building building)
+        {
+            if (building.GetType() == typeof(Business))
+            {
+                if (((Business)building).BusinessOwner == Symbol)
+                {
+                    return true;
+                }
+            }
+            else if (building.GetType() == typeof(CarInterior))
+            {
+                if (((CarInterior)building).BusinessOwner == Symbol)
+                {
+                    return true;
+                }
+            }
+            else if (building.GetType() == typeof(GamingCompanies))
+            {
+                if (((GamingCompanies)building).BusinessOwner == Symbol)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }//проверка бизнеса что он куплен ботом 
+        public bool IsCheck
+        public bool IsByCell(Building building, List<Building> buildings)
         {
             if (building.GetType() == typeof(Business))
             {
@@ -461,12 +487,16 @@ namespace MonopolyV20
         {
             if (buldings.GetType() == typeof(Business))
             {
+                if (IsCheckBsnHaveBot(buldings))
+                {
+                    return true;
+                }
                 if (IsCheckCellBy((Business)buldings))
                 {
                     PayRent(buldings, users, field);
                     return true;
                 }
-                if (!IsByCell(buldings,field.Buldings))
+                if (!IsByCell(buldings, field.Buldings))
                 {
                     Auction = true;
                 }
