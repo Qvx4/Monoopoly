@@ -70,7 +70,54 @@ namespace MonopolyV20
             }
             return false;
         }//проверка бизнеса что он куплен ботом 
-        public bool IsCheck
+        public bool IsCheckBsnTypeIsMonoopoly(BusinessType businessType, List<Building> buildings)
+        {
+            int bsnTypeCount = 0;
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                if (bsnTypeCount > 0)
+                {
+                    return true;
+                }
+                if (buildings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buildings[i]).BusinessOwner == Symbol)
+                    {
+                        if (((Business)buildings[i]).BusinessType == businessType && ((Business)buildings[i]).Level > 0)
+                        {
+                            bsnTypeCount += 1;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        public bool IsCheckMonoopollyLvl(List<Building> buildings)
+        {
+            bool checkLvlTry = true;
+            List<Business> businessList = new List<Business>();
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                if (buildings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buildings[i]).BusinessOwner == Symbol)
+                    {
+                        if (IsCheckBsnTypeIsMonoopoly(((Business)buildings[i]).BusinessType, buildings))
+                        {
+                            businessList.Add(((Business)buildings[i]));
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < businessList.Count; i++)
+            {
+                if (businessList[i].Level < 5)
+                {
+                    checkLvlTry = false;
+                }
+            }
+            return checkLvlTry;
+        }
         public bool IsByCell(Building building, List<Building> buildings)
         {
             if (building.GetType() == typeof(Business))
@@ -658,11 +705,7 @@ namespace MonopolyV20
             List<Building> listBuilding = new List<Building>();
             int pos;
             const int minBalance = 3000;
-            if (IsHaveMeMonoopoly(building))
-            {
-                return false;
-            }
-            else
+            if (IsCheckMonoopollyLvl(building))
             {
                 for (int i = 0; i < building.Count; i++)
                 {
@@ -692,6 +735,10 @@ namespace MonopolyV20
                     }
                 }
             }
+            else if (IsHaveMeMonoopoly(building))
+            {
+                return false;
+            }
             pos = random.Next(listBuilding.Count);
             if (Balance >= minBalance)
             {
@@ -699,22 +746,26 @@ namespace MonopolyV20
                 {
                     ((Business)listBuilding[pos]).Mortgaged = false;
                     Balance -= ((Business)listBuilding[pos]).RansomValue;
+                    Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((Business)listBuilding[pos]).Title} за цену {((Business)listBuilding[pos]).RansomValue}");
+                    Thread.Sleep(2000);
                     return true;
                 }
                 if (listBuilding[pos].GetType() == typeof(CarInterior))
                 {
                     ((CarInterior)listBuilding[pos]).Mortgaged = false;
                     Balance -= ((CarInterior)listBuilding[pos]).RansomValue;
+                    Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((Business)listBuilding[pos]).Title} за цену {((Business)listBuilding[pos]).RansomValue}");
+                    Thread.Sleep(2000);
                     return true;
                 }
                 if (listBuilding[pos].GetType() == typeof(GamingCompanies))
                 {
                     ((GamingCompanies)listBuilding[pos]).Mortgaged = false;
                     Balance -= ((GamingCompanies)listBuilding[pos]).RansomValue;
+                    Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((Business)listBuilding[pos]).Title} за цену {((Business)listBuilding[pos]).RansomValue}");
+                    Thread.Sleep(2000);
                     return true;
                 }
-                Console.WriteLine($"Игрок {Symbol} выкупает бизнес {listBuilding[pos].Title} цена выкупа {((Business)listBuilding[pos]).RansomValue}");
-                Thread.Sleep(2000);
             }
             return false;
         }

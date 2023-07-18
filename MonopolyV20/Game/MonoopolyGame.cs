@@ -583,17 +583,25 @@ namespace MonopolyV20
             }
             #region TestBot
             //Users[0].Balance -= 10000;
-            Users[1].Balance -= 15000;
+            //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
+
+            ((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
+            ((CarInterior)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
+
+            ((Business)Field.Buldings[1]).Mortgaged = true;
+            ((Business)Field.Buldings[3]).Mortgaged = true;
+            ((CarInterior)Field.Buldings[5]).Mortgaged = true;
 
             ((Business)Field.Buldings[16]).BusinessOwner = Users[1].Symbol;
             ((Business)Field.Buldings[18]).BusinessOwner = Users[1].Symbol;
             ((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
 
-            ((Business)Field.Buldings[16]).Level = 5;
-            ((Business)Field.Buldings[18]).Level = 5;
-            ((Business)Field.Buldings[19]).Level = 5;
+            ((Business)Field.Buldings[16]).Level = 4;
+            ((Business)Field.Buldings[18]).Level = 4;
+            ((Business)Field.Buldings[19]).Level = 3;
 
             #endregion
             Random rand = new Random();
