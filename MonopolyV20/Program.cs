@@ -100,7 +100,7 @@ namespace MonopolyV20
                             }
                             Console.ForegroundColor = ConsoleColor.Gray;
                             int balance = 15000;
-                            Bot bot = new Bot(name, symbol, balance, false, false,0,0);
+                            Bot bot = new Bot(name, symbol, balance, false, false,0,0,0);
                             game.AddBot(bot);
                         }
                         break;
@@ -130,7 +130,7 @@ namespace MonopolyV20
                             }
                             Console.ForegroundColor = ConsoleColor.Gray;
                             int balance = 15000;
-                            Player player = new Player(name, symbol, balance, false, false,false,false,0,0);
+                            Player player = new Player(name, symbol, balance, false, false,false,false,0,0,0);
                             game.AddPlayer(player);
                         }
                         break;

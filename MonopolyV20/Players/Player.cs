@@ -9,7 +9,8 @@ namespace MonopolyV20
     {
         public bool BankCheck { get; set; }
         public bool TaxCheck { get; set; }
-        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck, bool taxCheck,int countCarBsn, int countGameBsn) : base(name, symbol, balance, stepSkip, prison ,countCarBsn, countGameBsn)
+        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck, bool taxCheck,int countCarBsn, int countGameBsn,int numberOfLaps) : 
+            base(name, symbol, balance, stepSkip, prison ,countCarBsn, countGameBsn, numberOfLaps)
         {
             BankCheck = bankCheck;
             TaxCheck = taxCheck;

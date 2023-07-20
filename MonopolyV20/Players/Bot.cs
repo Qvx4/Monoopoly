@@ -11,7 +11,7 @@ namespace MonopolyV20
     public class Bot : User
     {
         public bool Auction { get; set; }
-        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison, int countCarBsn, int countGameBsn) : base(name, symbol, balance, stepSkip, prison, countCarBsn, countGameBsn)
+        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison, int countCarBsn, int countGameBsn,int numberOfLaps) : base(name, symbol, balance, stepSkip, prison, countCarBsn, countGameBsn, numberOfLaps)
         {
 
         }
@@ -551,22 +551,38 @@ namespace MonopolyV20
             }//проверка что ячейка бизнес 
             else if (buldings.GetType() == typeof(CarInterior))
             {
+                if (IsCheckBsnHaveBot(buldings))
+                {
+                    return true;
+                }
                 if (IsCheckCellBy((CarInterior)buldings))
                 {
                     PayRent(buldings, users, field);
                     return true;
                 }
-                IsByCell(buldings, field.Buldings);
+                if (!IsByCell(buldings, field.Buldings))
+                {
+                    Auction = true;
+                }
+                //IsByCell(buldings, field.Buldings);
 
             }//проверка что ячейка автоцентр
             else if (buldings.GetType() == typeof(GamingCompanies))
             {
+                if (IsCheckBsnHaveBot(buldings))
+                {
+                    return true;
+                }
                 if (IsCheckCellBy((GamingCompanies)buldings))
                 {
                     PayRent(buldings, users, field);
                     return true;
                 }
-                IsByCell(buldings, field.Buldings);
+                if (!IsByCell(buldings, field.Buldings))
+                {
+                    Auction = true;
+                }
+                //IsByCell(buldings, field.Buldings);
 
             }//проверка что ячейка игровая компания 
             else if (buldings.GetType() == typeof(Jackpot))
@@ -754,7 +770,7 @@ namespace MonopolyV20
                 {
                     ((CarInterior)listBuilding[pos]).Mortgaged = false;
                     Balance -= ((CarInterior)listBuilding[pos]).RansomValue;
-                    Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((Business)listBuilding[pos]).Title} за цену {((Business)listBuilding[pos]).RansomValue}");
+                    Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((CarInterior)listBuilding[pos]).Title} за цену {((CarInterior)listBuilding[pos]).RansomValue}");
                     Thread.Sleep(2000);
                     return true;
                 }
@@ -762,7 +778,7 @@ namespace MonopolyV20
                 {
                     ((GamingCompanies)listBuilding[pos]).Mortgaged = false;
                     Balance -= ((GamingCompanies)listBuilding[pos]).RansomValue;
-                    Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((Business)listBuilding[pos]).Title} за цену {((Business)listBuilding[pos]).RansomValue}");
+                    Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((GamingCompanies)listBuilding[pos]).Title} за цену {((GamingCompanies)listBuilding[pos]).RansomValue}");
                     Thread.Sleep(2000);
                     return true;
                 }

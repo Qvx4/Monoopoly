@@ -587,21 +587,21 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            ((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
-            ((CarInterior)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
+            //((CarInterior)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
 
-            ((Business)Field.Buldings[1]).Mortgaged = true;
-            ((Business)Field.Buldings[3]).Mortgaged = true;
-            ((CarInterior)Field.Buldings[5]).Mortgaged = true;
+            //((Business)Field.Buldings[1]).Mortgaged = true;
+            //((Business)Field.Buldings[3]).Mortgaged = true;
+            //((CarInterior)Field.Buldings[5]).Mortgaged = true;
 
-            ((Business)Field.Buldings[16]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[18]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[16]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[18]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
 
-            ((Business)Field.Buldings[16]).Level = 4;
-            ((Business)Field.Buldings[18]).Level = 4;
-            ((Business)Field.Buldings[19]).Level = 3;
+            //((Business)Field.Buldings[16]).Level = 4;
+            //((Business)Field.Buldings[18]).Level = 4;
+            //((Business)Field.Buldings[19]).Level = 3;
 
             #endregion
             Random rand = new Random();
@@ -618,7 +618,7 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
-            int test = 0;
+            //int test = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
             //int lastCellNumber = 0;
@@ -732,7 +732,11 @@ namespace MonopolyV20
                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube - Field.Buldings.Count;
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
                                 ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
-                                Users[nextPlayer].Balance += 2000;
+                                Users[nextPlayer].NumberOfLaps += 1;
+                                if (Users[nextPlayer].NumberOfLaps != 45)
+                                {
+                                    Users[nextPlayer].Balance += 2000;
+                                }
                             }
                         }
                         else
@@ -898,30 +902,30 @@ namespace MonopolyV20
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
                                         #region Test
-                                        if (nextPlayer == 1)
-                                        {
-                                            if (test == 0)
-                                            {
-                                                firstCube = 5;
-                                                secondCube = 0;
-                                            }
-                                            else if (test == 1)
-                                            {
-                                                firstCube = 10;
-                                                secondCube = 0;
-                                            }
-                                            else if (test == 2)
-                                            {
-                                                firstCube = 10;
-                                                secondCube = 0;
-                                            }
-                                            else if (test == 3)
-                                            {
-                                                firstCube = 10;
-                                                secondCube = 0;
-                                            }
-                                            test++;
-                                        }
+                                        //if (nextPlayer == 1)
+                                        //{
+                                        //    if (test == 0)
+                                        //    {
+                                        //        firstCube = 5;
+                                        //        secondCube = 0;
+                                        //    }
+                                        //    else if (test == 1)
+                                        //    {
+                                        //        firstCube = 10;
+                                        //        secondCube = 0;
+                                        //    }
+                                        //    else if (test == 2)
+                                        //    {
+                                        //        firstCube = 10;
+                                        //        secondCube = 0;
+                                        //    }
+                                        //    else if (test == 3)
+                                        //    {
+                                        //        firstCube = 10;
+                                        //        secondCube = 0;
+                                        //    }
+                                        //    test++;
+                                        //}
                                         #endregion
                                         if (firstCube == secondCube)
                                         {
@@ -955,7 +959,11 @@ namespace MonopolyV20
                                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube - Field.Buldings.Count;
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
                                                 ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
-                                                Users[nextPlayer].Balance += 2000;
+                                                Users[nextPlayer].NumberOfLaps += 1;
+                                                if (Users[nextPlayer].NumberOfLaps != 45)
+                                                {
+                                                    Users[nextPlayer].Balance += 2000;
+                                                }
                                             }
                                         }//если игрок вышел за приделы поля 
                                         else
@@ -1178,7 +1186,7 @@ namespace MonopolyV20
                                                     switch (buyMenu)
                                                     {
                                                         case BuyMenu.BuyBsn:
-                                                            { ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer],Field.Buldings); menu = false; }
+                                                            { ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field.Buldings); menu = false; }
                                                             break;
                                                         case BuyMenu.MortagageBsn:
                                                             {
