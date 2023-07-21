@@ -316,21 +316,31 @@ namespace MonopolyV20
             }
             if (user[nextPlayer].GetType() == typeof(Bot) || user[nextPlayer].GetType() == typeof(Player))
             {
-                if (user[nextPlayer].Balance > ((Business)bulding).Price)
-                {
-                    user[nextPlayer].Balance -= ((Business)bulding).Price;
-                }
-                else return;
                 if (bulding.GetType() == typeof(Business))
                 {
+                    if (user[nextPlayer].Balance > ((Business)bulding).Price)
+                    {
+                        user[nextPlayer].Balance -= ((Business)bulding).Price;
+                    }
+                    else return;
                     ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
                 }
                 if (bulding.GetType() == typeof(CarInterior))
                 {
+                    if (user[nextPlayer].Balance > ((CarInterior)bulding).Price)
+                    {
+                        user[nextPlayer].Balance -= ((CarInterior)bulding).Price;
+                    }
+                    else return;
                     ((CarInterior)bulding).BusinessOwner = user[nextPlayer].Symbol;
                 }
                 if (bulding.GetType() == typeof(GamingCompanies))
                 {
+                    if (user[nextPlayer].Balance > ((GamingCompanies)bulding).Price)
+                    {
+                        user[nextPlayer].Balance -= ((GamingCompanies)bulding).Price;
+                    }
+                    else return;
                     ((GamingCompanies)bulding).BusinessOwner = user[nextPlayer].Symbol;
                 }
             }
@@ -587,22 +597,34 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            //((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
-            //((CarInterior)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[1]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
+            //Users[0].Balance -= ((Business)Field.Buldings[1]).Price;
+            //Users[0].Balance -= ((Business)Field.Buldings[3]).Price;
 
-            //((Business)Field.Buldings[1]).Mortgaged = true;
-            //((Business)Field.Buldings[3]).Mortgaged = true;
-            //((CarInterior)Field.Buldings[5]).Mortgaged = true;
+            //((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[8]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[9]).BusinessOwner = Users[1].Symbol;
 
-            //((Business)Field.Buldings[16]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[18]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
+            //Users[1].Balance -= ((Business)Field.Buldings[6]).Price;
+            //Users[1].Balance -= ((Business)Field.Buldings[8]).Price;
+            //Users[1].Balance -= ((Business)Field.Buldings[9]).Price;
 
-            //((Business)Field.Buldings[16]).Level = 4;
-            //((Business)Field.Buldings[18]).Level = 4;
-            //((Business)Field.Buldings[19]).Level = 3;
+            //((Business)Field.Buldings[11]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[13]).BusinessOwner = Users[2].Symbol;
+            //((Business)Field.Buldings[14]).BusinessOwner = Users[2].Symbol;
 
+            //Users[2].Balance -= ((Business)Field.Buldings[11]).Price;
+            //Users[2].Balance -= ((Business)Field.Buldings[13]).Price;
+            //Users[2].Balance -= ((Business)Field.Buldings[14]).Price;
+
+            //((Business)Field.Buldings[26]).BusinessOwner = Users[3].Symbol;
+            //((Business)Field.Buldings[27]).BusinessOwner = Users[3].Symbol;
+            //((Business)Field.Buldings[29]).BusinessOwner = Users[3].Symbol;
+
+            //Users[3].Balance -= ((Business)Field.Buldings[26]).Price;
+            //Users[3].Balance -= ((Business)Field.Buldings[27]).Price;
+            //Users[3].Balance -= ((Business)Field.Buldings[29]).Price;
             #endregion
             Random rand = new Random();
             int maxFieldCount = 40;
@@ -973,7 +995,7 @@ namespace MonopolyV20
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);//f
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer -= firstCube + secondCube + Field.Buldings.Count;
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
                                                 Users[nextPlayer].ReverseStroke = false;
                                             }//если игроку выпал шанс ход в обратную сторону
                                             else
@@ -981,7 +1003,7 @@ namespace MonopolyV20
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
                                             }
                                         }//если игрок дивгается по пределам поля 
                                         //Console.Clear();
