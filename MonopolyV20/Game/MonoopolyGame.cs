@@ -559,16 +559,33 @@ namespace MonopolyV20
         }//Вывыод кубиков
         public void ShowPayMenu(string text, int number)
         {
-            if (number == 0) Console.WriteLine($"{{{(int)BuyMenu.BuyBsn}}} {text}");
-            else Console.WriteLine($"{{{(int)PayMenu.RentPayment}}} {text}");
+            if (number == 0)
+            {
+                Console.WriteLine($"{{{(int)BuyMenu.BuyBsn}}} {text}");
+                Console.WriteLine($"{{{(int)BuyMenu.MortagageBsn}}} Заложить бизнес ");
+                Console.WriteLine($"{{{(int)BuyMenu.BranchSale}}} Продать филиал ");
+                Console.WriteLine($"{{{(int)BuyMenu.Auction}}} Отказатся от покупки   ");
+                Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
+            }
+            else
+            {
+                Console.WriteLine($"{{{(int)PayMenu.RentPayment}}} {text}");
+                Console.WriteLine($"{{{(int)PayMenu.MortagageBsn}}} Заложить бизнес ");
+                Console.WriteLine($"{{{(int)PayMenu.BranchSale}}} Продать филиал ");
+                Console.WriteLine($"{{{(int)PayMenu.Surrender}}} Сдаться");
+            }
+            #region Test
+            //if (number == 0) Console.WriteLine($"{{{(int)BuyMenu.BuyBsn}}} {text}");
+            //else Console.WriteLine($"{{{(int)PayMenu.RentPayment}}} {text}");
 
-            Console.WriteLine($"{{{(int)BuyMenu.MortagageBsn}}} Заложить бизнес ");
-            Console.WriteLine($"{{{(int)BuyMenu.BranchSale}}} Продать филиал ");
+            //Console.WriteLine($"{{{(int)BuyMenu.MortagageBsn}}} Заложить бизнес ");
+            //Console.WriteLine($"{{{(int)BuyMenu.BranchSale}}} Продать филиал ");
 
-            if (number == 0) Console.WriteLine($"{{{(int)BuyMenu.Auction}}} Отказатся от покупки   ");
+            //if (number == 0) Console.WriteLine($"{{{(int)BuyMenu.Auction}}} Отказатся от покупки   ");
 
-            Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
-            Console.Write("Ввод > ");
+            //Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
+            //Console.Write("Ввод > ");
+            #endregion
 
 
         }
@@ -1241,7 +1258,7 @@ namespace MonopolyV20
                                                                         if (((Player)Users[nextPlayer]).ShowImprovedBsn(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings)))
                                                                         {
                                                                             Console.ForegroundColor = ConsoleColor.DarkRed;
-                                                                            Console.WriteLine("Нельзя постоить филиал");
+                                                                            Console.WriteLine("Нельзя продать филиал");
                                                                             Console.ForegroundColor = ConsoleColor.Gray;
                                                                             Thread.Sleep(2000);
                                                                             break;
@@ -1331,7 +1348,7 @@ namespace MonopolyV20
                                                                         if (((Player)Users[nextPlayer]).ShowImprovedBsn(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings)))
                                                                         {
                                                                             Console.ForegroundColor = ConsoleColor.DarkRed;
-                                                                            Console.WriteLine("Нельзя постоить филиал");
+                                                                            Console.WriteLine("Нельзя продать филиал");
                                                                             Console.ForegroundColor = ConsoleColor.Gray;
                                                                             Thread.Sleep(2000);
                                                                             break;
