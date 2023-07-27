@@ -180,7 +180,18 @@ namespace MonopolyV20
                     }
                 }
             }
-        }//выплата ренты поля 
+        }//выплата ренты поля
+        public bool CheckHaveBsn(Building building)
+        {
+            if (building.GetType() == typeof(Business))
+            {
+                if (((Business)building).BusinessOwner == Symbol)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         public bool IsCehckByCell(Building bulding)
         {
             if (bulding.GetType() == typeof(Business))
