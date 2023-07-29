@@ -609,13 +609,15 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             #region TestBot
-            //Users[0].Balance -= 10000;
-            //Users[1].Balance -= 15000;
+            //Users[0].Balance -= 15000;
+            Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            //((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[1]).Mortgaged = true;
+            ((Business)Field.Buldings[3]).Mortgaged = true;
             #endregion 
             Random rand = new Random();
             int maxFieldCount = 40;
@@ -681,6 +683,7 @@ namespace MonopolyV20
                 {
                     int luckBot = 0;
                     bool check = true;
+                    bool circleCheck = false;
                     while (check)
                     {
                         ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
@@ -688,9 +691,14 @@ namespace MonopolyV20
                         {
                             if (!((Bot)Users[nextPlayer]).BusinessBuyout(Field.Buldings))
                             {
-                                if (nextPlayer == 0)
+                                if (Users.Count - 1 == nextPlayer)
+                                {
+                                    circleCheck = true;
+                                }
+                                if (circleCheck)
                                 {
                                     ((Bot)Users[nextPlayer]).BotsBusinessDownturn(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
+                                    circleCheck = false;    
                                 }
                             }
                         }
@@ -725,8 +733,8 @@ namespace MonopolyV20
                         ShowField("");
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        firstCube = 4;
-                        secondCube = 0;
+                        //firstCube = 4;
+                        //secondCube = 0;
                         ShowGameCube(firstCube);
                         ShowGameCube(secondCube);
                         Console.WriteLine($"Ход игрока {Users[nextPlayer].Symbol}");

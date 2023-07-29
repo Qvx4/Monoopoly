@@ -981,14 +981,14 @@ namespace MonopolyV20
         }//проверка если заложенный бизнес 
         public void BotsBusinessDownturn(List<Building> building)
         {
-            const int numberLaps = 15;
+            const int numberLaps = 0;
             for (int i = 0; i < building.Count; i++)
             {
                 if (building[i].GetType() == typeof(Business))
                 {
-                    if (((Business)building[i]).BusinessDowntrun < numberLaps)
+                    if (((Business)building[i]).BusinessDowntrun > numberLaps)
                     {
-                        ((Business)building[i]).BusinessDowntrun += 1;
+                        ((Business)building[i]).BusinessDowntrun -= 1;
                     }
                     else
                     {
@@ -998,9 +998,9 @@ namespace MonopolyV20
                 }
                 if (building[i].GetType() == typeof(CarInterior))
                 {
-                    if (((CarInterior)building[i]).BusinessDowntrun < numberLaps)
+                    if (((CarInterior)building[i]).BusinessDowntrun > numberLaps)
                     {
-                        ((CarInterior)building[i]).BusinessDowntrun += 1;
+                        ((CarInterior)building[i]).BusinessDowntrun -= 1;
                     }
                     else
                     {
@@ -1010,9 +1010,9 @@ namespace MonopolyV20
                 }
                 if (building[i].GetType() == typeof(GamingCompanies))
                 {
-                    if (((GamingCompanies)building[i]).BusinessDowntrun < numberLaps)
+                    if (((GamingCompanies)building[i]).BusinessDowntrun > numberLaps)
                     {
-                        ((GamingCompanies)building[i]).BusinessDowntrun += 1;
+                        ((GamingCompanies)building[i]).BusinessDowntrun -= 1;
                     }
                     else
                     {
