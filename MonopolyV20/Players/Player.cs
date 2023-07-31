@@ -64,8 +64,9 @@ namespace MonopolyV20
             }
             return false;
         }
-        public void IsByCell(Building building,List<Building> buildings)
+        public bool IsByCell(Building building,List<Building> buildings)
         {
+            bool checkBalanc = true;
             if (building.GetType() == typeof(Business))
             {
                 if (((Business)building).Price <= Balance)
@@ -74,6 +75,7 @@ namespace MonopolyV20
                     Balance -= ((Business)building).Price;
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((Business)building).Price}");
                     Thread.Sleep(2000);
+                    checkBalanc = false;
                 }
             }
             else if (building.GetType() == typeof(CarInterior))
@@ -95,6 +97,7 @@ namespace MonopolyV20
                     CountCarBsn += 1;
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((CarInterior)building).Price}");
                     Thread.Sleep(2000);
+                    checkBalanc = false;
                 }
             }
             else if (building.GetType() == typeof(GamingCompanies))
@@ -116,8 +119,10 @@ namespace MonopolyV20
                     CountGameBsn += 1;
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((GamingCompanies)building).Price}");
                     Thread.Sleep(2000);
+                    checkBalanc = false;
                 }
             }
+            return checkBalanc;
         }//Покупка ячейки 
         public void PayRent(Building bulding, List<User> users)
         {
@@ -191,7 +196,7 @@ namespace MonopolyV20
                 }
             }
             return true;
-        }
+        }//проверка если ли бизнес 
         public bool IsCehckByCell(Building bulding)
         {
             if (bulding.GetType() == typeof(Business))

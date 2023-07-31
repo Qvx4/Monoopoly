@@ -391,6 +391,50 @@ namespace MonopolyV20
                 "└──────────────────────────────────────────────────────────────────────────────────────┘\n");
             Console.Write("Нажмите любую кнопку что бы выйти ... ");
         }//Правила Игры
+        public void BusinessDownturn(List<Building> building)
+        {
+            const int numberLaps = 0;
+            for (int i = 0; i < building.Count; i++)
+            {
+                if (building[i].GetType() == typeof(Business))
+                {
+                    if (((Business)building[i]).BusinessDowntrun > numberLaps)
+                    {
+                        ((Business)building[i]).BusinessDowntrun -= 1;
+                    }
+                    else
+                    {
+                        ((Business)building[i]).Mortgaged = false;
+                        ((Business)building[i]).BusinessOwner = ' ';
+                    }
+                }
+                if (building[i].GetType() == typeof(CarInterior))
+                {
+                    if (((CarInterior)building[i]).BusinessDowntrun > numberLaps)
+                    {
+                        ((CarInterior)building[i]).BusinessDowntrun -= 1;
+                    }
+                    else
+                    {
+                        ((CarInterior)building[i]).Mortgaged = false;
+                        ((CarInterior)building[i]).BusinessOwner = ' ';
+                    }
+                }
+                if (building[i].GetType() == typeof(GamingCompanies))
+                {
+                    if (((GamingCompanies)building[i]).BusinessDowntrun > numberLaps)
+                    {
+                        ((GamingCompanies)building[i]).BusinessDowntrun -= 1;
+                    }
+                    else
+                    {
+                        ((GamingCompanies)building[i]).Mortgaged = false;
+                        ((GamingCompanies)building[i]).BusinessOwner = ' ';
+                    }
+
+                }
+            }
+        }//логика спада бизнеса
          //Other
 
         //AddDelet 
@@ -633,6 +677,7 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
+            bool circleCheck = false;
             //int test = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
@@ -649,6 +694,15 @@ namespace MonopolyV20
                     break;
                 }
                 opportunityEnter = false;
+                if (Users.Count - 1 == nextPlayer)
+                {
+                    circleCheck = true;
+                }
+                if (circleCheck)
+                {
+                    BusinessDownturn(Field.Buldings);
+                    circleCheck = false;
+                }
                 if (Users[nextPlayer].GetType() == typeof(Bot))
                 {
                     ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
@@ -683,25 +737,9 @@ namespace MonopolyV20
                 {
                     int luckBot = 0;
                     bool check = true;
-                    bool circleCheck = false;
                     while (check)
                     {
                         ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
-                        if (((Bot)Users[nextPlayer]).MortagagedBusinesses(Field.Buldings))
-                        {
-                            if (!((Bot)Users[nextPlayer]).BusinessBuyout(Field.Buldings))
-                            {
-                                if (Users.Count - 1 == nextPlayer)
-                                {
-                                    circleCheck = true;
-                                }
-                                if (circleCheck)
-                                {
-                                    ((Bot)Users[nextPlayer]).BotsBusinessDownturn(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
-                                    circleCheck = false;    
-                                }
-                            }
-                        }
                         if (Users[nextPlayer].Prison == true)
                         {
                             if (Users[nextPlayer].Balance >= prisonPrice)
@@ -1214,7 +1252,20 @@ namespace MonopolyV20
                                                     switch (buyMenu)
                                                     {
                                                         case BuyMenu.BuyBsn:
-                                                            { ((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field.Buldings); menu = false; }
+                                                            {
+                                                                if (!((Player)Users[nextPlayer]).IsByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field.Buldings))
+                                                                {
+                                                                    menu = false;
+                                                                }
+                                                                else Console.WriteLine("У вас не хватает деньжат"); Thread.Sleep(2000); menu = true;
+                                                                {
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("У вас не хватает деньжат");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                    Thread.Sleep(2000);
+                                                                    menu = true;
+                                                                }
+                                                            }
                                                             break;
                                                         case BuyMenu.MortagageBsn:
                                                             {

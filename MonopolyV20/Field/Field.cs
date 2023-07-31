@@ -667,7 +667,7 @@ namespace MonopolyV20
                                     isColor = !isColor;
                                     Console.Write($"{((Business)Buldings[cellNumber[j]]).Level.ToString()[k]}|{((Business)Buldings[cellNumber[j]]).BusinessDowntrun}");
                                 }
-                                for (int k = 0; k < count - ((Business)Buldings[cellNumber[j]]).Level.ToString().Length -((Business)Buldings[cellNumber[j]]).BusinessDowntrun.ToString().Length - 1; k++)
+                                for (int k = 0; k < count - ((Business)Buldings[cellNumber[j]]).Level.ToString().Length - ((Business)Buldings[cellNumber[j]]).BusinessDowntrun.ToString().Length - 1; k++)
                                 {
                                     if (((Business)Buldings[cellNumber[j]]).Mortgaged == true)
                                     {
@@ -692,16 +692,6 @@ namespace MonopolyV20
                                     Console.Write(" ");
                                 }
                             }
-                            //for (int k = 0; k < count - ((Business)Buldings[cellNumber[j]]).Level.ToString().Length; k++)
-                            //{
-                            //    if (((Business)Buldings[cellNumber[j]]).Mortgaged == true)
-                            //    {
-                            //        if (isColor) Console.BackgroundColor = consoleColorType;
-                            //        else Console.BackgroundColor = ConsoleColor.Black;
-                            //        isColor = !isColor;
-                            //    }
-                            //    Console.Write(" ");
-                            //}
                         }
                         else if (Buldings[cellNumber[j]].GetType() == typeof(CarInterior))
                         {
@@ -717,19 +707,33 @@ namespace MonopolyV20
                                     if (isColor) Console.BackgroundColor = consoleColorType;
                                     else Console.BackgroundColor = ConsoleColor.Black;
                                     isColor = !isColor;
-                                    Console.Write(((CarInterior)Buldings[cellNumber[j]]).Level.ToString()[k]);
+                                    Console.Write($"{((CarInterior)Buldings[cellNumber[j]]).Level.ToString()[k]}|{((CarInterior)Buldings[cellNumber[j]]).BusinessDowntrun}");
+                                }
+                                for (int k = 0; k < count - ((CarInterior)Buldings[cellNumber[j]]).Level.ToString().Length - ((CarInterior)Buldings[cellNumber[j]]).BusinessDowntrun.ToString().Length - 1; k++)
+                                {
+                                    if (((CarInterior)Buldings[cellNumber[j]]).Mortgaged == true)
+                                    {
+                                        if (isColor) Console.BackgroundColor = consoleColorType;
+                                        else Console.BackgroundColor = ConsoleColor.Black;
+                                        isColor = !isColor;
+                                    }
+                                    Console.Write(" ");
                                 }
                             }
-                            else Console.Write($"{((CarInterior)Buldings[cellNumber[j]]).Level}");
-                            for (int k = 0; k < count - ((CarInterior)Buldings[cellNumber[j]]).Level.ToString().Length; k++)
+                            else
                             {
-                                if (((CarInterior)Buldings[cellNumber[j]]).Mortgaged == true)
+
+                                Console.Write($"{((CarInterior)Buldings[cellNumber[j]]).Level}");
+                                for (int k = 0; k < count - ((CarInterior)Buldings[cellNumber[j]]).Level.ToString().Length; k++)
                                 {
-                                    if (isColor) Console.BackgroundColor = consoleColorType;
-                                    else Console.BackgroundColor = ConsoleColor.Black;
-                                    isColor = !isColor;
+                                    if (((CarInterior)Buldings[cellNumber[j]]).Mortgaged == true)
+                                    {
+                                        if (isColor) Console.BackgroundColor = consoleColorType;
+                                        else Console.BackgroundColor = ConsoleColor.Black;
+                                        isColor = !isColor;
+                                    }
+                                    Console.Write(" ");
                                 }
-                                Console.Write(" ");
                             }
                         }
                         else if (Buldings[cellNumber[j]].GetType() == typeof(GamingCompanies))
@@ -746,19 +750,32 @@ namespace MonopolyV20
                                     if (isColor) Console.BackgroundColor = consoleColorType;
                                     else Console.BackgroundColor = ConsoleColor.Black;
                                     isColor = !isColor;
-                                    Console.Write(((GamingCompanies)Buldings[cellNumber[j]]).Level.ToString()[k]);
+                                    Console.Write($"{((GamingCompanies)Buldings[cellNumber[j]]).Level.ToString()[k]}|{((GamingCompanies)Buldings[cellNumber[j]]).BusinessDowntrun}");
+                                }
+                                for (int k = 0; k < count - ((GamingCompanies)Buldings[cellNumber[j]]).Level.ToString().Length - ((CarInterior)Buldings[cellNumber[j]]).BusinessDowntrun.ToString().Length - 1; k++)
+                                {
+                                    if (((GamingCompanies)Buldings[cellNumber[j]]).Mortgaged == true)
+                                    {
+                                        if (isColor) Console.BackgroundColor = consoleColorType;
+                                        else Console.BackgroundColor = ConsoleColor.Black;
+                                        isColor = !isColor;
+                                    }
+                                    Console.Write(" ");
                                 }
                             }
-                            else Console.Write($"{((GamingCompanies)Buldings[cellNumber[j]]).Level}");
-                            for (int k = 0; k < count - ((GamingCompanies)Buldings[cellNumber[j]]).Level.ToString().Length; k++)
+                            else
                             {
-                                if (((GamingCompanies)Buldings[cellNumber[j]]).Mortgaged == true)
+                                Console.Write($"{((GamingCompanies)Buldings[cellNumber[j]]).Level}");
+                                for (int k = 0; k < count - ((GamingCompanies)Buldings[cellNumber[j]]).Level.ToString().Length; k++)
                                 {
-                                    if (isColor) Console.BackgroundColor = consoleColorType;
-                                    else Console.BackgroundColor = ConsoleColor.Black;
-                                    isColor = !isColor;
+                                    if (((GamingCompanies)Buldings[cellNumber[j]]).Mortgaged == true)
+                                    {
+                                        if (isColor) Console.BackgroundColor = consoleColorType;
+                                        else Console.BackgroundColor = ConsoleColor.Black;
+                                        isColor = !isColor;
+                                    }
+                                    Console.Write(" ");
                                 }
-                                Console.Write(" ");
                             }
                         }
                         else
