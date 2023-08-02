@@ -1257,7 +1257,7 @@ namespace MonopolyV20
                                                                 {
                                                                     menu = false;
                                                                 }
-                                                                else Console.WriteLine("У вас не хватает деньжат"); Thread.Sleep(2000); menu = true;
+                                                                else
                                                                 {
                                                                     Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                     Console.WriteLine("У вас не хватает деньжат");

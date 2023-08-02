@@ -525,7 +525,7 @@ namespace MonopolyV20
             if (buldings.GetType() == typeof(Jackpot))
             {
                 Jackpot = true;
-            }//проверка что ячейка джекпот //доделать боту логику джекпота
+            }//проверка что ячейка джекпот
             #region Test
             //else if (buldings.GetType() == typeof(Bank))
             //{
