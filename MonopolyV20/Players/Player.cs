@@ -64,6 +64,22 @@ namespace MonopolyV20
             }
             return false;
         }
+        public bool IsCheckCellChance(Building buldings)
+        {
+            if (buldings.GetType() == typeof(Chance))
+            {
+                return true;
+            }
+            return false;
+        }//проверка что ячейка шанс 
+        public bool IsCheckChanceIsLesion(Chances chances)
+        {
+            if (chances.GetType() == typeof(Lesion))
+            {
+                return true;
+            }
+            return false;
+        }
         public bool IsByCell(Building building,List<Building> buildings)
         {
             bool checkBalanc = true;
@@ -124,6 +140,15 @@ namespace MonopolyV20
             }
             return checkBalanc;
         }//Покупка ячейки 
+        public void ChanceIsWork(Chances chances)
+        {
+            if (chances.GetType() == typeof(Lesion))
+            {
+                Balance -= ((Lesion)chances).WriteOffMoney;
+                Console.WriteLine($"Игрок {Symbol} {((Lesion)chances).Description}");
+                Thread.Sleep(2000);
+            }
+        }
         public void PayRent(Building bulding, List<User> users)
         {
             if (bulding.GetType() == typeof(Business))
@@ -372,12 +397,14 @@ namespace MonopolyV20
                 Console.WriteLine($"Игрок {Symbol} {((Profit)chances).Description}");
                 Thread.Sleep(2000);
             }
-            else if (chances.GetType() == typeof(Lesion))
-            {
-                Balance -= ((Lesion)chances).WriteOffMoney;
-                Console.WriteLine($"Игрок {Symbol} {((Lesion)chances).Description}");
-                Thread.Sleep(2000);
-            }
+            #region Test
+            //else if (chances.GetType() == typeof(Lesion))
+            //{
+            //    Balance -= ((Lesion)chances).WriteOffMoney;
+            //    Console.WriteLine($"Игрок {Symbol} {((Lesion)chances).Description}");
+            //    Thread.Sleep(2000);
+            //}
+            #endregion
             else if (chances.GetType() == typeof(RandomActions))
             {
                 switch (((RandomActions)chances).Actions)
@@ -567,13 +594,14 @@ namespace MonopolyV20
                 Console.WriteLine($"Игрок {Symbol} прошел круг и получает {((Start)buldings).Summa}");
                 Thread.Sleep(2000);
             }//проверка что ячейка старт 
-            else if (buldings.GetType() == typeof(Chance))
-            {
-                ((Chance)buldings).AddChance();
-                Random random = new Random();
-                ChanceAnalysis(((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)], field);
-
-            }//проверка что ячейка шанс //доделать боту шанс
+            #region Test
+            //else if (buldings.GetType() == typeof(Chance))
+            //{
+            //    ((Chance)buldings).AddChance();
+            //    Random random = new Random();
+            //    ChanceAnalysis(((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)], field);
+            //}//проверка что ячейка шанс //доделать боту шанс
+            #endregion
             else if (buldings.GetType() == typeof(Prison))
             {
                 Console.WriteLine($"Игрок {Symbol} попал на ячейку тюрьма в качестве прогулки");
