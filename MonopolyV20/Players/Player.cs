@@ -24,7 +24,8 @@ namespace MonopolyV20
         public bool IsCheckCellNotBsn(Building buildings)
         {
             if (buildings.GetType() == typeof(Tax) ||
-                buildings.GetType() == typeof(Bank))
+                buildings.GetType() == typeof(Bank) ||
+                buildings.GetType() == typeof(Chance))
             {
                 return true;
             }
@@ -72,10 +73,12 @@ namespace MonopolyV20
             }
             return false;
         }//проверка что ячейка шанс 
-        public bool IsCheckChanceIsLesion(Chances chances)
+        public bool IsCheckChanceIsLesion(Chances chances)//проверка что шанс снятие денег
         {
             if (chances.GetType() == typeof(Lesion))
             {
+                Console.WriteLine($"Игрок {Symbol} {((Lesion)chances).Description}");
+                Thread.Sleep(2000);
                 return true;
             }
             return false;
@@ -145,10 +148,8 @@ namespace MonopolyV20
             if (chances.GetType() == typeof(Lesion))
             {
                 Balance -= ((Lesion)chances).WriteOffMoney;
-                Console.WriteLine($"Игрок {Symbol} {((Lesion)chances).Description}");
-                Thread.Sleep(2000);
             }
-        }
+        }//шанс снятие денег
         public void PayRent(Building bulding, List<User> users)
         {
             if (bulding.GetType() == typeof(Business))

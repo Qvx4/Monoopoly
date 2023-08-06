@@ -620,7 +620,7 @@ namespace MonopolyV20
             }
             else
             {
-                Console.WriteLine($"{{{0}}}{text} ");
+                Console.WriteLine($"{{{1}}} {text} ");
                 Console.WriteLine($"{{{(int)BuyMenu.MortagageBsn}}} Заложить бизнес ");
                 Console.WriteLine($"{{{(int)BuyMenu.BranchSale}}} Продать филиал ");
                 Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
@@ -647,7 +647,7 @@ namespace MonopolyV20
             }
             #region TestBot
             //Users[0].Balance -= 15000;
-            Users[1].Balance -= 15000;
+            //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
@@ -993,6 +993,7 @@ namespace MonopolyV20
                                             luck = 0;
                                             check = false;
                                         }
+
                                     }
                                     if (surrender != true || prison != true || skipping != true)
                                     {
@@ -1248,6 +1249,8 @@ namespace MonopolyV20
                                                             case BuyMenu.BuyBsn:
                                                                 {
                                                                     ((Player)Users[nextPlayer]).ChanceIsWork(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]);
+                                                                    menu = false;
+                                                                    Thread.Sleep(2000);
                                                                 }
                                                                 break;
                                                             case BuyMenu.MortagageBsn:
@@ -1331,7 +1334,9 @@ namespace MonopolyV20
                                                 }
                                                 else
                                                 {
-                                                    ((Player)Users[nextPlayer]).ChanceAnalysis(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)], Field);
+                                                    ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).AddChance();
+                                                    Random randoms = new Random();
+                                                    ((Player)Users[nextPlayer]).ChanceAnalysis(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[randoms.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)], Field);
                                                 }
                                             }//проверка что ячейка шанс снятие деняг 
                                         }

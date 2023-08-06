@@ -752,7 +752,7 @@ namespace MonopolyV20
                                     isColor = !isColor;
                                     Console.Write($"{((GamingCompanies)Buldings[cellNumber[j]]).Level.ToString()[k]}|{((GamingCompanies)Buldings[cellNumber[j]]).BusinessDowntrun}");
                                 }
-                                for (int k = 0; k < count - ((GamingCompanies)Buldings[cellNumber[j]]).Level.ToString().Length - ((CarInterior)Buldings[cellNumber[j]]).BusinessDowntrun.ToString().Length - 1; k++)
+                                for (int k = 0; k < count - ((GamingCompanies)Buldings[cellNumber[j]]).Level.ToString().Length - ((GamingCompanies)Buldings[cellNumber[j]]).BusinessDowntrun.ToString().Length - 1; k++)
                                 {
                                     if (((GamingCompanies)Buldings[cellNumber[j]]).Mortgaged == true)
                                     {
