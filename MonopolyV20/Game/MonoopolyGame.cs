@@ -651,8 +651,8 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            ((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[1]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
             ((Business)Field.Buldings[1]).Mortgaged = true;
             ((Business)Field.Buldings[3]).Mortgaged = true;
             #endregion 
@@ -762,6 +762,7 @@ namespace MonopolyV20
                         }
                         //Console.Clear();
                         ShowField("");
+                        ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
                         //firstCube = 4;
