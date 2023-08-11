@@ -11,7 +11,7 @@ namespace MonopolyV20
     public class Bot : User
     {
         public bool Auction { get; set; }
-        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison, int countCarBsn, int countGameBsn,int numberOfLaps) : base(name, symbol, balance, stepSkip, prison, countCarBsn, countGameBsn, numberOfLaps)
+        public Bot(string name, char symbol, int balance, bool stepSkip, bool prison, int countCarBsn, int countGameBsn, int numberOfLaps) : base(name, symbol, balance, stepSkip, prison, countCarBsn, countGameBsn, numberOfLaps)
         {
 
         }
@@ -468,6 +468,8 @@ namespace MonopolyV20
             {
                 return;
             }
+            BusinessType bsnTypeMortgaged = 0;
+            bool checkBsnMortgaged = false;
             int numberCell;
             Random random = new Random();
             int min = int.MaxValue, max = int.MinValue;
@@ -483,17 +485,33 @@ namespace MonopolyV20
             //    }
             //}
             #endregion
-            for (int i = monopolyBusiness.Count - 1; i >= 0 ; i--)
+            for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
             {
                 if (((Business)monopolyBusiness[i]).Mortgaged)
                 {
+                    bsnTypeMortgaged = ((Business)monopolyBusiness[i]).BusinessType;
                     monopolyBusiness.Remove(monopolyBusiness[i]);
+                    checkBsnMortgaged = true;
+                }
+                if (checkBsnMortgaged)
+                {
+                    for (int j = monopolyBusiness.Count - 1; j >= 0; j--)
+                    {
+                        if (bsnTypeMortgaged == ((Business)monopolyBusiness[j]).BusinessType)
+                        {
+                            monopolyBusiness.Remove(monopolyBusiness[j]);
+                        }
+                    }
+                }
+                if (monopolyBusiness.Count == 0)
+                {
+                    return;
                 }
             }
-            if (monopolyBusiness.Count == 0)
-            {
-                return;
-            }
+            //if (monopolyBusiness.Count == 0)
+            //{
+            //    return;
+            //}
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
                 if ((((Business)monopolyBusiness[i]).Level) > max)

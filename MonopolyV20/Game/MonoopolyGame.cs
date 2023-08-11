@@ -646,7 +646,7 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             #region TestBot
-            //Users[0].Balance -= 15000;
+            Users[0].Balance -= 15000;
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
