@@ -611,7 +611,7 @@ namespace MonopolyV20
                 Console.WriteLine($"{{{(int)BuyMenu.Auction}}} Отказатся от покупки   ");
                 Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
             }
-            else if(number == 0)
+            else if (number == 0)
             {
                 Console.WriteLine($"{{{(int)PayMenu.RentPayment}}} {text}");
                 Console.WriteLine($"{{{(int)PayMenu.MortagageBsn}}} Заложить бизнес ");
@@ -756,6 +756,7 @@ namespace MonopolyV20
                         {
                             ((Bot)Users[nextPlayer]).MonoopolyImprovement1(((Bot)Users[nextPlayer]).MonoopolyImprovement(Field.Buldings));
                         }
+                        ((Bot)Users[nextPlayer]).BotsBusinessDownturn(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         if (luckBot == 3)
                         {
                             ((Bot)Users[nextPlayer]).Prison = true;
@@ -1058,10 +1059,19 @@ namespace MonopolyV20
                                                     {
                                                         case BuyMenu.BuyBsn:
                                                             {
-                                                                ((Player)Users[nextPlayer]).Balance -= ((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa;
-                                                                Console.WriteLine($"Игрок {((Player)Users[nextPlayer]).Symbol} попал на банк и у него снимают списывают {((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
-                                                                Thread.Sleep(2000);
-                                                                menu = false;
+                                                                if (((Player)Users[nextPlayer]).Balance > ((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa)
+                                                                {
+                                                                    ((Player)Users[nextPlayer]).Balance -= ((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa;
+                                                                    Console.WriteLine($"Игрок {((Player)Users[nextPlayer]).Symbol} попал на банк и у него снимают списывают {((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
+                                                                    Thread.Sleep(2000);
+                                                                    menu = false;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("!!! Недостаточно денег на балансе !!!");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                }
                                                             }
                                                             break;
                                                         case BuyMenu.MortagageBsn:
@@ -1152,10 +1162,19 @@ namespace MonopolyV20
                                                     {
                                                         case BuyMenu.BuyBsn:
                                                             {
-                                                                ((Player)Users[nextPlayer]).Balance -= ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa;
-                                                                Console.WriteLine($"Игрок {((Player)Users[nextPlayer]).Symbol} вы попали на ячейку налог {((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
-                                                                Thread.Sleep(2000);
-                                                                menu = false;
+                                                                if (((Player)Users[nextPlayer]).Balance > ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa)
+                                                                {
+                                                                    ((Player)Users[nextPlayer]).Balance -= ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa;
+                                                                    Console.WriteLine($"Игрок {((Player)Users[nextPlayer]).Symbol} вы попали на ячейку налог {((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
+                                                                    Thread.Sleep(2000);
+                                                                    menu = false;
+                                                                }
+                                                                else
+                                                                {
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("!!! Недостаточно денег на балансе !!!");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                }
                                                             }
                                                             break;
                                                         case BuyMenu.MortagageBsn:

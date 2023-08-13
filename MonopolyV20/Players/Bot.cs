@@ -1015,7 +1015,7 @@ namespace MonopolyV20
             return false;
         }//проверка если заложенный бизнес 
         public void BotsBusinessDownturn(List<Building> building) //fix
-        {
+        {                    
             const int numberLaps = 0;
             for (int i = 0; i < building.Count; i++)
             {
