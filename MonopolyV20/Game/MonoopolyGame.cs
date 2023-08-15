@@ -696,10 +696,10 @@ namespace MonopolyV20
                     BusinessDownturn(Field.Buldings);
                     circleCheck = false;
                 }
-                if (Users[nextPlayer].GetType() == typeof(Bot))
-                {
-                    ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
-                }
+                //if (Users[nextPlayer].GetType() == typeof(Bot))
+                //{
+                //    ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
+                //}
                 if (Users[nextPlayer].Surrender == true)
                 {
                     if (nextPlayer >= Users.Count)
@@ -732,7 +732,7 @@ namespace MonopolyV20
                     bool check = true;
                     while (check)
                     {
-                        ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
+                        //((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
                         if (Users[nextPlayer].Prison == true)
                         {
                             if (Users[nextPlayer].Balance >= prisonPrice)
