@@ -117,7 +117,7 @@ namespace MonopolyV20
                 }
             }
             return checkLvlTry;
-        }
+        }//проверка уровня монополии
         public bool IsByCell(Building building, List<Building> buildings)
         {
             if (building.GetType() == typeof(Business))
