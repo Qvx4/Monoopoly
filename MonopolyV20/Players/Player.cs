@@ -290,6 +290,7 @@ namespace MonopolyV20
                 if (Balance >= ((Business)building).RansomValue && ((Business)building).Number == index && ((Business)building).BusinessOwner == Symbol)
                 {
                     ((Business)building).Mortgaged = false;
+                    ((Business)building).BusinessDowntrun = 15;
                     Balance -= ((Business)building).RansomValue;
                     Console.WriteLine($"Игрок {Symbol} выкупает свой бизнес {building.Title} цена {((Business)building).RansomValue}");
                     Thread.Sleep(2000);
@@ -301,6 +302,7 @@ namespace MonopolyV20
                 if (Balance >= ((CarInterior)building).RansomValue && ((CarInterior)building).Number == index && ((CarInterior)building).BusinessOwner == Symbol)
                 {
                     ((CarInterior)building).Mortgaged = false;
+                    ((CarInterior)building).BusinessDowntrun = 15;
                     Balance -= ((CarInterior)building).RansomValue;
                     Console.WriteLine($"Игрок {Symbol} выкупает свой бизнес {building.Title} цена {((CarInterior)building).RansomValue}");
                     Thread.Sleep(2000);
@@ -312,6 +314,7 @@ namespace MonopolyV20
                 if (Balance >= ((GamingCompanies)building).RansomValue && ((GamingCompanies)building).Number == index && ((GamingCompanies)building).BusinessOwner == Symbol)
                 {
                     ((GamingCompanies)building).Mortgaged = false;
+                    ((GamingCompanies)building).BusinessDowntrun = 15;
                     Balance -= ((GamingCompanies)building).RansomValue;
                     Console.WriteLine($"Игрок {Symbol} выкупает свой бизнес {building.Title} цена {((GamingCompanies)building).RansomValue}");
                     Thread.Sleep(2000);

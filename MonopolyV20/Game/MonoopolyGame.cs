@@ -391,7 +391,7 @@ namespace MonopolyV20
                 "└──────────────────────────────────────────────────────────────────────────────────────┘\n");
             Console.Write("Нажмите любую кнопку что бы выйти ... ");
         }//Правила Игры
-        public void BusinessDownturn(List<Building> building)
+        public void BotsBusinessDownturn(List<Building> building) //fix
         {
             const int numberLaps = 0;
             for (int i = 0; i < building.Count; i++)
@@ -405,6 +405,7 @@ namespace MonopolyV20
                     else
                     {
                         ((Business)building[i]).Mortgaged = false;
+                        ((Business)building[i]).BusinessDowntrun = 15;
                         ((Business)building[i]).BusinessOwner = ' ';
                     }
                 }
@@ -417,6 +418,7 @@ namespace MonopolyV20
                     else
                     {
                         ((CarInterior)building[i]).Mortgaged = false;
+                        ((CarInterior)building[i]).BusinessDowntrun = 15;
                         ((CarInterior)building[i]).BusinessOwner = ' ';
                     }
                 }
@@ -429,15 +431,33 @@ namespace MonopolyV20
                     else
                     {
                         ((GamingCompanies)building[i]).Mortgaged = false;
+                        ((GamingCompanies)building[i]).BusinessDowntrun = 15;
                         ((GamingCompanies)building[i]).BusinessOwner = ' ';
                     }
 
                 }
             }
-        }//логика спада бизнеса
-         //Other
-
-        //AddDelet 
+        }
+        public List<Building> AllMortagagedBusinesses(List<Building> building)
+        {
+            List<Building> result = new List<Building>();
+            for (int i = 0; i < building.Count; i++)
+            {
+                if (building[i].GetType() == typeof(Business) && ((Business)building[i]).Mortgaged)
+                {
+                    result.Add(building[i]);
+                }
+                if (building[i].GetType() == typeof(CarInterior) && ((CarInterior)building[i]).Mortgaged)
+                {
+                    result.Add(building[i]);
+                }
+                if (building[i].GetType() == typeof(GamingCompanies) && ((GamingCompanies)building[i]).Mortgaged)
+                {
+                    result.Add(building[i]);
+                }
+            }
+            return result;
+        }//все заложенные бизнесы 
         public void AddBot(Bot Bot)
         {
             Users.Add(Bot);
@@ -504,7 +524,7 @@ namespace MonopolyV20
                     }
                 }
             }
-        }
+        }//очистка поля 
         //AddDelet
 
         //Show
@@ -625,7 +645,7 @@ namespace MonopolyV20
                 Console.WriteLine($"{{{(int)BuyMenu.BranchSale}}} Продать филиал ");
                 Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
             }
-        }
+        } // вывод меню выплаты
         public void ShowWinGame()
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -651,10 +671,10 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            ((Business)Field.Buldings[1]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[1]).Mortgaged = true;
-            ((Business)Field.Buldings[3]).Mortgaged = true;
+            ((Business)Field.Buldings[16]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[16]).Mortgaged = true;
+            //((Business)Field.Buldings[3]).Mortgaged = true;
             #endregion 
             Random rand = new Random();
             int maxFieldCount = 40;
@@ -670,11 +690,8 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
-            bool circleCheck = false;
-            //int test = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
-            //int lastCellNumber = 0;
             while (true)
             {
                 prison = false;
@@ -689,17 +706,14 @@ namespace MonopolyV20
                 opportunityEnter = false;
                 if (Users.Count - 1 == nextPlayer)
                 {
-                    circleCheck = true;
+                    BotsBusinessDownturn(AllMortagagedBusinesses(Field.Buldings));
                 }
-                if (circleCheck)
-                {
-                    BusinessDownturn(Field.Buldings);
-                    circleCheck = false;
-                }
+                #region TestCodeBag
                 //if (Users[nextPlayer].GetType() == typeof(Bot))
                 //{
                 //    ((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
                 //}
+                #endregion
                 if (Users[nextPlayer].Surrender == true)
                 {
                     if (nextPlayer >= Users.Count)
@@ -756,7 +770,6 @@ namespace MonopolyV20
                         {
                             ((Bot)Users[nextPlayer]).MonoopolyImprovement1(((Bot)Users[nextPlayer]).MonoopolyImprovement(Field.Buldings));
                         }
-                        ((Bot)Users[nextPlayer]).BotsBusinessDownturn(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         if (luckBot == 3)
                         {
                             ((Bot)Users[nextPlayer]).Prison = true;
@@ -1827,6 +1840,8 @@ namespace MonopolyV20
                     nextPlayer = 0;
                 }
                 skipping = false;
+                ((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
+                ((Business)Field.Buldings[3]).Mortgaged = true;
             }
         }//начало игры 
     }

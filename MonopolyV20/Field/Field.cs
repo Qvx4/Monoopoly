@@ -1389,35 +1389,38 @@ namespace MonopolyV20
                                 Console.BackgroundColor = consoleColorType;
                                 var tempBusiness = ((Business)Buldings[cellNumber[nextCellPrice]]);
                                 string fullText = tempBusiness.Price + "/" + tempBusiness.RansomValue + "/" + tempBusiness.ValueOfCollaterel + "/" + tempBusiness.Level;
-                                if (((Business)Buldings[cellNumber[nextCellPrice]]).Mortgaged == true)
+                                if (((Business)Buldings[cellNumber[nextCellPrice]]).Mortgaged)
                                 {
-
-                                    for (int o = 0; o < fullText.Length; o++)
+                                    if (((Business)Buldings[cellNumber[nextCellPrice]]).Mortgaged)
                                     {
-                                        if (isColor) Console.BackgroundColor = consoleColorType;
-                                        else Console.BackgroundColor = ConsoleColor.Black;
-                                        isColor = !isColor;
-                                        Console.Write(fullText[o]);
+
+                                        for (int o = 0; o < fullText.Length; o++)
+                                        {
+                                            if (isColor) Console.BackgroundColor = consoleColorType;
+                                            else Console.BackgroundColor = ConsoleColor.Black;
+                                            isColor = !isColor;
+                                            Console.Write(fullText[o]);
+                                        }
+
                                     }
+                                    else Console.Write($"{((Business)Buldings[cellNumber[nextCellPrice]]).Price}/" +
+                                        $"{((Business)Buldings[cellNumber[nextCellPrice]]).RansomValue}/" +
+                                        $"{((Business)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel}/" +
+                                        $"{((Business)Buldings[cellNumber[nextCellPrice]]).Level}|{((Business)Buldings[cellNumber[j]]).BusinessDowntrun}");
 
-                                }
-                                else Console.Write($"{((Business)Buldings[cellNumber[nextCellPrice]]).Price}/" +
-                                    $"{((Business)Buldings[cellNumber[nextCellPrice]]).RansomValue}/" +
-                                    $"{((Business)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel}/" +
-                                    $"{((Business)Buldings[cellNumber[nextCellPrice]]).Level}");
-
-                                for (int o = 0; o < countSpaceInBox - ((Business)Buldings[cellNumber[nextCellPrice]]).Price.ToString().Length -
-                                    ((Business)Buldings[cellNumber[nextCellPrice]]).RansomValue.ToString().Length -
-                                    ((Business)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel.ToString().Length -
-                                    ((Business)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3; o++)
-                                {
-                                    if (((Business)Buldings[cellNumber[nextCellPrice]]).Mortgaged == true)
+                                    for (int o = 0; o < countSpaceInBox - ((Business)Buldings[cellNumber[nextCellPrice]]).Price.ToString().Length -
+                                        ((Business)Buldings[cellNumber[nextCellPrice]]).RansomValue.ToString().Length -
+                                        ((Business)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel.ToString().Length -
+                                        ((Business)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3 - ((Business)Buldings[cellNumber[nextCellPrice]]).BusinessDowntrun.ToString().Length - 1; o++)
                                     {
-                                        if (isColor) Console.BackgroundColor = consoleColorType;
-                                        else Console.BackgroundColor = ConsoleColor.Black;
-                                        isColor = !isColor;
+                                        if (((Business)Buldings[cellNumber[nextCellPrice]]).Mortgaged == true)
+                                        {
+                                            if (isColor) Console.BackgroundColor = consoleColorType;
+                                            else Console.BackgroundColor = ConsoleColor.Black;
+                                            isColor = !isColor;
+                                        }
+                                        Console.Write(" ");
                                     }
-                                    Console.Write(" ");
                                 }
                             }
                             else if (Buldings[cellNumber[nextCellPrice]].GetType() == typeof(CarInterior))

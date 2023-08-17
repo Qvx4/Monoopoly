@@ -971,6 +971,7 @@ namespace MonopolyV20
                 if (listBuilding[pos].GetType() == typeof(Business))
                 {
                     ((Business)listBuilding[pos]).Mortgaged = false;
+                    ((Business)listBuilding[pos]).BusinessDowntrun = 15;
                     Balance -= ((Business)listBuilding[pos]).RansomValue;
                     Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((Business)listBuilding[pos]).Title} за цену {((Business)listBuilding[pos]).RansomValue}");
                     Thread.Sleep(2000);
@@ -979,6 +980,7 @@ namespace MonopolyV20
                 if (listBuilding[pos].GetType() == typeof(CarInterior))
                 {
                     ((CarInterior)listBuilding[pos]).Mortgaged = false;
+                    ((CarInterior)listBuilding[pos]).BusinessDowntrun = 15;
                     Balance -= ((CarInterior)listBuilding[pos]).RansomValue;
                     Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((CarInterior)listBuilding[pos]).Title} за цену {((CarInterior)listBuilding[pos]).RansomValue}");
                     Thread.Sleep(2000);
@@ -987,6 +989,7 @@ namespace MonopolyV20
                 if (listBuilding[pos].GetType() == typeof(GamingCompanies))
                 {
                     ((GamingCompanies)listBuilding[pos]).Mortgaged = false;
+                    ((GamingCompanies)listBuilding[pos]).BusinessDowntrun = 15;
                     Balance -= ((GamingCompanies)listBuilding[pos]).RansomValue;
                     Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((GamingCompanies)listBuilding[pos]).Title} за цену {((GamingCompanies)listBuilding[pos]).RansomValue}");
                     Thread.Sleep(2000);
@@ -1014,50 +1017,6 @@ namespace MonopolyV20
             }
             return false;
         }//проверка если заложенный бизнес 
-        public void BotsBusinessDownturn(List<Building> building) //fix
-        {                    
-            const int numberLaps = 0;
-            for (int i = 0; i < building.Count; i++)
-            {
-                if (building[i].GetType() == typeof(Business))
-                {
-                    if (((Business)building[i]).BusinessDowntrun > numberLaps)
-                    {
-                        ((Business)building[i]).BusinessDowntrun -= 1;
-                    }
-                    else
-                    {
-                        ((Business)building[i]).Mortgaged = false;
-                        ((Business)building[i]).BusinessOwner = ' ';
-                    }
-                }
-                if (building[i].GetType() == typeof(CarInterior))
-                {
-                    if (((CarInterior)building[i]).BusinessDowntrun > numberLaps)
-                    {
-                        ((CarInterior)building[i]).BusinessDowntrun -= 1;
-                    }
-                    else
-                    {
-                        ((CarInterior)building[i]).Mortgaged = false;
-                        ((CarInterior)building[i]).BusinessOwner = ' ';
-                    }
-                }
-                if (building[i].GetType() == typeof(GamingCompanies))
-                {
-                    if (((GamingCompanies)building[i]).BusinessDowntrun > numberLaps)
-                    {
-                        ((GamingCompanies)building[i]).BusinessDowntrun -= 1;
-                    }
-                    else
-                    {
-                        ((GamingCompanies)building[i]).Mortgaged = false;
-                        ((GamingCompanies)building[i]).BusinessOwner = ' ';
-                    }
-
-                }
-            }
-        }//логика спада бизнеса у бота 
         public List<Building> AllMortagagedBusinesses(List<Building> building)
         {
             List<Building> result = new List<Building>();
