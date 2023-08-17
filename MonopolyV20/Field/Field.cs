@@ -1406,12 +1406,33 @@ namespace MonopolyV20
                                     else Console.Write($"{((Business)Buldings[cellNumber[nextCellPrice]]).Price}/" +
                                         $"{((Business)Buldings[cellNumber[nextCellPrice]]).RansomValue}/" +
                                         $"{((Business)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel}/" +
-                                        $"{((Business)Buldings[cellNumber[nextCellPrice]]).Level}|{((Business)Buldings[cellNumber[j]]).BusinessDowntrun}");
+                                        $"{((Business)Buldings[cellNumber[nextCellPrice]]).Level}|{((Business)Buldings[cellNumber[nextCellPrice]]).BusinessDowntrun}");
 
                                     for (int o = 0; o < countSpaceInBox - ((Business)Buldings[cellNumber[nextCellPrice]]).Price.ToString().Length -
                                         ((Business)Buldings[cellNumber[nextCellPrice]]).RansomValue.ToString().Length -
                                         ((Business)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel.ToString().Length -
                                         ((Business)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3 - ((Business)Buldings[cellNumber[nextCellPrice]]).BusinessDowntrun.ToString().Length - 1; o++)
+                                    {
+                                        if (((Business)Buldings[cellNumber[nextCellPrice]]).Mortgaged == true)
+                                        {
+                                            if (isColor) Console.BackgroundColor = consoleColorType;
+                                            else Console.BackgroundColor = ConsoleColor.Black;
+                                            isColor = !isColor;
+                                        }
+                                        Console.Write(" ");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.Write($"{((Business)Buldings[cellNumber[nextCellPrice]]).Price}/" +
+                                        $"{((Business)Buldings[cellNumber[nextCellPrice]]).RansomValue}/" +
+                                        $"{((Business)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel}/" +
+                                        $"{((Business)Buldings[cellNumber[nextCellPrice]]).Level}");
+
+                                    for (int o = 0; o < countSpaceInBox - ((Business)Buldings[cellNumber[nextCellPrice]]).Price.ToString().Length -
+                                        ((Business)Buldings[cellNumber[nextCellPrice]]).RansomValue.ToString().Length -
+                                        ((Business)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel.ToString().Length -
+                                        ((Business)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3; o++)
                                     {
                                         if (((Business)Buldings[cellNumber[nextCellPrice]]).Mortgaged == true)
                                         {
