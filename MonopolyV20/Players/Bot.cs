@@ -200,6 +200,11 @@ namespace MonopolyV20
                 }
                 else
                 {
+                    if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                    {
+                        SurrenderLogic(field.Buldings);
+                        return;
+                    }
                     MortagageBusiness(BotBusinesses(field.Buldings), user, field.Buldings);
                 }
             }
@@ -224,6 +229,11 @@ namespace MonopolyV20
                 }
                 else
                 {
+                    if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                    {
+                        SurrenderLogic(field.Buldings);
+                        return;
+                    }
                     MortagageBusiness(BotBusinesses(field.Buldings), user, field.Buldings);
                 }
             }
@@ -248,6 +258,11 @@ namespace MonopolyV20
                 }
                 else
                 {
+                    if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                    {
+                        SurrenderLogic(field.Buldings);
+                        return;
+                    }
                     MortagageBusiness(BotBusinesses(field.Buldings), user, field.Buldings);
                 }
             }
@@ -1066,16 +1081,44 @@ namespace MonopolyV20
             }
             return false;
         } //проверка куплен ли хоть один бизнес 
+        public bool CheckBsnAllMortagaged(List<Building> buildings)
+        {
+            bool checkBsnAllMortagaged = true; ;
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                if (buildings[i].GetType() == typeof(Business))
+                {
+                    if (!((Business)buildings[i]).Mortgaged)
+                    {
+                        return checkBsnAllMortagaged = false;
+                    }
+                }
+                else if (buildings[i].GetType() == typeof(CarInterior))
+                {
+                    if (!((CarInterior)buildings[i]).Mortgaged)
+                    {
+                        return checkBsnAllMortagaged = false;
+                    }
+                }
+                else if (buildings[i].GetType() == typeof(GamingCompanies))
+                {
+                    if (!((GamingCompanies)buildings[i]).Mortgaged)
+                    {
+                        return checkBsnAllMortagaged = false;
+                    }
+                }
+            }
+            return checkBsnAllMortagaged;
+        }
         public bool SurrenderLogic(List<Building> buildings)
         {
-            if (Balance == 0 && !Bsn(buildings))
-            {
-                buildings[CordinationPlayer].Symbol.Remove(Symbol);
-                CordinationPlayer = 0;
-                Surrender = true;
-                return true;
-            }
-            return false;
+
+            buildings[CordinationPlayer].Symbol.Remove(Symbol);
+            CordinationPlayer = 0;
+            Surrender = true;
+            Console.WriteLine($"Игрок {Symbol} Сдался ");
+            Thread.Sleep(2000);
+            return true;
         } // бот сдаётся 
     }
 }

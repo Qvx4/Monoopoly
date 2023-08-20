@@ -1432,7 +1432,7 @@ namespace MonopolyV20
                                     for (int o = 0; o < countSpaceInBox - ((Business)Buldings[cellNumber[nextCellPrice]]).Price.ToString().Length -
                                         ((Business)Buldings[cellNumber[nextCellPrice]]).RansomValue.ToString().Length -
                                         ((Business)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel.ToString().Length -
-                                        ((Business)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3 /*- ((Business)Buldings[cellNumber[nextCellPrice]]).BusinessDowntrun.ToString().Length - 1*/; o++)
+                                        ((Business)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3; o++)
                                     {
                                         if (((Business)Buldings[cellNumber[nextCellPrice]]).Mortgaged == true)
                                         {
@@ -1491,7 +1491,7 @@ namespace MonopolyV20
                                     for (int o = 0; o < countSpaceInBox - ((CarInterior)Buldings[cellNumber[nextCellPrice]]).Price.ToString().Length -
                                         ((CarInterior)Buldings[cellNumber[nextCellPrice]]).RansomValue.ToString().Length -
                                         ((CarInterior)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel.ToString().Length -
-                                        ((CarInterior)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3 /*- ((CarInterior)Buldings[cellNumber[nextCellPrice]]).BusinessDowntrun.ToString().Length - 1*/; o++)
+                                        ((CarInterior)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3; o++)
                                     {
                                         if (((CarInterior)Buldings[cellNumber[nextCellPrice]]).Mortgaged == true)
                                         {
@@ -1551,7 +1551,7 @@ namespace MonopolyV20
                                     for (int o = 0; o < countSpaceInBox - ((GamingCompanies)Buldings[cellNumber[nextCellPrice]]).Price.ToString().Length -
                                        ((GamingCompanies)Buldings[cellNumber[nextCellPrice]]).RansomValue.ToString().Length -
                                        ((GamingCompanies)Buldings[cellNumber[nextCellPrice]]).ValueOfCollaterel.ToString().Length -
-                                       ((GamingCompanies)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3 - ((GamingCompanies)Buldings[cellNumber[nextCellPrice]]).BusinessDowntrun.ToString().Length - 1; o++)
+                                       ((GamingCompanies)Buldings[cellNumber[nextCellPrice]]).Level.ToString().Length - 3 /*- ((GamingCompanies)Buldings[cellNumber[nextCellPrice]]).BusinessDowntrun.ToString().Length - 1*/; o++)
                                     {
                                         if (((GamingCompanies)Buldings[cellNumber[nextCellPrice]]).Mortgaged == true)
                                         {
