@@ -457,7 +457,7 @@ namespace MonopolyV20
         }//проверка типа бизнеса и бизнеса
         public bool IsHaveMeMonoopoly(List<Building> buldings)
         {
-            for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
+            for (int i = (int)BusinessType.Restaurants; i <= (int)BusinessType.GameCorparation; i++)
             {
                 if (IsMonopolyByType((BusinessType)i, buldings)) return true;
             }
@@ -466,7 +466,7 @@ namespace MonopolyV20
         public List<Building> MonoopolyImprovement(List<Building> buldings)
         {
             List<Building> monopolyBusiness = new List<Building>();
-            for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
+            for (int i = (int)BusinessType.Restaurants; i <= (int)BusinessType.GameCorparation; i++)
             {
                 if (IsMonopolyByType((BusinessType)i, buldings))
                 {

@@ -671,9 +671,11 @@ namespace MonopolyV20
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
 
-            ((Business)Field.Buldings[16]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[29]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[27]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[26]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[16]).Mortgaged = true;
+            //((Business)Field.Buldings[1]).Mortgaged = true;
             //((Business)Field.Buldings[3]).Mortgaged = true;
             #endregion 
             Random rand = new Random();
@@ -1840,8 +1842,6 @@ namespace MonopolyV20
                     nextPlayer = 0;
                 }
                 skipping = false;
-                ((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
-                ((Business)Field.Buldings[3]).Mortgaged = true;
             }
         }//начало игры 
     }
