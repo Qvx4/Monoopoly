@@ -382,7 +382,7 @@ namespace MonopolyV20
         public List<Building> CreatMonopolyBsn(List<Building> buldings)//Доделать вывод монополии ( Ряд бизнесов которых можно улучшить )
         {
             List<Building> list = new List<Building>();
-            for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
+            for (int i = (int)BusinessType.Restaurants; i <= (int)BusinessType.GameCorparation; i++)
             {
                 if (IsMonopolyByType((BusinessType)i, buldings))
                 {
@@ -488,7 +488,7 @@ namespace MonopolyV20
         }
         public bool IsHaveMeMonoopoly(List<Building> buldings)
         {
-            for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
+            for (int i = (int)BusinessType.Restaurants; i <= (int)BusinessType.GameCorparation; i++)
             {
                 if (IsMonopolyByType((BusinessType)i, buldings)) return true;
             }
@@ -543,9 +543,9 @@ namespace MonopolyV20
         {
             for (int i = 0; i < buldings.Count; i++)
             {
-                Console.WriteLine($"Название: {buldings[i].Title} Номер: {buldings[i].Number} {((Business)buldings[i]).UpgradePrice}");
+                Console.WriteLine($"Название: {{{buldings[i].Title}}} Номер: {{{buldings[i].Number}}} цена: {{{((Business)buldings[i]).UpgradePrice}}}");
             }
-        }
+        } //бизнесы которые можно улучшить 
         public void MonoopolyImprovement(Business business)
         {
             business.Level += 1;
