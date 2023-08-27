@@ -520,7 +520,12 @@ namespace MonopolyV20
                         if (((GamingCompanies)buildings[j]).BusinessOwner == users[i].Symbol)
                         {
                             ((GamingCompanies)buildings[j]).BusinessOwner = ' ';
+
                         }
+                    }
+                    else
+                    {
+                        buildings[j].Symbol.Clear();
                     }
                 }
             }
