@@ -9,8 +9,8 @@ namespace MonopolyV20
     {
         public bool BankCheck { get; set; }
         public bool TaxCheck { get; set; }
-        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck, bool taxCheck,int countCarBsn, int countGameBsn,int numberOfLaps) : 
-            base(name, symbol, balance, stepSkip, prison ,countCarBsn, countGameBsn, numberOfLaps)
+        public Player(string name, char symbol, int balance, bool stepSkip, bool prison, bool bankCheck, bool taxCheck, int countCarBsn, int countGameBsn, int numberOfLaps) :
+            base(name, symbol, balance, stepSkip, prison, countCarBsn, countGameBsn, numberOfLaps)
         {
             BankCheck = bankCheck;
             TaxCheck = taxCheck;
@@ -83,7 +83,7 @@ namespace MonopolyV20
             }
             return false;
         }
-        public bool IsByCell(Building building,List<Building> buildings)
+        public bool IsByCell(Building building, List<Building> buildings)
         {
             bool checkBalanc = true;
             if (building.GetType() == typeof(Business))
@@ -212,11 +212,25 @@ namespace MonopolyV20
                 }
             }
         }//выплата ренты поля
-        public bool CheckHaveBsn(Building building)
+        public bool CheckHaveBsn(Building building) 
         {
             if (building.GetType() == typeof(Business))
             {
                 if (((Business)building).BusinessOwner == Symbol)
+                {
+                    return false;
+                }
+            }
+            else if (building.GetType() == typeof(CarInterior))
+            {
+                if (((CarInterior)building).BusinessOwner == Symbol)
+                {
+                    return false;
+                }
+            }
+            else if (building.GetType() == typeof(GamingCompanies))
+            {
+                if (((GamingCompanies)building).BusinessOwner == Symbol)
                 {
                     return false;
                 }
