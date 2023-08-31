@@ -94,7 +94,7 @@ namespace MonopolyV20
             ((Chance)Buldings[Buldings.Count - 1]).AddChance();
             Buldings.Add(new Business("Novotel", 34, 3200, 1920, 1600, 0, 1750, new List<int>() { 280, 1500, 4500, 10000, 12000, 14000 }, BusinessType.Hotels));
             Buldings.Add(new CarInterior("Land Rover", 35, 2000, 1000, 1200, 0, new List<int>() { 250, 500, 1000, 2000 }, BusinessType.Car));
-            Buldings.Add(new Tax("Налог", 36, 100));
+            Buldings.Add(new Tax("Налог", 36, 1000));
             Buldings.Add(new Business("Apple", 37, 3500, 2100, 1750, 0, 2000, new List<int>() { 350, 1750, 5000, 11000, 13000, 15000 }, BusinessType.Electronics));
             Buldings.Add(new Chance("Шанс", 38));
             ((Chance)Buldings[Buldings.Count - 1]).AddChance();

@@ -1074,6 +1074,7 @@ namespace MonopolyV20
                                                 while (menu)
                                                 {
                                                     ShowPayMenu("Выплатить налог", choose = 0);
+                                                    Console.Write("{ Ввод } > ");
                                                     Enum.TryParse(Console.ReadLine(), out buyMenu);
                                                     switch (buyMenu)
                                                     {
@@ -1177,6 +1178,7 @@ namespace MonopolyV20
                                                 while (menu)
                                                 {
                                                     ShowPayMenu("Выплатить налога на роскаш", choose = 1);
+                                                    Console.Write("{ Ввод } > ");
                                                     Enum.TryParse(Console.ReadLine(), out buyMenu);
                                                     switch (buyMenu)
                                                     {
