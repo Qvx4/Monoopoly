@@ -12,6 +12,7 @@ namespace MonopolyV20
         WalkBackWards,
         GoToJail,
         Skipping,
+        Birthday,
         Empty
     }
 }

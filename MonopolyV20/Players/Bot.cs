@@ -341,6 +341,27 @@ namespace MonopolyV20
                             Thread.Sleep(2000);
                         }
                         break;
+                    case Actions.Birthday:
+                        {
+                            int birthdayPrice = 150;
+                            int summa = 0;
+                            for (int i = 0; i < users.Count; i++)
+                            {
+                                if (users[i].Symbol != Symbol)
+                                {
+                                    if (users[i].Balance >= birthdayPrice)
+                                    {
+                                        users[i].Balance -= birthdayPrice;
+                                        summa += birthdayPrice;
+                                    }
+                                }
+                            }
+                            Balance += summa;
+                            Console.WriteLine($"Игроку {Symbol} выпал шанс {((RandomActions)chances).Title} {((RandomActions)chances).Description}");
+                            Thread.Sleep(2000);
+
+                        }
+                        break;
                     case Actions.Empty:
                         {
                             Console.WriteLine($"Игроку {Symbol} выпал шанс {((RandomActions)chances).Title} {((RandomActions)chances).Description}");
