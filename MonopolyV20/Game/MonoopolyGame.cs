@@ -1287,7 +1287,7 @@ namespace MonopolyV20
                                                 }
                                             }//проверка что ячейка налог
                                             else if (((Player)Users[nextPlayer]).IsCheckCellChance(Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]))
-                                            {
+                                            { 
                                                 ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).AddChance();
                                                 Random random = new Random();
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]))
@@ -1387,8 +1387,6 @@ namespace MonopolyV20
                                                 }
                                                 else
                                                 {
-                                                    //((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).AddChance();
-                                                    //Random randoms = new Random();
                                                     ((Player)Users[nextPlayer]).ChanceAnalysis(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)], Field);
                                                 }
                                             }//проверка что ячейка шанс снятие деняг 
