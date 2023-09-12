@@ -391,7 +391,7 @@ namespace MonopolyV20
                 "└──────────────────────────────────────────────────────────────────────────────────────┘\n");
             Console.Write("Нажмите любую кнопку что бы выйти ... ");
         }//Правила Игры
-        public void BotsBusinessDownturn(List<Building> building) //fix
+        public void BotsBusinessDownturn(List<Building> building) //fix логика спада бизнесов
         {
             const int numberLaps = 0;
             for (int i = 0; i < building.Count; i++)
@@ -406,7 +406,7 @@ namespace MonopolyV20
                     {
                         ((Business)building[i]).Mortgaged = false;
                         ((Business)building[i]).BusinessDowntrun = 15;
-                        ((Business)building[i]).BusinessOwner = ' ';
+                        ((Business)building[i]).BusinessOwner = '0';
                     }
                 }
                 if (building[i].GetType() == typeof(CarInterior))
@@ -419,7 +419,7 @@ namespace MonopolyV20
                     {
                         ((CarInterior)building[i]).Mortgaged = false;
                         ((CarInterior)building[i]).BusinessDowntrun = 15;
-                        ((CarInterior)building[i]).BusinessOwner = ' ';
+                        ((CarInterior)building[i]).BusinessOwner = '0';
                     }
                 }
                 if (building[i].GetType() == typeof(GamingCompanies))
@@ -432,7 +432,7 @@ namespace MonopolyV20
                     {
                         ((GamingCompanies)building[i]).Mortgaged = false;
                         ((GamingCompanies)building[i]).BusinessDowntrun = 15;
-                        ((GamingCompanies)building[i]).BusinessOwner = ' ';
+                        ((GamingCompanies)building[i]).BusinessOwner = '0';
                     }
 
                 }

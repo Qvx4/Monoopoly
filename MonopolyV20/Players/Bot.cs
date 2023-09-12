@@ -31,7 +31,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(CarInterior carInterior)//проверка куплен ли автоцентр
         {
-            if (carInterior.BusinessOwner != 0)
+            if (carInterior.BusinessOwner != 0 )
             {
                 return true;
             }
