@@ -143,12 +143,17 @@ namespace MonopolyV20
             }
             return checkBalanc;
         }//Покупка ячейки 
-        public void ChanceIsWork(Chances chances)
+        public bool ChanceIsWork(Chances chances)
         {
             if (chances.GetType() == typeof(Lesion))
             {
-                Balance -= ((Lesion)chances).WriteOffMoney;
+                if (Balance >= ((Lesion)chances).WriteOffMoney)
+                {
+                    Balance -= ((Lesion)chances).WriteOffMoney;
+                    return true;
+                }
             }
+            return false;
         }//шанс снятие денег
         public void PayRent(Building bulding, List<User> users)
         {
@@ -212,7 +217,7 @@ namespace MonopolyV20
                 }
             }
         }//выплата ренты поля
-        public bool CheckHaveBsn(Building building) 
+        public bool CheckHaveBsn(Building building)
         {
             if (building.GetType() == typeof(Business))
             {

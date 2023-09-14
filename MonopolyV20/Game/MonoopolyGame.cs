@@ -682,7 +682,8 @@ namespace MonopolyV20
             //((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[1]).Mortgaged = true;
             //((Business)Field.Buldings[3]).Mortgaged = true;
-            #endregion 
+            #endregion
+            ((Player)Users[0]).Prison = true;
             Random rand = new Random();
             int maxFieldCount = 40;
             int prisonPrice = 500;
@@ -1014,8 +1015,6 @@ namespace MonopolyV20
                                         //    test++;
                                         //}
                                         #endregion
-                                        firstCube = 7;
-                                        secondCube = 0;
                                         if (firstCube == secondCube)
                                         {
                                             luck++;
@@ -1028,7 +1027,7 @@ namespace MonopolyV20
                                         }
 
                                     }
-                                    if (surrender != true || prison != true || skipping != true)
+                                    if (surrender != true && prison != true && skipping != true)
                                     {
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
@@ -1301,7 +1300,13 @@ namespace MonopolyV20
                                                         {
                                                             case BuyMenu.BuyBsn:
                                                                 {
-                                                                    ((Player)Users[nextPlayer]).ChanceIsWork(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]);
+                                                                    if (!((Player)Users[nextPlayer]).ChanceIsWork(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]))
+                                                                    {
+                                                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                        Console.WriteLine("Не хватает деняг !!!");
+                                                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                                                        Thread.Sleep(2000);
+                                                                    }
                                                                     menu = false;
                                                                     Thread.Sleep(2000);
                                                                 }
