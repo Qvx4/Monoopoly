@@ -684,6 +684,7 @@ namespace MonopolyV20
             //((Business)Field.Buldings[3]).Mortgaged = true;
             #endregion
             ((Player)Users[0]).Prison = true;
+            ((Bot)Users[1]).CordinationPlayer = 9;
             Random rand = new Random();
             int maxFieldCount = 40;
             int prisonPrice = 500;
@@ -954,7 +955,7 @@ namespace MonopolyV20
                         {
                             case GameMenu.ThrowCubes://кинуть кубики 
                                 {
-                                    if (prison == true)
+                                    if (((Player)Users[nextPlayer]).Prison == true)
                                     {
                                         Console.WriteLine(" { 1 } Кинуть кубики | { 2 } Заплатить 500");
                                         Console.Write("{ Ввод } > ");
@@ -963,10 +964,17 @@ namespace MonopolyV20
                                         {
                                             firstCube = RollTheCube(rand);
                                             secondCube = RollTheCube(rand);
+                                            ShowGameCube(firstCube);
+                                            ShowGameCube(secondCube);
+                                            Thread.Sleep(2000);
                                             if (firstCube == secondCube)
                                             {
-                                                prison = false;
                                                 ((Player)Users[nextPlayer]).Prison = false;
+                                            }
+                                            else
+                                            {
+                                                check = false;
+                                                break;
                                             }
                                         }
                                         else if (number == 2)
@@ -974,7 +982,6 @@ namespace MonopolyV20
                                             if (Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer].GetType() == typeof(Prison))
                                             {
                                                 ((Player)Users[nextPlayer]).Balance -= ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost;
-                                                prison = false;
                                                 ((Player)Users[nextPlayer]).Prison = false;
                                             }
                                         }
@@ -1027,7 +1034,7 @@ namespace MonopolyV20
                                         }
 
                                     }
-                                    if (surrender != true && prison != true && skipping != true)
+                                    if (((Player)Users[nextPlayer]).Surrender != true && ((Player)Users[nextPlayer]).Prison != true && ((Player)Users[nextPlayer]).StepSkip != true)
                                     {
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
@@ -1286,7 +1293,7 @@ namespace MonopolyV20
                                                 }
                                             }//проверка что ячейка налог
                                             else if (((Player)Users[nextPlayer]).IsCheckCellChance(Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]))
-                                            { 
+                                            {
                                                 ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).AddChance();
                                                 Random random = new Random();
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]))
