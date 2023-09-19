@@ -683,8 +683,6 @@ namespace MonopolyV20
             //((Business)Field.Buldings[1]).Mortgaged = true;
             //((Business)Field.Buldings[3]).Mortgaged = true;
             #endregion
-            ((Player)Users[0]).Prison = true;
-            ((Bot)Users[1]).CordinationPlayer = 9;
             Random rand = new Random();
             int maxFieldCount = 40;
             int prisonPrice = 500;
@@ -1022,6 +1020,8 @@ namespace MonopolyV20
                                         //    test++;
                                         //}
                                         #endregion
+                                        firstCube = 2;
+                                        secondCube = 0;
                                         if (firstCube == secondCube)
                                         {
                                             luck++;
@@ -1296,7 +1296,8 @@ namespace MonopolyV20
                                             {
                                                 ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).AddChance();
                                                 Random random = new Random();
-                                                if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]))
+                                                if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).
+                                                    Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]))
                                                 {
                                                     while (menu)
                                                     {
@@ -1399,7 +1400,9 @@ namespace MonopolyV20
                                                 }
                                                 else
                                                 {
-                                                    ((Player)Users[nextPlayer]).ChanceAnalysis(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)], Field);
+                                                    ((Player)Users[nextPlayer]).ChanceAnalysis(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).
+                                                        Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)],
+                                                        Field);
                                                 }
                                             }//проверка что ячейка шанс снятие деняг 
                                         }
