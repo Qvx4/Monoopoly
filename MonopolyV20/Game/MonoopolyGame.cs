@@ -1308,7 +1308,8 @@ namespace MonopolyV20
                                                         {
                                                             case BuyMenu.BuyBsn:
                                                                 {
-                                                                    if (!((Player)Users[nextPlayer]).ChanceIsWork(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]))
+                                                                    if (!((Player)Users[nextPlayer]).ChanceIsWork(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).
+                                                                        Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]))
                                                                     {
                                                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                         Console.WriteLine("Не хватает деняг !!!");
