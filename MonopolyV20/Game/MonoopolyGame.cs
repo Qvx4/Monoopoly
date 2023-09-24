@@ -1294,10 +1294,10 @@ namespace MonopolyV20
                                             }//проверка что ячейка налог
                                             else if (((Player)Users[nextPlayer]).IsCheckCellChance(Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]))
                                             {
-                                                ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).AddChance();
                                                 Random random = new Random();
-                                                if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).
-                                                    Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]))
+                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[rand.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
+
+                                                if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(chance))
                                                 {
                                                     while (menu)
                                                     {
@@ -1308,8 +1308,7 @@ namespace MonopolyV20
                                                         {
                                                             case BuyMenu.BuyBsn:
                                                                 {
-                                                                    if (!((Player)Users[nextPlayer]).ChanceIsWork(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).
-                                                                        Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)]))
+                                                                    if (!((Player)Users[nextPlayer]).ChanceIsWork(chance))
                                                                     {
                                                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                         Console.WriteLine("Не хватает деняг !!!");
@@ -1317,6 +1316,9 @@ namespace MonopolyV20
                                                                         Thread.Sleep(2000);
                                                                     }
                                                                     menu = false;
+                                                                    Console.ForegroundColor = ConsoleColor.Green;
+                                                                    Console.WriteLine("Оплата прошла успешно");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
                                                                     Thread.Sleep(2000);
                                                                 }
                                                                 break;
@@ -1401,9 +1403,7 @@ namespace MonopolyV20
                                                 }
                                                 else
                                                 {
-                                                    ((Player)Users[nextPlayer]).ChanceAnalysis(((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).
-                                                        Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)],
-                                                        Field);
+                                                    ((Player)Users[nextPlayer]).ChanceAnalysis(chance,Field);
                                                 }
                                             }//проверка что ячейка шанс снятие деняг 
                                         }

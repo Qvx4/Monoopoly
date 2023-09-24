@@ -769,9 +769,9 @@ namespace MonopolyV20
             }//проверка что ячейка старт 
             else if (buldings.GetType() == typeof(Chance))
             {
-                ((Chance)buldings).AddChance();
                 Random random = new Random();
-                ChanceAnalysis(((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)], field, users);
+                Chances chance = ((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)];
+                ChanceAnalysis(chance, field, users);
             }//проверка что ячейка шанс
             else if (buldings.GetType() == typeof(Prison))
             {

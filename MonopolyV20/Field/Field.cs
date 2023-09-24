@@ -56,13 +56,11 @@ namespace MonopolyV20
             Buldings.Add(new Start("Старт", 0, 1000));
             Buldings.Add(new Business("CHANEL", 1, 600, 360, 300, 0, 500, new List<int>() { 20, 100, 300, 900, 1600, 2500 }, BusinessType.Perfumery));
             Buldings.Add(new Chance("Шанс", 2));
-            ((Chance)Buldings[Buldings.Count - 1]).AddChance();
             Buldings.Add(new Business("HUGO BOSS", 3, 600, 360, 300, 0, 500, new List<int>() { 40, 200, 600, 1800, 3200, 4500 }, BusinessType.Perfumery));
             Buldings.Add(new Bank("Банк", 4, 2000));
             Buldings.Add(new CarInterior("Mercedes", 5, 2000, 1200, 1000, 0, new List<int>() { 250, 500, 1000, 2000 }, BusinessType.Car));
             Buldings.Add(new Business("Adidas", 6, 1000, 600, 500, 0, 500, new List<int>() { 60, 300, 900, 2700, 4000, 5500 }, BusinessType.ClothingStores));
             Buldings.Add(new Chance("Шанс", 7));
-            ((Chance)Buldings[Buldings.Count - 1]).AddChance();
             Buldings.Add(new Business("Puma", 8, 1000, 600, 500, 0, 500, new List<int>() { 60, 300, 900, 2700, 4000, 5500 }, BusinessType.ClothingStores));
             Buldings.Add(new Business("LACOSTE", 9, 1200, 720, 600, 0, 500, new List<int>() { 80, 400, 1000, 3000, 4500, 6000 }, BusinessType.ClothingStores));
             Buldings.Add(new Prison("Тюрьма", 10, 500, 3));
@@ -73,13 +71,11 @@ namespace MonopolyV20
             Buldings.Add(new CarInterior("Audi", 15, 2000, 1200, 1000, 0, new List<int>() { 250, 500, 1000, 2000 }, BusinessType.Car));
             Buldings.Add(new Business("Coca-Cola", 16, 1800, 1080, 900, 0, 1000, new List<int>() { 140, 700, 2000, 5500, 7500, 9500 }, BusinessType.BeverageCompanies));
             Buldings.Add(new Chance("Шанс", 17));
-            ((Chance)Buldings[Buldings.Count - 1]).AddChance();
             Buldings.Add(new Business("Pepsi", 18, 1800, 1080, 900, 0, 1000, new List<int>() { 140, 700, 2000, 5500, 7500, 9500 }, BusinessType.BeverageCompanies));
             Buldings.Add(new Business("Fanta", 19, 2000, 1200, 1000, 0, 1000, new List<int>() { 160, 800, 2200, 6000, 8000, 10000 }, BusinessType.BeverageCompanies));
             Buldings.Add(new Jackpot("JACKPOT", 20));
             Buldings.Add(new Business("AmerAirlin", 21, 2200, 1400, 1320, 0, 1250, new List<int>() { 180, 900, 2500, 7000, 8750, 10500 }, BusinessType.Airlines));
             Buldings.Add(new Chance("Шанс", 22));
-            ((Chance)Buldings[Buldings.Count - 1]).AddChance();
             Buldings.Add(new Business("Lufthansa", 23, 2200, 1320, 1100, 0, 1250, new List<int>() { 180, 900, 2500, 7000, 8750, 10500 }, BusinessType.Airlines));
             Buldings.Add(new Business("Brit.Air", 24, 2400, 1440, 1200, 0, 1250, new List<int>() { 200, 1000, 3000, 7500, 9250, 11000 }, BusinessType.Airlines));
             Buldings.Add(new CarInterior("Ford", 25, 2000, 1200, 1000, 0, new List<int>() { 250, 500, 1000, 2000 }, BusinessType.Car));
@@ -91,13 +87,11 @@ namespace MonopolyV20
             Buldings.Add(new Business("Holiday Inn", 31, 3000, 1800, 1400, 0, 1750, new List<int>() { 260, 1300, 3900, 9000, 11000, 12750 }, BusinessType.Hotels));
             Buldings.Add(new Business("Radissom Blu", 32, 3000, 1800, 1500, 0, 1750, new List<int>() { 260, 1300, 3900, 9000, 11000, 12750 }, BusinessType.Hotels));
             Buldings.Add(new Chance("Шанс", 33));
-            ((Chance)Buldings[Buldings.Count - 1]).AddChance();
             Buldings.Add(new Business("Novotel", 34, 3200, 1920, 1600, 0, 1750, new List<int>() { 280, 1500, 4500, 10000, 12000, 14000 }, BusinessType.Hotels));
             Buldings.Add(new CarInterior("Land Rover", 35, 2000, 1000, 1200, 0, new List<int>() { 250, 500, 1000, 2000 }, BusinessType.Car));
             Buldings.Add(new Tax("Налог", 36, 1000));
             Buldings.Add(new Business("Apple", 37, 3500, 2100, 1750, 0, 2000, new List<int>() { 350, 1750, 5000, 11000, 13000, 15000 }, BusinessType.Electronics));
             Buldings.Add(new Chance("Шанс", 38));
-            ((Chance)Buldings[Buldings.Count - 1]).AddChance();
             Buldings.Add(new Business("Nokia", 39, 4000, 2400, 2000, 0, 2000, new List<int>() { 500, 2000, 6000, 14000, 17000, 20000 }, BusinessType.Electronics));
 
         }//Добовление категорий в ячейки 

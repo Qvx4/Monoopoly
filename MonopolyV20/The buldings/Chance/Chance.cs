@@ -12,8 +12,9 @@ namespace MonopolyV20
         public Chance(string title, int number) : base(title, number)
         {
             Chances = new List<Chances>();
+            AddChance();
         }
-        public void AddChance()
+        private void AddChance()
         {
             Chances.Add(new Lesion(750, "{ Поход в магазин }", "Вы решили пойти в магазин и потратили 750"));
             Chances.Add(new RandomActions("{ День рождения }", "У вас сегодня день рождение и вы получаете с каждого игрока по 150", Actions.Birthday));
