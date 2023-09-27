@@ -783,10 +783,6 @@ namespace MonopolyV20
                         {
                             ((Bot)Users[nextPlayer]).MonoopolyImprovement1(((Bot)Users[nextPlayer]).MonoopolyImprovement(Field.Buldings));
                         }
-                        if (luckBot == 3)
-                        {
-                            ((Bot)Users[nextPlayer]).Prison = true;
-                        }
                         //Console.Clear();
                         ShowField("");
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
@@ -794,11 +790,28 @@ namespace MonopolyV20
                         secondCube = RollTheCube(rand);
                         //if (nextPlayer == 0)
                         //{
-                        //    firstCube = 30;
-                        //    secondCube = 0;
+                        //    firstCube = 2;
+                        //    secondCube = 2;
                         //}
                         ShowGameCube(firstCube);
                         ShowGameCube(secondCube);
+                        if (firstCube != secondCube)
+                        {
+                            check = false;
+                            luckBot = 0;
+                        }
+                        else
+                        {
+                            luckBot++;
+                        }
+                        if (luckBot == 3)
+                        {
+                            Console.WriteLine($"У игрока {Users[nextPlayer].Symbol} выпал дубль 3 раза и он попадет в тюрьму ");
+                            ((Bot)Users[nextPlayer]).Prison = true;
+                            check = false;
+                            Thread.Sleep(2000);
+                            break;
+                        }
                         Console.WriteLine($"Ход игрока {Users[nextPlayer].Symbol}");
                         Thread.Sleep(2000);
                         if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
@@ -864,15 +877,6 @@ namespace MonopolyV20
                             ((Bot)Users[nextPlayer]).Auction = false;
                         }
                         ShowField($"Бот кинул кубики число первого кубика [{firstCube}] число второго кубика [{secondCube}]");
-                        if (firstCube != secondCube)
-                        {
-                            check = false;
-                            luckBot = 0;
-                        }
-                        else
-                        {
-                            luckBot++;
-                        }
                     }
                 } //fix 
                 else
@@ -940,11 +944,6 @@ namespace MonopolyV20
                     }
                     while (check)
                     {
-                        if (luck == 3)
-                        {
-                            ((Player)Users[nextPlayer]).Prison = true;
-                        }
-                        //Console.Clear();
                         ShowField("");
                         ShowGameMenu();
                         Console.Write("{ Ввод } > ");
@@ -994,6 +993,9 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
+                                        ShowGameCube(firstCube);
+                                        ShowGameCube(secondCube);
+                                        Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
                                         //{
@@ -1020,8 +1022,6 @@ namespace MonopolyV20
                                         //    test++;
                                         //}
                                         #endregion
-                                        firstCube = 2;
-                                        secondCube = 0;
                                         if (firstCube == secondCube)
                                         {
                                             luck++;
@@ -1032,13 +1032,18 @@ namespace MonopolyV20
                                             luck = 0;
                                             check = false;
                                         }
+                                        if (luck == 3)
+                                        {
+                                            Console.WriteLine($"Игроку {Users[nextPlayer].Symbol} 3 раза выпал дубль и он попадает в тюрьму");
+                                            ((Player)Users[nextPlayer]).Prison = true;
+                                            Thread.Sleep(2000);
+                                            check = false;
+                                            break;
+                                        }
 
                                     }
                                     if (((Player)Users[nextPlayer]).Surrender != true && ((Player)Users[nextPlayer]).Prison != true && ((Player)Users[nextPlayer]).StepSkip != true)
                                     {
-                                        ShowGameCube(firstCube);
-                                        ShowGameCube(secondCube);
-                                        Thread.Sleep(2000);
                                         if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
                                         {
                                             if (Users[nextPlayer].ReverseStroke == true)
@@ -1403,7 +1408,7 @@ namespace MonopolyV20
                                                 }
                                                 else
                                                 {
-                                                    ((Player)Users[nextPlayer]).ChanceAnalysis(chance,Field);
+                                                    ((Player)Users[nextPlayer]).ChanceAnalysis(chance, Field);
                                                 }
                                             }//проверка что ячейка шанс снятие деняг 
                                         }
