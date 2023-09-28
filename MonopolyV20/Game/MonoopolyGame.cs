@@ -894,12 +894,18 @@ namespace MonopolyV20
                             bool checkJack = false;
                             Console.WriteLine(" Введите количество кубиков не больше 3 ");
                             int.TryParse(Console.ReadLine(), out int number);
+                            while (number >= 1 && number <= 3) 
+                            {
+                                Console.WriteLine("число вышло за придел введите число еще раз");
+                                Console.Write("Ввод >> ");
+                                int.TryParse(Console.ReadLine(), out number);
+                            }
                             int[] arrayCubs = new int[number];
                             for (int i = 0; i < arrayCubs.Length; i++)
                             {
                                 Console.Write("{ Ввод } >> ");
                                 int.TryParse(Console.ReadLine(), out number);
-                                while (number < 1 || number > 6 || checkJack)
+                                while (number < 1 && number > 6 || checkJack)
                                 {
                                     Console.Write("{ Ввод } >> ");
                                     int.TryParse(Console.ReadLine(), out number);
