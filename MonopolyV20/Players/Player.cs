@@ -460,6 +460,7 @@ namespace MonopolyV20
                                     CordinationPlayer = field.Buldings[i].Number;
                                     Prison = true;
                                     Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
+                                    Thread.Sleep(2000);
                                 }
                             }
                         }

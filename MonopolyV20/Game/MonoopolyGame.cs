@@ -885,6 +885,7 @@ namespace MonopolyV20
                     bool check = true;
                     if (Users[nextPlayer].Jackpot == true)
                     {
+                        int number = 0;
                         Console.WriteLine("{ 1 } Сыграть в джекпот | { 2 } Отказатся от игры ");
                         Console.Write("{ Ввод } >> ");
                         int.TryParse(Console.ReadLine(), out int choise);
@@ -892,36 +893,35 @@ namespace MonopolyV20
                         {
                             Users[nextPlayer].Balance -= 1000;
                             bool checkJack = false;
-                            Console.WriteLine(" Введите количество кубиков не больше 3 ");
-                            int.TryParse(Console.ReadLine(), out int number);
-                            while (number >= 1 && number <= 3) 
+                            do
                             {
-                                Console.WriteLine("число вышло за придел введите число еще раз");
-                                Console.Write("Ввод >> ");
+                                Console.WriteLine(" Введите количество кубиков не больше 3 ");
                                 int.TryParse(Console.ReadLine(), out number);
                             }
+                            while (number >= 1 && number <= 3);
                             int[] arrayCubs = new int[number];
                             for (int i = 0; i < arrayCubs.Length; i++)
                             {
-                                Console.Write("{ Ввод } >> ");
-                                int.TryParse(Console.ReadLine(), out number);
-                                while (number < 1 && number > 6 || checkJack)
+                                do
                                 {
+                                    Console.WriteLine($"Введите число от 1 до 6 в ячейку номер {i}");
                                     Console.Write("{ Ввод } >> ");
                                     int.TryParse(Console.ReadLine(), out number);
-                                    for (int j = 0; j < arrayCubs.Length; j++)
+                                }
+                                while (number < 1 && number > 6);
+                                for (int j = 0; j < arrayCubs.Length; j++)
+                                {
+                                    if (arrayCubs[i] == number)
                                     {
-                                        if (arrayCubs[i] == number)
-                                        {
-                                            checkJack = true;
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            checkJack = false;
-                                        }
+                                        checkJack = true;
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        checkJack = false;
                                     }
                                 }
+
                                 arrayCubs[i] = number;
                             }//проверка ввода чисел
                             firstCube = RollTheCube(rand);
@@ -996,11 +996,13 @@ namespace MonopolyV20
                                         }
                                     }
                                     else
-                                    {
+                                    {  
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
+                                        firstCube = 30;
+                                        secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
