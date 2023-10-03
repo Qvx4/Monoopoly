@@ -986,6 +986,7 @@ namespace MonopolyV20
                                             {
                                                 ((Player)Users[nextPlayer]).Balance -= ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost;
                                                 ((Player)Users[nextPlayer]).Prison = false;
+                                                continue;
                                             }
                                         }
                                         else
@@ -1001,8 +1002,6 @@ namespace MonopolyV20
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
-                                        firstCube = 30;
-                                        secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
