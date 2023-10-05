@@ -825,7 +825,7 @@ namespace MonopolyV20
                         if (CheckingMonopolyCollected(((Business)result[i]).BusinessType, result) && ((Business)result[i]).Level > 0)
                         {
                             businessType = ((Business)result[i]).BusinessType;
-                            for (int j = 0; j < result.Count; i++)
+                            for (int j = result.Count - 1; j > 0; j--)
                             {
                                 if (result[j].GetType() == typeof(Business))
                                 {

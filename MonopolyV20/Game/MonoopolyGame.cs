@@ -683,6 +683,10 @@ namespace MonopolyV20
             //((Business)Field.Buldings[1]).Mortgaged = true;
             //((Business)Field.Buldings[3]).Mortgaged = true;
             #endregion
+            ((Business)Field.Buldings[6]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[8]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[9]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
             Random rand = new Random();
             int maxFieldCount = 40;
             int prisonPrice = 500;
@@ -950,6 +954,14 @@ namespace MonopolyV20
                     }
                     while (check)
                     {
+                        if (Users[nextPlayer].StepSkip)
+                        {
+                            Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} пропускает ход ");
+                            Users[nextPlayer].StepSkip = false;
+                            Thread.Sleep(2000);
+                            check = false;
+                            continue;
+                        }
                         ShowField("");
                         ShowGameMenu();
                         Console.Write("{ Ввод } > ");
@@ -1002,6 +1014,8 @@ namespace MonopolyV20
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
+                                        //firstCube = 2;
+                                        //secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
@@ -1308,6 +1322,7 @@ namespace MonopolyV20
                                             {
                                                 Random random = new Random();
                                                 Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[rand.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
+                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[5];
 
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(chance))
                                                 {
