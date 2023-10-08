@@ -683,10 +683,6 @@ namespace MonopolyV20
             //((Business)Field.Buldings[1]).Mortgaged = true;
             //((Business)Field.Buldings[3]).Mortgaged = true;
             #endregion
-            ((Business)Field.Buldings[6]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[8]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[9]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
             Random rand = new Random();
             int maxFieldCount = 40;
             int prisonPrice = 500;
@@ -887,71 +883,79 @@ namespace MonopolyV20
                 {
                     GameMenu gameMenu;
                     bool check = true;
-                    if (Users[nextPlayer].Jackpot == true)
-                    {
-                        int number = 0;
-                        Console.WriteLine("{ 1 } Сыграть в джекпот | { 2 } Отказатся от игры ");
-                        Console.Write("{ Ввод } >> ");
-                        int.TryParse(Console.ReadLine(), out int choise);
-                        if (choise == 1)
-                        {
-                            Users[nextPlayer].Balance -= 1000;
-                            bool checkJack = false;
-                            do
-                            {
-                                Console.WriteLine(" Введите количество кубиков не больше 3 ");
-                                int.TryParse(Console.ReadLine(), out number);
-                            }
-                            while (number >= 1 && number <= 3);
-                            int[] arrayCubs = new int[number];
-                            for (int i = 0; i < arrayCubs.Length; i++)
-                            {
-                                do
-                                {
-                                    Console.WriteLine($"Введите число от 1 до 6 в ячейку номер {i}");
-                                    Console.Write("{ Ввод } >> ");
-                                    int.TryParse(Console.ReadLine(), out number);
-                                }
-                                while (number < 1 && number > 6);
-                                for (int j = 0; j < arrayCubs.Length; j++)
-                                {
-                                    if (arrayCubs[i] == number)
-                                    {
-                                        checkJack = true;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        checkJack = false;
-                                    }
-                                }
+                    #region TestJacpot
+                    //if (Users[nextPlayer].Jackpot == true)
+                    //{
+                    //    int number = 0;
+                    //    Console.WriteLine("{ 1 } Сыграть в джекпот | { 2 } Отказатся от игры ");
+                    //    Console.Write("{ Ввод } >> ");
+                    //    int.TryParse(Console.ReadLine(), out int choise);
+                    //    if (choise == 1)
+                    //    {
+                    //        Users[nextPlayer].Balance -= 1000;
+                    //        bool checkJack = false;
+                    //        do
+                    //        {
+                    //            Console.WriteLine(" Введите количество кубиков не больше 3 ");
+                    //            int.TryParse(Console.ReadLine(), out number);
+                    //        }
+                    //        while (number < 1 || number > 4);
+                    //        int[] arrayCubs = new int[number];
+                    //        for (int i = 0; i < arrayCubs.Length; i++)
+                    //        {
+                    //            do
+                    //            {
+                    //                Console.WriteLine($"Введите число от 1 до 6 в ячейку номер {i}");
+                    //                Console.Write("{ Ввод } >> ");
+                    //                int.TryParse(Console.ReadLine(), out number);
+                    //            }
+                    //            while (number < 1 && number > 6);
+                    //            for (int j = 0; j < arrayCubs.Length; j++)
+                    //            {
+                    //                if (arrayCubs[i] == number)
+                    //                {
+                    //                    checkJack = true;
+                    //                    break;
+                    //                }
+                    //                else
+                    //                {
+                    //                    checkJack = false;
+                    //                }
+                    //            }
 
-                                arrayCubs[i] = number;
-                            }//проверка ввода чисел
-                            firstCube = RollTheCube(rand);
-                            for (int i = 0; i < arrayCubs.Length; i++)
-                            {
-                                if (arrayCubs[i] == firstCube)
-                                {
-                                    if (arrayCubs.Length == 3)
-                                    {
-                                        Users[nextPlayer].Balance += 2000;
-                                    }
-                                    else if (arrayCubs.Length == 2)
-                                    {
-                                        Users[nextPlayer].Balance += 3000;
-                                    }
-                                    else if (arrayCubs.Length == 1)
-                                    {
-                                        Users[nextPlayer].Balance += 6000;
-                                    }
-                                    break;
-                                }
-                            }//проверка выигрыша
-                        }
-                        Users[nextPlayer].Jackpot = false;
+                    //            arrayCubs[i] = number;
+                    //        }//проверка ввода чисел
+                    //        firstCube = RollTheCube(rand);
+                    //        for (int i = 0; i < arrayCubs.Length; i++)
+                    //        {
+                    //            if (arrayCubs[i] == firstCube)
+                    //            {
+                    //                if (arrayCubs.Length == 3)
+                    //                {
+                    //                    Users[nextPlayer].Balance += 2000;
+                    //                    Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} выиграл 2000 ");
+                    //                    Thread.Sleep(2000);
+                    //                }
+                    //                else if (arrayCubs.Length == 2)
+                    //                {
+                    //                    Users[nextPlayer].Balance += 3000;
+                    //                    Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} выиграл 3000 ");
+                    //                    Thread.Sleep(2000);
+                    //                }
+                    //                else if (arrayCubs.Length == 1)
+                    //                {
+                    //                    Users[nextPlayer].Balance += 6000;
+                    //                    Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} выиграл 6000 ");
+                    //                    Thread.Sleep(2000);
+                    //                }
+                    //                break;
+                    //            }
+                    //        }//проверка выигрыша
+                    //    }
+                    //    Users[nextPlayer].Jackpot = false;
 
-                    }
+                    //}
+                    #endregion
                     while (check)
                     {
                         if (Users[nextPlayer].StepSkip)
@@ -1014,7 +1018,7 @@ namespace MonopolyV20
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
-                                        //firstCube = 2;
+                                        //firstCube = 20;
                                         //secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
@@ -1110,6 +1114,83 @@ namespace MonopolyV20
                                         }//если игрок дивгается по пределам поля 
                                         //Console.Clear();
                                         ShowField("");
+                                        if (Users[nextPlayer].Jackpot == true)
+                                        {
+                                            int number = 0;
+                                            Console.WriteLine("{ 1 } Сыграть в джекпот | { 2 } Отказатся от игры ");
+                                            Console.Write("{ Ввод } >> ");
+                                            int.TryParse(Console.ReadLine(), out int choise);
+                                            if (choise == 1)
+                                            {
+                                                Users[nextPlayer].Balance -= 1000;
+                                                bool checkJack = false;
+                                                do
+                                                {
+                                                    Console.WriteLine(" Введите количество кубиков не больше 3 ");
+                                                    Console.Write("{ Ввод } >> ");
+                                                    int.TryParse(Console.ReadLine(), out number);
+                                                }
+                                                while (number < 1 || number > 3);
+                                                int[] arrayCubs = new int[number];
+                                                for (int i = 0; i < arrayCubs.Length; i++)
+                                                {
+                                                    do
+                                                    {
+                                                        Console.WriteLine($"Введите число от 1 до 6 в ячейку номер {i}");
+                                                        Console.Write("{ Ввод } >> ");
+                                                        int.TryParse(Console.ReadLine(), out number);
+                                                    }
+                                                    while (number < 1 || number > 6);
+                                                    for (int j = 0; j < arrayCubs.Length; j++)
+                                                    {
+                                                        if (arrayCubs[i] == number)
+                                                        {
+                                                            checkJack = true;
+                                                            break;
+                                                        }
+                                                        else
+                                                        {
+                                                            checkJack = false;
+                                                        }
+                                                    }
+
+                                                    arrayCubs[i] = number;
+                                                }//проверка ввода чисел
+                                                firstCube = RollTheCube(rand);
+                                                Console.WriteLine($"В джекпоте рандомно кинулся кубик и выпало число {firstCube}");
+                                                Thread.Sleep(2000);
+                                                for (int i = 0; i < arrayCubs.Length; i++)
+                                                {
+                                                    if (arrayCubs[i] == firstCube)
+                                                    {
+                                                        if (arrayCubs.Length == 3)
+                                                        {
+                                                            Users[nextPlayer].Balance += 2000;
+                                                            Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} выиграл 2000 ");
+                                                            Thread.Sleep(2000);
+                                                        }
+                                                        else if (arrayCubs.Length == 2)
+                                                        {
+                                                            Users[nextPlayer].Balance += 3000;
+                                                            Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} выиграл 3000 ");
+                                                            Thread.Sleep(2000);
+                                                        }
+                                                        else if (arrayCubs.Length == 1)
+                                                        {
+                                                            Users[nextPlayer].Balance += 6000;
+                                                            Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} выиграл 6000 ");
+                                                            Thread.Sleep(2000);
+                                                        }
+                                                        break;
+                                                    }
+                                                    Console.WriteLine($"Кубики не совпали игрок {Users[nextPlayer].Symbol} проиграл");
+                                                    Thread.Sleep(2000);
+                                                    break;
+                                                }//проверка выигрыша
+                                            }
+                                            Users[nextPlayer].Jackpot = false;
+
+                                        }
                                         if (((Player)Users[nextPlayer]).IsCheckCellNotBsn(Field.Buldings[Users[nextPlayer].CordinationPlayer]))
                                         {
                                             if (Field.Buldings[Users[nextPlayer].CordinationPlayer].GetType() == typeof(Bank))
