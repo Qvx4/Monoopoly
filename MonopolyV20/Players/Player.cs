@@ -77,7 +77,7 @@ namespace MonopolyV20
         {
             if (chances.GetType() == typeof(Lesion))
             {
-                Console.WriteLine($"Игрок {Symbol} {((Lesion)chances).Description}");
+                Console.WriteLine($"Игрок {Symbol} {((Lesion)chances).Description} сумма {((Lesion)chances).WriteOffMoney}");
                 Thread.Sleep(2000);
                 return true;
             }
@@ -615,7 +615,7 @@ namespace MonopolyV20
             else if (buldings.GetType() == typeof(Start))
             {
                 Balance += ((Start)buldings).Summa;
-                Console.WriteLine($"Игрок {Symbol} прошел круг и получает {((Start)buldings).Summa}");
+                Console.WriteLine($"Игрок {Symbol} попал на старт и получает {((Start)buldings).Summa}");
                 Thread.Sleep(2000);
             }//проверка что ячейка старт 
             #region Test

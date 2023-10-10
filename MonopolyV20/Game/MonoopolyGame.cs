@@ -1018,8 +1018,8 @@ namespace MonopolyV20
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
-                                        //firstCube = 20;
-                                        //secondCube = 0;
+                                        firstCube = 17;
+                                        secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
@@ -1098,8 +1098,10 @@ namespace MonopolyV20
                                         {
                                             if (Users[nextPlayer].ReverseStroke == true)
                                             {
-                                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);//f
+                                                firstCube = 6;
+                                                secondCube =4;
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);//f
                                                 Users[nextPlayer].CordinationPlayer -= firstCube + secondCube + Field.Buldings.Count;
                                                 ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);//f
                                                 Users[nextPlayer].ReverseStroke = false;
@@ -1198,6 +1200,7 @@ namespace MonopolyV20
                                                 while (menu)
                                                 {
                                                     ShowPayMenu("Выплатить налог", choose = 0);
+                                                    Console.WriteLine($"Цена снятия составляет {((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
                                                     Console.Write("{ Ввод } > ");
                                                     Enum.TryParse(Console.ReadLine(), out buyMenu);
                                                     switch (buyMenu)
@@ -1207,7 +1210,6 @@ namespace MonopolyV20
                                                                 if (((Player)Users[nextPlayer]).Balance > ((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa)
                                                                 {
                                                                     ((Player)Users[nextPlayer]).Balance -= ((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa;
-                                                                    Console.WriteLine($"Игрок {((Player)Users[nextPlayer]).Symbol} попал на банк и у него снимают списывают {((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
                                                                     Thread.Sleep(2000);
                                                                     menu = false;
                                                                 }
@@ -1302,6 +1304,7 @@ namespace MonopolyV20
                                                 while (menu)
                                                 {
                                                     ShowPayMenu("Выплатить налога на роскаш", choose = 1);
+                                                    Console.WriteLine($"Цена снятия составляет {((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
                                                     Console.Write("{ Ввод } > ");
                                                     Enum.TryParse(Console.ReadLine(), out buyMenu);
                                                     switch (buyMenu)
@@ -1311,8 +1314,6 @@ namespace MonopolyV20
                                                                 if (((Player)Users[nextPlayer]).Balance > ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa)
                                                                 {
                                                                     ((Player)Users[nextPlayer]).Balance -= ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa;
-                                                                    Console.WriteLine($"Игрок {((Player)Users[nextPlayer]).Symbol} вы попали на ячейку налог {((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
-                                                                    Thread.Sleep(2000);
                                                                     menu = false;
                                                                 }
                                                                 else
@@ -1402,8 +1403,8 @@ namespace MonopolyV20
                                             else if (((Player)Users[nextPlayer]).IsCheckCellChance(Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]))
                                             {
                                                 Random random = new Random();
-                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[rand.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
-                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[5];
+                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[rand.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
+                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[8];
 
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(chance))
                                                 {
@@ -1514,9 +1515,10 @@ namespace MonopolyV20
                                                     ((Player)Users[nextPlayer]).ChanceAnalysis(chance, Field);
                                                 }
                                             }//проверка что ячейка шанс снятие деняг 
-                                        }
+                                        }//fix
                                         else if (((Player)Users[nextPlayer]).IsCheckCellBsn(Field.Buldings[Users[nextPlayer].CordinationPlayer]))
                                         {
+                                            Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} попал на ячейку {Field.Buldings[Users[nextPlayer].CordinationPlayer].Title}");
                                             if (((Player)Users[nextPlayer]).IsCehckByCell(Field.Buldings[Users[nextPlayer].CordinationPlayer]) == true)
                                             {
                                                 while (menu)
