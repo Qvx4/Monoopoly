@@ -1018,8 +1018,8 @@ namespace MonopolyV20
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
-                                        firstCube = 2;
-                                        secondCube = 0;
+                                        //firstCube = 2;
+                                        //secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
@@ -1098,8 +1098,8 @@ namespace MonopolyV20
                                         {
                                             if (Users[nextPlayer].ReverseStroke == true)
                                             {
-                                                firstCube = 6;
-                                                secondCube = 4;
+                                                //firstCube = rand.Next(1,6);
+                                                //secondCube = rand.Next(1, 6);
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 if (Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count > Field.Buldings.Count)
                                                 {
@@ -1109,10 +1109,10 @@ namespace MonopolyV20
                                                 else
                                                 {
                                                     Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);
-                                                    Users[nextPlayer].CordinationPlayer -= firstCube + secondCube ;
-                                                    Users[nextPlayer].CordinationPlayer += +Field.Buldings.Count;
+                                                    Users[nextPlayer].CordinationPlayer -= firstCube + secondCube; 
+                                                    Users[nextPlayer].CordinationPlayer += Field.Buldings.Count;
                                                 }
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);//f
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
                                                 Users[nextPlayer].ReverseStroke = false;
                                             }//если игроку выпал шанс ход в обратную сторону
                                             else
