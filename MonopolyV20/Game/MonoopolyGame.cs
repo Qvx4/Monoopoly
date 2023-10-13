@@ -1018,8 +1018,8 @@ namespace MonopolyV20
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
-                                        //firstCube = 2;
-                                        //secondCube = 0;
+                                        firstCube = 38;
+                                        secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
@@ -1069,18 +1069,30 @@ namespace MonopolyV20
                                     }
                                     if (((Player)Users[nextPlayer]).Surrender != true && ((Player)Users[nextPlayer]).Prison != true && ((Player)Users[nextPlayer]).StepSkip != true)
                                     {
-                                        if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
+                                        if (Users[nextPlayer].ReverseStroke == true)
                                         {
-                                            if (Users[nextPlayer].ReverseStroke == true)
+                                            firstCube = rand.Next(1, 6);
+                                            secondCube = rand.Next(1, 6);
+                                            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                                            if (Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count > Field.Buldings.Count)
                                             {
-                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
-                                                Users[nextPlayer].CordinationPlayer -= firstCube + secondCube + Field.Buldings.Count;
-                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
-                                                Users[nextPlayer].ReverseStroke = false;
-                                            }//если игроку выпал шанс ход в обратную сторону
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);
+                                                Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
+                                            }
                                             else
                                             {
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);
+                                                Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
+                                                Users[nextPlayer].CordinationPlayer += Field.Buldings.Count;
+                                            }
+                                            ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
+                                            Users[nextPlayer].ReverseStroke = false;
+                                        }
+                                        else
+                                        {
+                                            if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
+                                            {
+
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube - Field.Buldings.Count;
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
@@ -1092,37 +1104,18 @@ namespace MonopolyV20
                                                     Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} прошел круг и получает 2000");
                                                     Thread.Sleep(2000);
                                                 }
-                                            }
-                                        }//если игрок вышел за приделы поля 
-                                        else
-                                        {
-                                            if (Users[nextPlayer].ReverseStroke == true)
-                                            {
-                                                //firstCube = rand.Next(1,6);
-                                                //secondCube = rand.Next(1, 6);
-                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
-                                                if (Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count > Field.Buldings.Count)
-                                                {
-                                                    Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);
-                                                    Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
-                                                }
-                                                else
-                                                {
-                                                    Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);
-                                                    Users[nextPlayer].CordinationPlayer -= firstCube + secondCube; 
-                                                    Users[nextPlayer].CordinationPlayer += Field.Buldings.Count;
-                                                }
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
-                                                Users[nextPlayer].ReverseStroke = false;
-                                            }//если игроку выпал шанс ход в обратную сторону
+
+                                            }//если игрок вышел за приделы поля 
                                             else
                                             {
+
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
                                                 ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
-                                            }
-                                        }//если игрок дивгается по пределам поля 
+
+                                            }//если игрок дивгается по пределам поля 
+                                        }
                                         //Console.Clear();
                                         ShowField("");
                                         if (Users[nextPlayer].Jackpot == true)
