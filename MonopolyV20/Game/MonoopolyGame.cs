@@ -199,7 +199,7 @@ namespace MonopolyV20
             }
             return false;
         }//проверка на победу 
-        public void Auction(Building bulding, char symbol)
+        public void Auction(Building bulding, char symbol) // доделать текст что игроки не могут принять состезание на аукционе или что игроки отказались от участия в єтом мероприятии или что у игроков нету деняг 
         {
             Random random = new Random();
             int nextPlayer = 0;
@@ -814,22 +814,33 @@ namespace MonopolyV20
                         }
                         Console.WriteLine($"Ход игрока {Users[nextPlayer].Symbol}");
                         Thread.Sleep(2000);
-                        if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
+                        if (Users[nextPlayer].ReverseStroke == true)
                         {
-                            if (Users[nextPlayer].ReverseStroke == true)
+                            firstCube = rand.Next(1, 6);
+                            secondCube = rand.Next(1, 6);
+                            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                            if (Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count > Field.Buldings.Count)
                             {
-                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);
                                 Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
-                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
-                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
-                                Users[nextPlayer].ReverseStroke = false;
-                            }//если игроку выпал шанс ход в обратную сторону
+                            }
                             else
                             {
-                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);//fix
+                                Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count].Symbol.Add(Users[nextPlayer].Symbol);
+                                Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
+                                Users[nextPlayer].CordinationPlayer += Field.Buldings.Count;
+                            }
+                            ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer],Users,Field);
+                            Users[nextPlayer].ReverseStroke = false;
+                        }
+                        else
+                        {
+                            if ((Users[nextPlayer].CordinationPlayer + firstCube + secondCube) >= Field.Buldings.Count)
+                            {
+
+                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube - Field.Buldings.Count;
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
-                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
                                 Users[nextPlayer].NumberOfLaps += 1;
                                 if (Users[nextPlayer].NumberOfLaps != 45)
                                 {
@@ -837,42 +848,23 @@ namespace MonopolyV20
                                     Console.WriteLine($"Бот {Users[nextPlayer].Symbol} прошел круг и получает 2000");
                                     Thread.Sleep(2000);
                                 }
-                            }
-                        }
-                        else
-                        {
-                            if (Users[nextPlayer].ReverseStroke == true)
-                            {
-                                if (Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) < 0)//fix не попал в иф 
-                                {
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer + Field.Buldings.Count - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);
-                                }
-                                else
-                                {
-                                    Field.Buldings[Users[nextPlayer].CordinationPlayer - (firstCube + secondCube)].Symbol.Add(Users[nextPlayer].Symbol);//fix краш юзер 4
-                                }
-                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
-                                if (Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) < 0)
-                                {
-                                    Users[nextPlayer].CordinationPlayer = Field.Buldings.Count - (firstCube + secondCube);
-                                }
-                                else
-                                {
-                                    Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
-                                }
-                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);//fix краш кординаты 
-                                Users[nextPlayer].ReverseStroke = false;
-                            }
+                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer],Users, Field);
+
+                            }//если игрок вышел за приделы поля 
                             else
                             {
+
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
-                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
-                            }
+                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer],Users, Field);
+
+                            }//если игрок дивгается по пределам поля 
                         }
                         if (((Bot)Users[nextPlayer]).Auction)
                         {
+                            Console.WriteLine($"У бота {Users[nextPlayer].Symbol} нехватило деняг и он отправляет бизнес {Field.Buldings[Users[nextPlayer].CordinationPlayer].Title} на аукцион");
+                            Thread.Sleep(2000);
                             Auction(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users[nextPlayer].Symbol);
                             ((Bot)Users[nextPlayer]).Auction = false;
                         }
@@ -1096,7 +1088,6 @@ namespace MonopolyV20
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube - Field.Buldings.Count;
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
-                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field); // F
                                                 Users[nextPlayer].NumberOfLaps += 1;
                                                 if (Users[nextPlayer].NumberOfLaps != 45)
                                                 {
@@ -1104,6 +1095,7 @@ namespace MonopolyV20
                                                     Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} прошел круг и получает 2000");
                                                     Thread.Sleep(2000);
                                                 }
+                                                ((Player)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Field);
 
                                             }//если игрок вышел за приделы поля 
                                             else
