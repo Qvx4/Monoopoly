@@ -199,8 +199,9 @@ namespace MonopolyV20
             }
             return false;
         }//проверка на победу 
-        public void Auction(Building bulding, char symbol) // доделать текст что игроки не могут принять состезание на аукционе или что игроки отказались от участия в єтом мероприятии или что у игроков нету деняг 
+        public void Auction(Building bulding, char symbol)
         {
+            Console.WriteLine($"Аукцион начинается на бизнес {bulding.Title}");
             Random random = new Random();
             int nextPlayer = 0;
             int bsnPrice = 0;
@@ -245,6 +246,8 @@ namespace MonopolyV20
                     bool startOrStop = false;
                     if (((Bot)user[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))//fix
                     {
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
+                        Thread.Sleep(2000);
                         user.Remove(user[nextPlayer]);
                     }
                     else
@@ -260,6 +263,8 @@ namespace MonopolyV20
                         }
                         else
                         {
+                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
+                            Thread.Sleep(2000);
                             user.Remove(user[nextPlayer]);
                             if (user.Count == 1)
                             {
@@ -270,10 +275,14 @@ namespace MonopolyV20
                         }
                         if (startOrStop)
                         {
+                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} повышает поднимает ставку {bsnPrice} + 100");
+                            Thread.Sleep(2000);
                             bsnPrice += 100;
                         }
                         else
                         {
+                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
+                            Thread.Sleep(2000);
                             user.Remove(user[nextPlayer]);//fix
                         }
                     }
@@ -296,10 +305,14 @@ namespace MonopolyV20
                         }
                         if (choise == 1)
                         {
+                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} поднимает ставку {bsnPrice} + 100");
+                            Thread.Sleep(2000);
                             bsnPrice += 100;
                         }
                         else
                         {
+                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
+                            Thread.Sleep(2000);
                             user.Remove(user[nextPlayer]);
                         }
                     }
@@ -312,6 +325,8 @@ namespace MonopolyV20
             }
             if (user.Count == 0)
             {
+                Console.WriteLine("Нету игроков которые приняли участие в аукционе ");
+                Thread.Sleep(2000);
                 return;
             }
             if (user[nextPlayer].GetType() == typeof(Bot) || user[nextPlayer].GetType() == typeof(Player))
@@ -320,31 +335,52 @@ namespace MonopolyV20
                 {
                     if (user[nextPlayer].Balance > ((Business)bulding).Price)
                     {
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((Business)bulding).Title} цена {((Business)bulding).Price}");
+                        Thread.Sleep(2000);
                         user[nextPlayer].Balance -= ((Business)bulding).Price;
+                        ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
                     }
-                    else return;
-                    ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
+                    else
+                    {
+                        Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((Business)bulding).Title}");
+                        Thread.Sleep(2000);
+                        return;
+                    }
                 }
                 if (bulding.GetType() == typeof(CarInterior))
                 {
                     if (user[nextPlayer].Balance > ((CarInterior)bulding).Price)
                     {
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((CarInterior)bulding).Title} цена {((CarInterior)bulding).Price}");
+                        Thread.Sleep(2000);
                         user[nextPlayer].Balance -= ((CarInterior)bulding).Price;
+                        ((CarInterior)bulding).BusinessOwner = user[nextPlayer].Symbol;
                     }
-                    else return;
-                    ((CarInterior)bulding).BusinessOwner = user[nextPlayer].Symbol;
+                    else
+                    {
+                        Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((CarInterior)bulding).Title}");
+                        Thread.Sleep(2000);
+                        return;
+                    }
                 }
                 if (bulding.GetType() == typeof(GamingCompanies))
                 {
                     if (user[nextPlayer].Balance > ((GamingCompanies)bulding).Price)
                     {
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((GamingCompanies)bulding).Title} цена {((GamingCompanies)bulding).Price}");
+                        Thread.Sleep(2000);
                         user[nextPlayer].Balance -= ((GamingCompanies)bulding).Price;
+                        ((GamingCompanies)bulding).BusinessOwner = user[nextPlayer].Symbol;
                     }
-                    else return;
-                    ((GamingCompanies)bulding).BusinessOwner = user[nextPlayer].Symbol;
+                    else
+                    {
+                        Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((GamingCompanies)bulding).Title}");
+                        Thread.Sleep(2000);
+                        return;
+                    }
                 }
             }
-        }//fix
+        }
         //Method
 
         //Other
@@ -670,8 +706,9 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
+            Users[0].Balance -= 14000;
+            Users[1].Balance -= 14000;
             #region TestBot
-            //Users[0].Balance -= 15000;
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
             //Users[3].Balance -= 11000;
@@ -697,6 +734,9 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
+
+            bool ts = true;
+
             PayMenu payMenu;
             BuyMenu buyMenu;
             while (true)
@@ -788,11 +828,11 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        //if (nextPlayer == 0)
-                        //{
-                        //    firstCube = 2;
-                        //    secondCube = 2;
-                        //}
+                        if (ts)
+                        {
+                            firstCube = 39;
+                            secondCube = 0;
+                        }
                         ShowGameCube(firstCube);
                         ShowGameCube(secondCube);
                         if (firstCube != secondCube)
@@ -830,7 +870,7 @@ namespace MonopolyV20
                                 Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
                                 Users[nextPlayer].CordinationPlayer += Field.Buldings.Count;
                             }
-                            ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer],Users,Field);
+                            ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
                             Users[nextPlayer].ReverseStroke = false;
                         }
                         else
@@ -848,7 +888,7 @@ namespace MonopolyV20
                                     Console.WriteLine($"Бот {Users[nextPlayer].Symbol} прошел круг и получает 2000");
                                     Thread.Sleep(2000);
                                 }
-                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer],Users, Field);
+                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
 
                             }//если игрок вышел за приделы поля 
                             else
@@ -857,7 +897,7 @@ namespace MonopolyV20
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
-                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer],Users, Field);
+                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
 
                             }//если игрок дивгается по пределам поля 
                         }
@@ -1010,7 +1050,7 @@ namespace MonopolyV20
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
-                                        firstCube = 38;
+                                        firstCube = 39;
                                         secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
@@ -1305,7 +1345,7 @@ namespace MonopolyV20
                                                     {
                                                         case BuyMenu.BuyBsn:
                                                             {
-                                                                if (((Player)Users[nextPlayer]).Balance > ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa)
+                                                                if (((Player)Users[nextPlayer]).Balance >= ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa)
                                                                 {
                                                                     ((Player)Users[nextPlayer]).Balance -= ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa;
                                                                     menu = false;
