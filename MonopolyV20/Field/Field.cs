@@ -1670,20 +1670,48 @@ namespace MonopolyV20
                                 Buldings[cellNumber[lastCell]].GetType() != typeof(Business) &&
                                 Buldings[cellNumber[lastCell]].GetType() != typeof(CarInterior))
                             {
+                                int number = 0;
                                 Console.BackgroundColor = ConsoleColor.DarkYellow;
                                 for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
                                 {
-                                    Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                    if (!users[k].Prison)
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                        if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
+                                        {
+                                            Console.Write(" ");
+                                        }
+                                        else
+                                        {
+                                            Console.Write(",");
+                                        }
+                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                    }
+                                    else
+                                    {
+                                        number += 2;
+                                    }
                                 }
-                                Console.ForegroundColor = ConsoleColor.Gray;
-                                for (int o = 0; o < countSpaceInBox - Buldings[cellNumber[lastCell]].Symbol.Count; o++)
+                                for (int o = 0; o < countSpaceInBox - Buldings[cellNumber[lastCell]].Symbol.Count - Buldings[cellNumber[lastCell]].Symbol.Count + number; o++)
                                 {
                                     Console.Write(" ");
                                 }
-                            }
+
+                                //for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
+                                //{
+                                //    Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                //}
+                                //Console.ForegroundColor = ConsoleColor.Gray;
+                                //for (int o = 0; o < countSpaceInBox - Buldings[cellNumber[lastCell]].Symbol.Count; o++)
+                                //{
+                                //    Console.Write(" ");
+                                //}
+                            } //fix
                             else
                             {
                                 bool isColor = false;
+                                int number = 0;
                                 consoleColorType = FieldPainting(Buldings[cellNumber[lastCell]], users);
                                 Console.BackgroundColor = consoleColorType;
                                 if (Buldings[cellNumber[lastCell]].GetType() == typeof(Business))
@@ -1724,7 +1752,7 @@ namespace MonopolyV20
                                             {
                                                 Console.ForegroundColor = ConsoleColor.White;
                                                 Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
-                                                if (k == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                                if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
                                                 {
                                                     Console.Write(" ");
                                                 }
@@ -1736,7 +1764,7 @@ namespace MonopolyV20
                                             }
                                             else
                                             {
-                                                //number += 2;
+                                                number += 2;
                                             }
                                             //Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
                                         }
@@ -1784,7 +1812,7 @@ namespace MonopolyV20
                                 }
                                 if (Buldings[cellNumber[lastCell]].Symbol.Count > 0)
                                 {
-                                    for (int o = 0; o < countSpaceInBox - Buldings[cellNumber[lastCell]].Symbol.Count - 2; o++)
+                                    for (int o = 0; o < countSpaceInBox - Buldings[cellNumber[lastCell]].Symbol.Count - Buldings[cellNumber[lastCell]].Symbol.Count + number; o++)
                                     {
                                         if (Buldings[cellNumber[lastCell]].GetType() == typeof(Business))
                                         {
