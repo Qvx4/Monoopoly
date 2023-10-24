@@ -706,8 +706,8 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            Users[0].Balance -= 14000;
-            Users[1].Balance -= 14000;
+            //Users[0].Balance -= 14000;
+            //Users[1].Balance -= 14000;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -735,7 +735,7 @@ namespace MonopolyV20
             int choose = 0;
             bool menu = true;
 
-            bool ts = true;
+            //bool ts = true;
 
             PayMenu payMenu;
             BuyMenu buyMenu;
@@ -828,11 +828,11 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        if (ts)
-                        {
-                            firstCube = 39;
-                            secondCube = 0;
-                        }
+                        //if (ts)
+                        //{
+                        //    firstCube = 39;
+                        //    secondCube = 0;
+                        //}
                         ShowGameCube(firstCube);
                         ShowGameCube(secondCube);
                         if (firstCube != secondCube)
