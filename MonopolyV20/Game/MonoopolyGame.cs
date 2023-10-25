@@ -271,7 +271,7 @@ namespace MonopolyV20
                                 isWork = false;
                                 break;
                             }
-                            break;
+                            continue;
                         }
                         if (startOrStop)
                         {
@@ -335,9 +335,9 @@ namespace MonopolyV20
                 {
                     if (user[nextPlayer].Balance > ((Business)bulding).Price)
                     {
-                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((Business)bulding).Title} цена {((Business)bulding).Price}");
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((Business)bulding).Title} цена {bsnPrice}");
                         Thread.Sleep(2000);
-                        user[nextPlayer].Balance -= ((Business)bulding).Price;
+                        user[nextPlayer].Balance -= ((Business)bulding).Price + bsnPrice;
                         ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
                     }
                     else
@@ -351,9 +351,9 @@ namespace MonopolyV20
                 {
                     if (user[nextPlayer].Balance > ((CarInterior)bulding).Price)
                     {
-                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((CarInterior)bulding).Title} цена {((CarInterior)bulding).Price}");
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((CarInterior)bulding).Title} цена {bsnPrice}");
                         Thread.Sleep(2000);
-                        user[nextPlayer].Balance -= ((CarInterior)bulding).Price;
+                        user[nextPlayer].Balance -= ((CarInterior)bulding).Price + bsnPrice;
                         ((CarInterior)bulding).BusinessOwner = user[nextPlayer].Symbol;
                     }
                     else
@@ -367,9 +367,9 @@ namespace MonopolyV20
                 {
                     if (user[nextPlayer].Balance > ((GamingCompanies)bulding).Price)
                     {
-                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((GamingCompanies)bulding).Title} цена {((GamingCompanies)bulding).Price}");
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((GamingCompanies)bulding).Title} цена {bsnPrice}");
                         Thread.Sleep(2000);
-                        user[nextPlayer].Balance -= ((GamingCompanies)bulding).Price;
+                        user[nextPlayer].Balance -= ((GamingCompanies)bulding).Price + bsnPrice;
                         ((GamingCompanies)bulding).BusinessOwner = user[nextPlayer].Symbol;
                     }
                     else
@@ -706,8 +706,8 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[0].Balance -= 14000;
-            //Users[1].Balance -= 14000;
+            Users[0].Balance -= 15000;
+            Users[1].Balance -= 15000;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
