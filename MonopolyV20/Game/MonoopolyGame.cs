@@ -707,7 +707,13 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             Users[0].Balance -= 15000;
-            Users[1].Balance -= 15000;
+            //Users[1].Balance -= 15000;
+            ((Business)Field.Buldings[29]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[27]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[26]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[29]).Level = 5;
+            ((Business)Field.Buldings[27]).Level = 5;
+            ((Business)Field.Buldings[26]).Level = 5;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
