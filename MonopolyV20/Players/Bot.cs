@@ -31,7 +31,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(CarInterior carInterior)//проверка куплен ли автоцентр
         {
-            if (carInterior.BusinessOwner != 0 )
+            if (carInterior.BusinessOwner != 0)
             {
                 return true;
             }
@@ -1101,7 +1101,7 @@ namespace MonopolyV20
                 }
             }
             return false;
-        } //проверка куплен ли хоть один бизнес 
+        }//проверка куплен ли хоть один бизнес 
         public bool CheckBsnAllMortagaged(List<Building> buildings)
         {
             bool checkBsnAllMortagaged = true; ;
@@ -1140,21 +1140,22 @@ namespace MonopolyV20
             Console.WriteLine($"Игрок {Symbol} Сдался ");
             Thread.Sleep(2000);
             return true;
-        } // бот сдаётся 
-        public int t(Business business,List<Building> buildings)
+        } //бот сдаётся 
+        public int CountBsn(Business business, List<Building> buildings)//проверка сколько бизнесов типа у бота 
         {
             int countBsn = 0;
+            int[] interest = new int[] { 20, 50, 85 };
             for (int i = 0; i < buildings.Count; i++)
             {
                 if (buildings[i].GetType() == typeof(Business))
                 {
-                    if (((Business)buildings[i]).BusinessOwner == Symbol)
+                    if (((Business)buildings[i]).BusinessOwner == Symbol && ((Business)buildings[i]).BusinessType == business.BusinessType)
                     {
                         countBsn++;
                     }
                 }
             }
-            return 1;
+            return Balance / 100 * interest[countBsn] + business.Price;
         }
     }
 }

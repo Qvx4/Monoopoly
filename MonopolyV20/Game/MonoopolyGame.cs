@@ -201,27 +201,26 @@ namespace MonopolyV20
         }//проверка на победу 
         public void Auction(Building bulding, char symbol)
         {
-            Console.WriteLine($"Аукцион начинается на бизнес {bulding.Title}");
-            Random random = new Random();
+            List<User> user = new List<User>();
+            List<int> SummIn = new List<int>();
             int nextPlayer = 0;
             int bsnPrice = 0;
+            Random random = new Random();
             BusinessType businessType = (BusinessType)0;
-            if (bulding.GetType() == typeof(Business))
+            bsnPrice = ((Business)bulding).Price + 100;
+            businessType = ((Business)bulding).BusinessType;
+            for (int i = 0; i < Users.Count; i++)
             {
-                bsnPrice = ((Business)bulding).Price + 100;
-                businessType = ((Business)bulding).BusinessType;
+                if (Users[i].GetType() == typeof(Bot))
+                {
+                    SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings));
+                    if (((Bot)Users[i]).IsHaveBusinessThisType(businessType, Field.Buldings) == true)
+                    {
+                        user.Add(Users[i]);
+                    }
+                }
             }
-            else if (bulding.GetType() == typeof(CarInterior))
-            {
-                bsnPrice = ((CarInterior)bulding).Price + 100;
-                businessType = ((CarInterior)bulding).BusinessType;
-            }
-            else if (bulding.GetType() == typeof(GamingCompanies))
-            {
-                bsnPrice = ((GamingCompanies)bulding).Price + 100;
-                businessType = ((GamingCompanies)bulding).BusinessType;
-            }
-            List<User> user = new List<User>();
+            Console.WriteLine($"Аукцион начинается на бизнес {bulding.Title}");
             for (int i = 0; i < Users.Count; i++)
             {
                 if (Users[i].Symbol != symbol && !Users[i].Surrender)
@@ -252,18 +251,17 @@ namespace MonopolyV20
                     }
                     else
                     {
-                        if (((Bot)user[nextPlayer]).IsHaveBusinessThisType(businessType, Field.Buldings) == true ||
-                            ((Bot)user[nextPlayer]).IsHaveEnemyBusinessType(Users, businessType, Field.Buldings))
+                        if (((Bot)user[nextPlayer]).IsHaveEnemyBusinessType(Users, businessType, Field.Buldings))
                         {
-                            startOrStop = true;
-                        }
+
+                        }                    
                         if (user[nextPlayer].Balance > bsnPrice * 2)
                         {
                             startOrStop = true;
                         }
                         else
                         {
-                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
+                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе по причине нехватки деняг");
                             Thread.Sleep(2000);
                             user.Remove(user[nextPlayer]);
                             if (user.Count == 1)
@@ -707,7 +705,7 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             Users[0].Balance -= 15000;
-            Users[1].Balance -= 15000;
+            //Users[1].Balance -= 15000;
             //((Business)Field.Buldings[29]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[27]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[26]).BusinessOwner = Users[1].Symbol;
