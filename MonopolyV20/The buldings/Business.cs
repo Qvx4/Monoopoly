@@ -17,7 +17,23 @@ namespace MonopolyV20
         public char BusinessOwner { get; set; }//Владелец бизнеса
         public BusinessType BusinessType { get; set; } // тип бизнеса 
         public bool Mortgaged { get; set; } //заложен ли бизнес
-        public Business(string title,int number,int price,int ransomValue,int valueOfCallaterel,int level,int upgradeprise,List<int> renta,BusinessType businessType) : base(title, number)
+
+        public Business()
+        {
+            Price = 0;
+            RansomValue = 0;
+            ValueOfCollaterel = 0;
+            Level = 0;
+            Rent = new List<int>();
+            UpgradePrice = 0;
+            BusinessOwner = ' ';
+            BusinessType = new BusinessType();
+            Mortgaged = false;
+        }
+
+
+
+        public Business(string title, int number, int price, int ransomValue, int valueOfCallaterel, int level, int upgradeprise, List<int> renta, BusinessType businessType) : base(title, number)
         {
             Price = price;
             RansomValue = ransomValue;

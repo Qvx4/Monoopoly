@@ -1141,6 +1141,21 @@ namespace MonopolyV20
             Thread.Sleep(2000);
             return true;
         } // бот сдаётся 
+        public int t(Business business,List<Building> buildings)
+        {
+            int countBsn = 0;
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                if (buildings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buildings[i]).BusinessOwner == Symbol)
+                    {
+                        countBsn++;
+                    }
+                }
+            }
+            return 1;
+        }
     }
 }
 
