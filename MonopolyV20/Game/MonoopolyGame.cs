@@ -209,23 +209,38 @@ namespace MonopolyV20
             BusinessType businessType = (BusinessType)0;
             bsnPrice = ((Business)bulding).Price + 100;
             businessType = ((Business)bulding).BusinessType;
+            Console.WriteLine($"Аукцион начинается на бизнес {bulding.Title} начальная цена {bsnPrice}");
             for (int i = 0; i < Users.Count; i++)
             {
                 if (Users[i].GetType() == typeof(Bot))
                 {
-                    SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings));
+                    if (((Bot)Users[i]).IsHaveMeMonoopoly(Field.Buldings))
+                    {
+                        if (((Bot)Users[i]).IsCheckMonoopollyLvl(((Bot)Users[i]).MonoopolyImprovement(Field.Buldings)))
+                        {
+                            Console.WriteLine($"Игрок {Users[i].Symbol} отказался от участия на аукционе");
+                            Thread.Sleep(2000);
+                            continue;
+                        }
+                    }
                     if (((Bot)Users[i]).IsHaveBusinessThisType(businessType, Field.Buldings) == true)
                     {
-                        user.Add(Users[i]);
+                        if (Users[i].Symbol != symbol && !Users[i].Surrender)
+                        {
+                            Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
+                            Thread.Sleep(2000);
+                            user.Add(Users[i]);
+                            SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings));
+                            continue;
+                        }
                     }
-                }
-            }
-            Console.WriteLine($"Аукцион начинается на бизнес {bulding.Title}");
-            for (int i = 0; i < Users.Count; i++)
-            {
-                if (Users[i].Symbol != symbol && !Users[i].Surrender)
-                {
-                    user.Add(Users[i]);
+                    if (Users[i].Symbol != symbol && !Users[i].Surrender)
+                    {
+                        Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
+                        Thread.Sleep(2000);
+                        user.Add(Users[i]);
+                        SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings));
+                    }
                 }
             }
             bool isWork = true;
@@ -254,7 +269,7 @@ namespace MonopolyV20
                         if (((Bot)user[nextPlayer]).IsHaveEnemyBusinessType(Users, businessType, Field.Buldings))
                         {
 
-                        }                    
+                        }
                         if (user[nextPlayer].Balance > bsnPrice * 2)
                         {
                             startOrStop = true;

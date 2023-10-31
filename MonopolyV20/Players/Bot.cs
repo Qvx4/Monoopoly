@@ -117,7 +117,7 @@ namespace MonopolyV20
                 }
             }
             return checkLvlTry;
-        }//проверка уровня монополии
+        }//проверка уровня монополии /// не используется 
         public bool IsByCell(Building building, List<Building> buildings)
         {
             if (building.GetType() == typeof(Business))
@@ -385,26 +385,6 @@ namespace MonopolyV20
                         }
                     }
                 }
-                else if (buldings[i].GetType() == typeof(CarInterior))
-                {
-                    if (((CarInterior)buldings[i]).BusinessOwner == Symbol)
-                    {
-                        if (((CarInterior)buldings[i]).BusinessType == businessType)
-                        {
-                            return true;
-                        }
-                    }
-                }
-                else if (buldings[i].GetType() == typeof(GamingCompanies))
-                {
-                    if (((GamingCompanies)buldings[i]).BusinessOwner == Symbol)
-                    {
-                        if (((GamingCompanies)buldings[i]).BusinessType == businessType)
-                        {
-                            return true;
-                        }
-                    }
-                }
             }
             return false;
         }//проверка куплен ли хоть один бизнес этого типа
@@ -418,26 +398,6 @@ namespace MonopolyV20
                     if (((Business)buldings[i]).BusinessOwner == user[nextPlayer].Symbol)
                     {
                         if (((Business)buldings[i]).BusinessType == businessType)
-                        {
-                            return true;
-                        }
-                    }
-                }
-                else if (buldings[i].GetType() == typeof(CarInterior))
-                {
-                    if (((CarInterior)buldings[i]).BusinessOwner == user[nextPlayer].Symbol)
-                    {
-                        if (((CarInterior)buldings[i]).BusinessType == businessType)
-                        {
-                            return true;
-                        }
-                    }
-                }
-                else if (buldings[i].GetType() == typeof(GamingCompanies))
-                {
-                    if (((GamingCompanies)buldings[i]).BusinessOwner == user[nextPlayer].Symbol)
-                    {
-                        if (((GamingCompanies)buldings[i]).BusinessType == businessType)
                         {
                             return true;
                         }
@@ -594,7 +554,7 @@ namespace MonopolyV20
                 Thread.Sleep(2000);
             }
             //Balance -= ((Business)buildings[numberCell]).Upgradeprise;
-        }//улучшение бизнеса //fix
+        }//улучшение бизнеса
         public bool CheckCell(Building buldings, List<User> users, Field field)//проверк ячейки на которую попал бот 
         {
             if (buldings.GetType() == typeof(Business))
@@ -1074,34 +1034,34 @@ namespace MonopolyV20
             return result;
         }//все заложенные бизнесы 
         #endregion
-        public bool Bsn(List<Building> buildings)
-        {
-            for (int i = 0; i < buildings.Count; i++)
-            {
-                if (buildings[i].GetType() == typeof(Business))
-                {
-                    if (((Business)buildings[i]).BusinessOwner == Symbol)
-                    {
-                        return true;
-                    }
-                }
-                if (buildings[i].GetType() == typeof(CarInterior))
-                {
-                    if (((CarInterior)buildings[i]).BusinessOwner == Symbol)
-                    {
-                        return true;
-                    }
-                }
-                if (buildings[i].GetType() == typeof(GamingCompanies))
-                {
-                    if (((GamingCompanies)buildings[i]).BusinessOwner == Symbol)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }//проверка куплен ли хоть один бизнес 
+        //public bool Bsn(List<Building> buildings)
+        //{
+        //    for (int i = 0; i < buildings.Count; i++)
+        //    {
+        //        if (buildings[i].GetType() == typeof(Business))
+        //        {
+        //            if (((Business)buildings[i]).BusinessOwner == Symbol)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //        if (buildings[i].GetType() == typeof(CarInterior))
+        //        {
+        //            if (((CarInterior)buildings[i]).BusinessOwner == Symbol)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //        if (buildings[i].GetType() == typeof(GamingCompanies))
+        //        {
+        //            if (((GamingCompanies)buildings[i]).BusinessOwner == Symbol)
+        //            {
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //    return false;
+        //}//проверка куплен ли хоть один бизнес 
         public bool CheckBsnAllMortagaged(List<Building> buildings)
         {
             bool checkBsnAllMortagaged = true; ;
@@ -1155,7 +1115,7 @@ namespace MonopolyV20
                     }
                 }
             }
-            return Balance / 100 * interest[countBsn];
+            return Balance / 100 * interest[countBsn] + business.Price;
         }
     }
 }
