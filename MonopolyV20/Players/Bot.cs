@@ -1155,7 +1155,7 @@ namespace MonopolyV20
                     }
                 }
             }
-            return Balance / 100 * interest[countBsn] + business.Price;
+            return Balance / 100 * interest[countBsn];
         }
     }
 }
