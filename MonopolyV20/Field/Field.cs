@@ -2054,7 +2054,7 @@ namespace MonopolyV20
                 }
                 Console.Write("┐                   ");
             }
-            count = 9;
+            count = 10;
             for (int i = 0; i < count; i++)
             {
                 Console.WriteLine();

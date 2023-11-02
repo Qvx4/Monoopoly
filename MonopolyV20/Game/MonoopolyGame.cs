@@ -205,15 +205,23 @@ namespace MonopolyV20
             List<int> SummIn = new List<int>();
             int nextPlayer = 0;
             int bsnPrice = 0;
+            bool isWork = true;
             Random random = new Random();
             BusinessType businessType = (BusinessType)0;
             bsnPrice = ((Business)bulding).Price + 100;
             businessType = ((Business)bulding).BusinessType;
             Console.WriteLine($"Аукцион начинается на бизнес {bulding.Title} начальная цена {bsnPrice}");
+            Thread.Sleep(2000);
             for (int i = 0; i < Users.Count; i++)
             {
                 if (Users[i].GetType() == typeof(Bot))
                 {
+                    if (Users[i].Balance <= ((Business)bulding).Price)
+                    {
+                        Console.WriteLine($"Игрок {Users[i].Symbol} отказался принять участие в аукцион потому что нету деняг");
+                        Thread.Sleep(2000);
+                        continue;
+                    }
                     if (((Bot)Users[i]).IsHaveMeMonoopoly(Field.Buldings))
                     {
                         if (((Bot)Users[i]).IsCheckMonoopollyLvl(((Bot)Users[i]).MonoopolyImprovement(Field.Buldings)))
@@ -230,20 +238,24 @@ namespace MonopolyV20
                             Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
                             Thread.Sleep(2000);
                             user.Add(Users[i]);
-                            SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings));
+                            SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
                             continue;
                         }
                     }
-                    if (Users[i].Symbol != symbol && !Users[i].Surrender)
+                    if (Users[i].Symbol != symbol && !Users[i].Surrender && Users[i].Balance > bsnPrice * 2)
                     {
                         Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
                         Thread.Sleep(2000);
                         user.Add(Users[i]);
-                        SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings));
+                        SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings,Users, Users[i].Symbol));
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Игрок {Users[i].Symbol} не может принять участие в аукционе");
+                        Thread.Sleep(2000);
                     }
                 }
             }
-            bool isWork = true;
             while (isWork)
             {
                 if (nextPlayer >= user.Count)
@@ -258,46 +270,22 @@ namespace MonopolyV20
                 if (user[nextPlayer].GetType() == typeof(Bot))
                 {
                     bool startOrStop = false;
-                    if (((Bot)user[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))//fix
+                    if (user.Count == 1)
                     {
-                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
+                        isWork = false;
+                        break;
+                    }
+                    if (startOrStop)
+                    {
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} повышает поднимает ставку {bsnPrice} + 100");
                         Thread.Sleep(2000);
-                        user.Remove(user[nextPlayer]);
+                        bsnPrice += 100;
                     }
                     else
                     {
-                        if (((Bot)user[nextPlayer]).IsHaveEnemyBusinessType(Users, businessType, Field.Buldings))
-                        {
-
-                        }
-                        if (user[nextPlayer].Balance > bsnPrice * 2)
-                        {
-                            startOrStop = true;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе по причине нехватки деняг");
-                            Thread.Sleep(2000);
-                            user.Remove(user[nextPlayer]);
-                            if (user.Count == 1)
-                            {
-                                isWork = false;
-                                break;
-                            }
-                            continue;
-                        }
-                        if (startOrStop)
-                        {
-                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} повышает поднимает ставку {bsnPrice} + 100");
-                            Thread.Sleep(2000);
-                            bsnPrice += 100;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
-                            Thread.Sleep(2000);
-                            user.Remove(user[nextPlayer]);//fix
-                        }
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
+                        Thread.Sleep(2000);
+                        user.Remove(user[nextPlayer]);//fix
                     }
                 }
                 else

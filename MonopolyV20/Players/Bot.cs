@@ -692,7 +692,12 @@ namespace MonopolyV20
                 }
                 else
                 {
-                    MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
+                    if (!MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings))
+                    {
+                        Console.WriteLine($"У Бота {Symbol} нету деняг и бизнесов которые можно заложить по этому он решил сдаться");
+                        Thread.Sleep(2000);
+                        SurrenderLogic(field.Buldings);
+                    }
                 }
             }//проверка что ячейка налог 
             else if (buldings.GetType() == typeof(Tax))
@@ -769,11 +774,11 @@ namespace MonopolyV20
             }
             return bsn;
         } //купленные бизнесы бота
-        public void MortagageBusiness(List<Building> myBuilding, List<User> users, List<Building> allBuilding)//заложить бизнес 
+        public bool MortagageBusiness(List<Building> myBuilding, List<User> users, List<Building> allBuilding)//заложить бизнес 
         {
             if (myBuilding.Count == 0)
             {
-                return;
+                return false;
             }
             List<int> businessValue = new List<int>();
             for (int i = 0; i < myBuilding.Count; i++)
@@ -793,7 +798,7 @@ namespace MonopolyV20
                             Balance += ((Business)myBuilding[i]).ValueOfCollaterel;
                             Console.WriteLine($"Игрок {Symbol} заложил бизнес {myBuilding[i].Title} цена {((Business)myBuilding[i]).ValueOfCollaterel}");
                             Thread.Sleep(2000);
-                            return;
+                            return true;
                         }
                         else
                         {
@@ -809,7 +814,7 @@ namespace MonopolyV20
                         Balance += ((CarInterior)myBuilding[i]).ValueOfCollaterel;
                         Console.WriteLine($"Игрок {Symbol} заложил бизнес {myBuilding[i].Title} цена {((CarInterior)myBuilding[i]).ValueOfCollaterel}");
                         Thread.Sleep(2000);
-                        return;
+                        return true;
                     }
                     if (myBuilding[i].GetType() == typeof(GamingCompanies))
                     {
@@ -817,10 +822,11 @@ namespace MonopolyV20
                         Balance += ((GamingCompanies)myBuilding[i]).ValueOfCollaterel;
                         Console.WriteLine($"Игрок {Symbol} заложил бизнес {myBuilding[i].Title} цена {((GamingCompanies)myBuilding[i]).ValueOfCollaterel}");
                         Thread.Sleep(2000);
-                        return;
+                        return true;
                     }
                 }
             }
+            return false;
         } //fix 50/50
         public bool IsMonopolyPossible(Building business, List<Building> building)
         {
@@ -871,44 +877,6 @@ namespace MonopolyV20
                     businessValue += 1;
                 }
                 if (CanEnemyHaveMonopoly(((Business)business).BusinessType, allBuilding, users))
-                {
-                    businessValue += 3;
-                }
-            }
-            if (business.GetType() == typeof(CarInterior))
-            {
-                if (IsMonopolyByType(((CarInterior)business).BusinessType, myBuilding))
-                {
-                    businessValue += 3;
-                }
-                if (IsMonopolyPossible(business, myBuilding))
-                {
-                    businessValue += 2;
-                }
-                if (IsHaveEnemyBusinessType(users, ((CarInterior)business).BusinessType, allBuilding))
-                {
-                    businessValue += 1;
-                }
-                if (CanEnemyHaveMonopoly(((CarInterior)business).BusinessType, allBuilding, users))
-                {
-                    businessValue += 3;
-                }
-            }
-            if (business.GetType() == typeof(GamingCompanies))
-            {
-                if (IsMonopolyByType(((GamingCompanies)business).BusinessType, myBuilding))
-                {
-                    businessValue += 3;
-                }
-                if (IsMonopolyPossible(business, myBuilding))
-                {
-                    businessValue += 2;
-                }
-                if (IsHaveEnemyBusinessType(users, ((GamingCompanies)business).BusinessType, allBuilding))
-                {
-                    businessValue += 1;
-                }
-                if (CanEnemyHaveMonopoly(((GamingCompanies)business).BusinessType, allBuilding, users))
                 {
                     businessValue += 3;
                 }
@@ -1101,10 +1069,13 @@ namespace MonopolyV20
             Thread.Sleep(2000);
             return true;
         } //бот сдаётся 
-        public int CountBsn(Business business, List<Building> buildings)//проверка сколько бизнесов типа у бота 
+        public int CountBsn(Business business, List<Building> buildings, List<User> users, char symbol)//проверка сколько бизнесов типа у бота 
         {
+            int summa = 0;
             int countBsn = 0;
-            int[] interest = new int[] { 20, 50, 85 };
+            int countBsnEnemy = 0;
+            int interimAccount = 0;
+            double[] interest = new double[] { 1.35, 1.75, 1.95 };
             for (int i = 0; i < buildings.Count; i++)
             {
                 if (buildings[i].GetType() == typeof(Business))
@@ -1115,7 +1086,36 @@ namespace MonopolyV20
                     }
                 }
             }
-            return Balance / 100 * interest[countBsn] + business.Price;
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users[i].Symbol != symbol)
+                {
+                    for (int j = 0; j < buildings.Count; j++)
+                    {
+                        if (buildings[j].GetType() == typeof(Business))
+                        {
+                            if (((Business)buildings[j]).BusinessOwner == users[i].Symbol && ((Business)buildings[j]).BusinessType == business.BusinessType)
+                            {
+                                interimAccount += 1;
+                            }
+                        }
+                    }
+                    if (interimAccount > countBsnEnemy)
+                    {
+                        countBsnEnemy = interimAccount;
+                    }
+                }
+            }
+            if (countBsnEnemy == 0)
+            {
+                summa = business.Price * (int)interest[countBsn];
+                return summa;
+            }
+            else
+            {
+                summa = Balance / 100 * ((int)interest[countBsnEnemy - 10]);
+                return summa;
+            }
         }
     }
 }
