@@ -1071,7 +1071,7 @@ namespace MonopolyV20
         } //бот сдаётся 
         public int CountBsn(Business business, List<Building> buildings, List<User> users, char symbol)//проверка сколько бизнесов типа у бота 
         {
-            int summa = 0;
+            double summa = 0;
             int countBsn = 0;
             int countBsnEnemy = 0;
             int interimAccount = 0;
@@ -1108,13 +1108,13 @@ namespace MonopolyV20
             }
             if (countBsnEnemy == 0)
             {
-                summa = business.Price * (int)interest[countBsn];
-                return summa;
+                summa = business.Price * interest[countBsn];
+                return (int)summa;
             }
             else
             {
-                summa = Balance / 100 * ((int)interest[countBsnEnemy - 10]);
-                return summa;
+                summa = Balance / 100 * (interest[countBsnEnemy - 10]);
+                return (int)summa;
             }
         }
     }
