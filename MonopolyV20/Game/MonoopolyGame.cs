@@ -247,7 +247,7 @@ namespace MonopolyV20
                         Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
                         Thread.Sleep(2000);
                         user.Add(Users[i]);
-                        SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings,Users, Users[i].Symbol));
+                        SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
                     }
                     else
                     {
@@ -269,24 +269,23 @@ namespace MonopolyV20
                 }
                 if (user[nextPlayer].GetType() == typeof(Bot))
                 {
-                    bool startOrStop = false;
                     if (user.Count == 1)
                     {
                         isWork = false;
                         break;
                     }
-                    if (startOrStop)
+                    if (bsnPrice >= SummIn[nextPlayer] && user.Count > 1)
                     {
-                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} повышает поднимает ставку {bsnPrice} + 100");
+                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от попкупки бизнеса ");
                         Thread.Sleep(2000);
-                        bsnPrice += 100;
+                        user.RemoveAt(nextPlayer);
+                        continue;
                     }
-                    else
-                    {
-                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
-                        Thread.Sleep(2000);
-                        user.Remove(user[nextPlayer]);//fix
-                    }
+                    Console.WriteLine($"Игрок {user[nextPlayer].Symbol} повышает поднимает ставку {bsnPrice} + 100");
+                    Thread.Sleep(2000);
+                    bsnPrice += 100;
+
+
                 }
                 else
                 {
@@ -332,54 +331,69 @@ namespace MonopolyV20
             }
             if (user[nextPlayer].GetType() == typeof(Bot) || user[nextPlayer].GetType() == typeof(Player))
             {
-                if (bulding.GetType() == typeof(Business))
+                if (user[nextPlayer].Balance > ((Business)bulding).Price)
                 {
-                    if (user[nextPlayer].Balance > ((Business)bulding).Price)
-                    {
-                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((Business)bulding).Title} цена {bsnPrice}");
-                        Thread.Sleep(2000);
-                        user[nextPlayer].Balance -= ((Business)bulding).Price + bsnPrice;
-                        ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((Business)bulding).Title}");
-                        Thread.Sleep(2000);
-                        return;
-                    }
+                    Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((Business)bulding).Title} цена {bsnPrice}");
+                    Thread.Sleep(2000);
+                    user[nextPlayer].Balance -= ((Business)bulding).Price + bsnPrice;
+                    ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
                 }
-                if (bulding.GetType() == typeof(CarInterior))
+                else
                 {
-                    if (user[nextPlayer].Balance > ((CarInterior)bulding).Price)
-                    {
-                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((CarInterior)bulding).Title} цена {bsnPrice}");
-                        Thread.Sleep(2000);
-                        user[nextPlayer].Balance -= ((CarInterior)bulding).Price + bsnPrice;
-                        ((CarInterior)bulding).BusinessOwner = user[nextPlayer].Symbol;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((CarInterior)bulding).Title}");
-                        Thread.Sleep(2000);
-                        return;
-                    }
+                    Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((Business)bulding).Title}");
+                    Thread.Sleep(2000);
+                    return;
                 }
-                if (bulding.GetType() == typeof(GamingCompanies))
-                {
-                    if (user[nextPlayer].Balance > ((GamingCompanies)bulding).Price)
-                    {
-                        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((GamingCompanies)bulding).Title} цена {bsnPrice}");
-                        Thread.Sleep(2000);
-                        user[nextPlayer].Balance -= ((GamingCompanies)bulding).Price + bsnPrice;
-                        ((GamingCompanies)bulding).BusinessOwner = user[nextPlayer].Symbol;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((GamingCompanies)bulding).Title}");
-                        Thread.Sleep(2000);
-                        return;
-                    }
-                }
+                #region Test
+                //if (bulding.GetType() == typeof(Business))
+                //{
+                //    if (user[nextPlayer].Balance > ((Business)bulding).Price)
+                //    {
+                //        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((Business)bulding).Title} цена {bsnPrice}");
+                //        Thread.Sleep(2000);
+                //        user[nextPlayer].Balance -= ((Business)bulding).Price + bsnPrice;
+                //        ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((Business)bulding).Title}");
+                //        Thread.Sleep(2000);
+                //        return;
+                //    }
+                //}
+                //if (bulding.GetType() == typeof(CarInterior))
+                //{
+                //    if (user[nextPlayer].Balance > ((CarInterior)bulding).Price)
+                //    {
+                //        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((CarInterior)bulding).Title} цена {bsnPrice}");
+                //        Thread.Sleep(2000);
+                //        user[nextPlayer].Balance -= ((CarInterior)bulding).Price + bsnPrice;
+                //        ((CarInterior)bulding).BusinessOwner = user[nextPlayer].Symbol;
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((CarInterior)bulding).Title}");
+                //        Thread.Sleep(2000);
+                //        return;
+                //    }
+                //}
+                //if (bulding.GetType() == typeof(GamingCompanies))
+                //{
+                //    if (user[nextPlayer].Balance > ((GamingCompanies)bulding).Price)
+                //    {
+                //        Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((GamingCompanies)bulding).Title} цена {bsnPrice}");
+                //        Thread.Sleep(2000);
+                //        user[nextPlayer].Balance -= ((GamingCompanies)bulding).Price + bsnPrice;
+                //        ((GamingCompanies)bulding).BusinessOwner = user[nextPlayer].Symbol;
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine($"У игрока {user[nextPlayer].Symbol} не хватило деняг на покупку бизнеса {((GamingCompanies)bulding).Title}");
+                //        Thread.Sleep(2000);
+                //        return;
+                //    }
+                //}
+                #endregion   
             }
         }
         //Method
@@ -708,7 +722,9 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             Users[0].Balance -= 15000;
-            //Users[1].Balance -= 15000;
+            Users[1].Balance = 10000;
+            Users[2].Balance = 8500;
+            Users[3].Balance = 5700;
             //((Business)Field.Buldings[29]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[27]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[26]).BusinessOwner = Users[1].Symbol;
