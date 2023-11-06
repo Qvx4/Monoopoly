@@ -2164,12 +2164,18 @@ namespace MonopolyV20
                                 Console.Write(" ");
                             }
                         }
+                        if (i == 9)
+                        {
+                            for (int k = 0; k < countSpace; k++)
+                            {
+                                Console.Write(" ");
+                            }
+                        }
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write("│                   ");
                     }
                     else
                     {
-                        //Console.WriteLine("           ");
                         Console.Write("│");
                         Console.BackgroundColor = users[j].Color;
                         if (i == 3)
