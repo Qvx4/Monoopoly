@@ -1113,7 +1113,7 @@ namespace MonopolyV20
             }
             else
             {
-                summa = business.Price / 100 * (interest[countBsnEnemy - 10]);
+                summa = business.Price  * (interest[countBsnEnemy] - 0.10) + (Balance / 25);
                 return (int)summa;
             }
         }

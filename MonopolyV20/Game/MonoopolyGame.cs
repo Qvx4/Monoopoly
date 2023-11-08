@@ -721,12 +721,13 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            Users[1].Surrender = true;
+            //Users[1].Surrender = true;
             Users[0].Balance -= 15000;
-            Users[1].Balance = 10000;
+            Users[1].Balance = 9000;
             Users[2].Balance = 8500;
-            Users[3].Balance = 5700;
-            //((Business)Field.Buldings[29]).BusinessOwner = Users[1].Symbol;
+            Users[3].Balance = 7700;
+            ((Business)Field.Buldings[8]).BusinessOwner = Users[2].Symbol;
+            ((Business)Field.Buldings[9]).BusinessOwner = Users[2].Symbol;
             //((Business)Field.Buldings[27]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[26]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[29]).Level = 5;
@@ -852,11 +853,10 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        //if (ts)
-                        //{
-                        //    firstCube = 39;
-                        //    secondCube = 0;
-                        //}
+
+                        firstCube = 6;
+                        secondCube = 0;
+
                         ShowGameCube(firstCube);
                         ShowGameCube(secondCube);
                         if (firstCube != secondCube)
