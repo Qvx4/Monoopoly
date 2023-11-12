@@ -721,18 +721,7 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[1].Surrender = true;
-            Users[0].Balance -= 15000;
-            Users[1].Balance = 9000;
-            Users[2].Balance = 8500;
-            Users[3].Balance = 7700;
-            ((Business)Field.Buldings[8]).BusinessOwner = Users[2].Symbol;
-            ((Business)Field.Buldings[9]).BusinessOwner = Users[2].Symbol;
-            //((Business)Field.Buldings[27]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[26]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[29]).Level = 5;
-            //((Business)Field.Buldings[27]).Level = 5;
-            //((Business)Field.Buldings[26]).Level = 5;
+            //Users[0].Balance -= 15000;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -854,8 +843,8 @@ namespace MonopolyV20
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
 
-                        firstCube = 6;
-                        secondCube = 0;
+                        //firstCube = 6;
+                        //secondCube = 0;
 
                         ShowGameCube(firstCube);
                         ShowGameCube(secondCube);
@@ -1074,8 +1063,8 @@ namespace MonopolyV20
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
-                                        firstCube = 39;
-                                        secondCube = 0;
+                                        //firstCube = 39;
+                                        //secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
