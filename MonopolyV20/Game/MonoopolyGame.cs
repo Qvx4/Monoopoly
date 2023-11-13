@@ -214,47 +214,59 @@ namespace MonopolyV20
             Thread.Sleep(2000);
             for (int i = 0; i < Users.Count; i++)
             {
-                if (Users[i].GetType() == typeof(Bot))
+                if (Users[i].Symbol != symbol)
                 {
-                    if (Users[i].Balance <= ((Business)bulding).Price)
+
+                    if (Users[i].GetType() == typeof(Bot))
                     {
-                        Console.WriteLine($"Игрок {Users[i].Symbol} отказался принять участие в аукцион потому что нету деняг");
-                        Thread.Sleep(2000);
-                        continue;
-                    }
-                    if (((Bot)Users[i]).IsHaveMeMonoopoly(Field.Buldings))
-                    {
-                        if (((Bot)Users[i]).IsCheckMonoopollyLvl(((Bot)Users[i]).MonoopolyImprovement(Field.Buldings)))
+                        if (Users[i].Balance <= ((Business)bulding).Price)
                         {
-                            Console.WriteLine($"Игрок {Users[i].Symbol} отказался от участия на аукционе");
+                            Console.WriteLine($"Игрок {Users[i].Symbol} отказался принять участие в аукцион потому что нету деняг");
                             Thread.Sleep(2000);
                             continue;
                         }
-                    }
-                    if (((Bot)Users[i]).IsHaveBusinessThisType(businessType, Field.Buldings) == true)
-                    {
-                        if (Users[i].Symbol != symbol && !Users[i].Surrender)
+                        if (((Bot)Users[i]).IsHaveMeMonoopoly(Field.Buldings))
+                        {
+                            if (((Bot)Users[i]).IsCheckMonoopollyLvl(((Bot)Users[i]).MonoopolyImprovement(Field.Buldings)))
+                            {
+                                Console.WriteLine($"Игрок {Users[i].Symbol} отказался от участия на аукционе");
+                                Thread.Sleep(2000);
+                                continue;
+                            }
+                        }
+                        if (((Bot)Users[i]).IsHaveBusinessThisType(businessType, Field.Buldings) == true)
+                        {
+                            if (Users[i].Symbol != symbol && !Users[i].Surrender)
+                            {
+                                Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
+                                Thread.Sleep(2000);
+                                user.Add(Users[i]);
+                                SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
+                                continue;
+                            }
+                        }
+
+                        if (Users[i].Symbol != symbol && !Users[i].Surrender && Users[i].Balance > bsnPrice)
                         {
                             Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
                             Thread.Sleep(2000);
                             user.Add(Users[i]);
                             SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
-                            continue;
                         }
-                    }
-                    if (Users[i].Symbol != symbol && !Users[i].Surrender && Users[i].Balance > bsnPrice * 2)
-                    {
-                        Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
-                        Thread.Sleep(2000);
-                        user.Add(Users[i]);
-                        SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
+                        else
+                        {
+                            Console.WriteLine($"Игрок {Users[i].Symbol} не может принять участие в аукционе");
+                            Thread.Sleep(2000);
+                        }
                     }
                     else
                     {
-                        Console.WriteLine($"Игрок {Users[i].Symbol} не может принять участие в аукционе");
-                        Thread.Sleep(2000);
+
                     }
                 }
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine($"Игрок {symbol} не принимает участие в аукционе ");
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
             while (isWork)
             {
@@ -331,11 +343,11 @@ namespace MonopolyV20
             }
             if (user[nextPlayer].GetType() == typeof(Bot) || user[nextPlayer].GetType() == typeof(Player))
             {
-                if (user[nextPlayer].Balance > ((Business)bulding).Price)
+                if (user[nextPlayer].Balance > bsnPrice)
                 {
                     Console.WriteLine($"Игрок {user[nextPlayer].Symbol} покупает бизнес {((Business)bulding).Title} цена {bsnPrice}");
                     Thread.Sleep(2000);
-                    user[nextPlayer].Balance -= ((Business)bulding).Price + bsnPrice;
+                    user[nextPlayer].Balance -= bsnPrice;
                     ((Business)bulding).BusinessOwner = user[nextPlayer].Symbol;
                 }
                 else
@@ -721,7 +733,9 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[0].Balance -= 15000;
+            Users[0].Balance -= 15000;
+            Users[1].Balance = 8000;
+            ((Business)Field.Buldings[37]).BusinessOwner = Users[0].Symbol;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -749,7 +763,7 @@ namespace MonopolyV20
             int choose = 0;
             bool menu = true;
 
-            //bool ts = true;
+            bool t = true;
 
             PayMenu payMenu;
             BuyMenu buyMenu;
@@ -1059,12 +1073,13 @@ namespace MonopolyV20
                                     }
                                     else
                                     {
+
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
-                                        //firstCube = 39;
-                                        //secondCube = 0;
+                                        firstCube = 39;
+                                        secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
