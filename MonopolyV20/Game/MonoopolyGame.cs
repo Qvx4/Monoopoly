@@ -261,12 +261,13 @@ namespace MonopolyV20
                     }
                     else
                     {
-
+                        Console.WriteLine("");
                     }
                 }
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine($"Игрок {symbol} не принимает участие в аукционе ");
                 Console.ForegroundColor = ConsoleColor.Gray;
+                Thread.Sleep(2000);
             }
             while (isWork)
             {
