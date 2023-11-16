@@ -203,6 +203,7 @@ namespace MonopolyV20
         {
             List<User> user = new List<User>();
             List<int> SummIn = new List<int>();
+            int chouce;
             int nextPlayer = 0;
             int bsnPrice = 0;
             bool isWork = true;
@@ -221,7 +222,9 @@ namespace MonopolyV20
                     {
                         if (Users[i].Balance <= ((Business)bulding).Price)
                         {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine($"Игрок {Users[i].Symbol} отказался принять участие в аукцион потому что нету деняг");
+                            Console.ForegroundColor = ConsoleColor.Gray;
                             Thread.Sleep(2000);
                             continue;
                         }
@@ -229,7 +232,9 @@ namespace MonopolyV20
                         {
                             if (((Bot)Users[i]).IsCheckMonoopollyLvl(((Bot)Users[i]).MonoopolyImprovement(Field.Buldings)))
                             {
+                                Console.ForegroundColor = ConsoleColor.DarkRed;
                                 Console.WriteLine($"Игрок {Users[i].Symbol} отказался от участия на аукционе");
+                                Console.ForegroundColor = ConsoleColor.Gray;
                                 Thread.Sleep(2000);
                                 continue;
                             }
@@ -238,7 +243,9 @@ namespace MonopolyV20
                         {
                             if (Users[i].Symbol != symbol && !Users[i].Surrender)
                             {
+                                Console.ForegroundColor = ConsoleColor.DarkGreen;
                                 Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
+                                Console.ForegroundColor = ConsoleColor.Gray;
                                 Thread.Sleep(2000);
                                 user.Add(Users[i]);
                                 SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
@@ -248,26 +255,62 @@ namespace MonopolyV20
 
                         if (Users[i].Symbol != symbol && !Users[i].Surrender && Users[i].Balance > bsnPrice)
                         {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
                             Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
+                            Console.ForegroundColor = ConsoleColor.Gray;
                             Thread.Sleep(2000);
                             user.Add(Users[i]);
                             SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine($"Игрок {Users[i].Symbol} не может принять участие в аукционе");
+                            Console.ForegroundColor = ConsoleColor.Gray;
                             Thread.Sleep(2000);
                         }
                     }
                     else
                     {
-                        Console.WriteLine("");
+                        Console.WriteLine($"Игрок {Users[i].Symbol} выбирает ");
+                        Console.WriteLine("Принять участие в аукционе");
+                        Console.WriteLine("1) Принять");
+                        Console.WriteLine("2) Отказаться");
+                        do
+                        {
+                            Console.Write("Ввод >> ");
+                            int.TryParse(Console.ReadLine(), out chouce);
+                        }
+                        while (chouce > 2 || chouce < 1);
+                        switch (chouce)
+                        {
+                            case 1:
+                                {
+                                    Console.ForegroundColor= ConsoleColor.DarkGreen;
+                                    Console.WriteLine($"Игрок {Users[i].Symbol} принял участие в аукционе");
+                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                    Thread.Sleep(2000);
+                                    user.Add(Users[i]);
+                                }
+                                break;
+                            case 2:
+                                {
+                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                    Console.WriteLine($"Игрок {Users[i].Symbol} отказался от участие в аукционе");
+                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                    Thread.Sleep(2000);
+                                }
+                                break;
+                        }
                     }
                 }
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine($"Игрок {symbol} не принимает участие в аукционе ");
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Thread.Sleep(2000);
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine($"Игрок {symbol} не принимает участие в аукционе ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Thread.Sleep(2000);
+                }
             }
             while (isWork)
             {
@@ -287,7 +330,7 @@ namespace MonopolyV20
                         isWork = false;
                         break;
                     }
-                    if (bsnPrice >= SummIn[nextPlayer] && user.Count > 1)
+                    if (bsnPrice >= SummIn[0] && user.Count > 1)
                     {
                         Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от попкупки бизнеса ");
                         Thread.Sleep(2000);
@@ -735,8 +778,9 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             Users[0].Balance -= 15000;
-            Users[1].Balance = 8000;
-            ((Business)Field.Buldings[37]).BusinessOwner = Users[0].Symbol;
+            Users[1].Balance = 4360;
+            Users[2].Balance = 4920;
+            Users[3].Balance = 3520;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -763,9 +807,6 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
-
-            bool t = true;
-
             PayMenu payMenu;
             BuyMenu buyMenu;
             while (true)
