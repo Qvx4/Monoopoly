@@ -777,10 +777,10 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            Users[0].Balance -= 15000;
-            Users[1].Balance = 4360;
-            Users[2].Balance = 4920;
-            Users[3].Balance = 3520;
+            //Users[0].Balance -= 15000;
+            //Users[1].Balance = 4360;
+            //Users[2].Balance = 4920;
+            //Users[3].Balance = 3520;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -807,6 +807,7 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
+            int t = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
             while (true)
@@ -898,10 +899,28 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-
-                        //firstCube = 6;
-                        //secondCube = 0;
-
+                        #region Test
+                        if (t == 0)
+                        {
+                            firstCube = 4;
+                            secondCube = 4;
+                        }
+                        else if (t == 1)
+                        {
+                            firstCube = 2;
+                            secondCube = 2;
+                        }
+                        else if (t == 2)
+                        {
+                            firstCube = 3;
+                            secondCube = 3;
+                        }
+                        else
+                        {
+                            firstCube = RollTheCube(rand);
+                            secondCube = RollTheCube(rand);
+                        }
+                        #endregion
                         ShowGameCube(firstCube);
                         ShowGameCube(secondCube);
                         if (firstCube != secondCube)
@@ -917,6 +936,7 @@ namespace MonopolyV20
                         {
                             Console.WriteLine($"У игрока {Users[nextPlayer].Symbol} выпал дубль 3 раза и он попадет в тюрьму ");
                             ((Bot)Users[nextPlayer]).Prison = true;
+                            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                             check = false;
                             Thread.Sleep(2000);
                             break;
@@ -925,8 +945,6 @@ namespace MonopolyV20
                         Thread.Sleep(2000);
                         if (Users[nextPlayer].ReverseStroke == true)
                         {
-                            firstCube = rand.Next(1, 6);
-                            secondCube = rand.Next(1, 6);
                             Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                             if (Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count > Field.Buldings.Count)
                             {
