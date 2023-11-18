@@ -155,8 +155,9 @@ namespace MonopolyV20
             }
             return false;
         }//шанс снятие денег
-        public void PayRent(Building bulding, List<User> users)
+        public void PayRent(Building bulding, List<User> users, int firstCube, int secondCube)
         {
+            int summa = 0;
             if (bulding.GetType() == typeof(Business))
             {
                 if (((Business)bulding).Rent[((Business)bulding).Level] <= Balance)
@@ -203,13 +204,14 @@ namespace MonopolyV20
                 {
                     if (((GamingCompanies)bulding).Mortgaged == false)
                     {
-                        Balance -= ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+                        summa = (firstCube + secondCube) * ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+                        Balance -= summa;
                         for (int i = 0; i < users.Count; i++)
                         {
                             if (((GamingCompanies)bulding).BusinessOwner == users[i].Symbol)
                             {
-                                users[i].Balance += ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
-                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level]}");
+                                users[i].Balance += summa;
+                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {summa}");
                                 Thread.Sleep(2000);
                             }
                         }

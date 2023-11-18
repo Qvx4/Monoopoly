@@ -807,7 +807,6 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             int choose = 0;
             bool menu = true;
-            int t = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
             while (true)
@@ -899,27 +898,29 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
+                        //firstCube = 6;
+                        //secondCube = 6;
                         #region Test
-                        if (t == 0)
-                        {
-                            firstCube = 4;
-                            secondCube = 4;
-                        }
-                        else if (t == 1)
-                        {
-                            firstCube = 2;
-                            secondCube = 2;
-                        }
-                        else if (t == 2)
-                        {
-                            firstCube = 3;
-                            secondCube = 3;
-                        }
-                        else
-                        {
-                            firstCube = RollTheCube(rand);
-                            secondCube = RollTheCube(rand);
-                        }
+                        //if (t == 0)
+                        //{
+                        //    firstCube = 4;
+                        //    secondCube = 4;
+                        //}
+                        //else if (t == 1)
+                        //{
+                        //    firstCube = 2;
+                        //    secondCube = 2;
+                        //}
+                        //else if (t == 2)
+                        //{
+                        //    firstCube = 3;
+                        //    secondCube = 3;
+                        //}
+                        //else
+                        //{
+                        //    firstCube = RollTheCube(rand);
+                        //    secondCube = RollTheCube(rand);
+                        //}
                         #endregion
                         ShowGameCube(firstCube);
                         ShowGameCube(secondCube);
@@ -937,6 +938,7 @@ namespace MonopolyV20
                             Console.WriteLine($"У игрока {Users[nextPlayer].Symbol} выпал дубль 3 раза и он попадет в тюрьму ");
                             ((Bot)Users[nextPlayer]).Prison = true;
                             Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                            Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Add(Users[nextPlayer].Symbol);
                             check = false;
                             Thread.Sleep(2000);
                             break;
@@ -957,7 +959,7 @@ namespace MonopolyV20
                                 Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
                                 Users[nextPlayer].CordinationPlayer += Field.Buldings.Count;
                             }
-                            ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
+                            ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field,firstCube,secondCube);
                             Users[nextPlayer].ReverseStroke = false;
                         }
                         else
@@ -975,7 +977,7 @@ namespace MonopolyV20
                                     Console.WriteLine($"Бот {Users[nextPlayer].Symbol} прошел круг и получает 2000");
                                     Thread.Sleep(2000);
                                 }
-                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
+                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field, firstCube, secondCube);
 
                             }//если игрок вышел за приделы поля 
                             else
@@ -984,7 +986,7 @@ namespace MonopolyV20
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
-                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field);
+                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field,firstCube,secondCube);
 
                             }//если игрок дивгается по пределам поля 
                         }
@@ -1138,8 +1140,6 @@ namespace MonopolyV20
                                         secondCube = RollTheCube(rand);
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
-                                        firstCube = 39;
-                                        secondCube = 0;
                                         Thread.Sleep(2000);
                                         #region Test
                                         //if (nextPlayer == 1)
@@ -1763,7 +1763,7 @@ namespace MonopolyV20
                                                         switch (payMenu)
                                                         {
                                                             case PayMenu.RentPayment:
-                                                                { ((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users); menu = false; }
+                                                                { ((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users,firstCube,secondCube); menu = false; }
                                                                 break;
                                                             case PayMenu.MortagageBsn:
                                                                 {

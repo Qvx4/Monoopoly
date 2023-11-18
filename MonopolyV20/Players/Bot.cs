@@ -177,8 +177,9 @@ namespace MonopolyV20
             }
             return false;
         }//Покупка ячейки 
-        public void PayRent(Building bulding, List<User> user, Field field)
+        public void PayRent(Building bulding, List<User> user, Field field, int firstCube, int secondCube)
         {
+            int summa = 0;
             if (bulding.GetType() == typeof(Business))
             {
                 if (((Business)bulding).Rent[((Business)bulding).Level] < Balance)
@@ -243,13 +244,14 @@ namespace MonopolyV20
                 {
                     if (((GamingCompanies)bulding).Mortgaged == false)
                     {
-                        Balance -= ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+                        summa = (firstCube + secondCube) * ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+                        Balance -= summa;
                         for (int i = 0; i < user.Count; i++)
                         {
                             if (((GamingCompanies)bulding).BusinessOwner == user[i].Symbol)
                             {
-                                user[i].Balance += ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
-                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level]}");
+                                user[i].Balance += summa;
+                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {summa}");
                                 Thread.Sleep(2000);
                                 return;
                             }
@@ -267,7 +269,7 @@ namespace MonopolyV20
                 }
             }
         }//выплата ренты поля 
-        public void ChanceAnalysis(Chances chances, Field field, List<User> users)
+        public void ChanceAnalysis(Chances chances, Field field, List<User> users, int firstCube, int secondCube)
         {
             if (chances.GetType() == typeof(Profit))
             {
@@ -306,7 +308,7 @@ namespace MonopolyV20
                                 CordinationPlayer += number;
                             }
                             field.Buldings[CordinationPlayer].Symbol.Add(Symbol);
-                            CheckCell(field.Buldings[CordinationPlayer], users, field);
+                            CheckCell(field.Buldings[CordinationPlayer], users, field,firstCube,secondCube);
                             Console.WriteLine($"Игроку {Symbol} выпал шанс {((RandomActions)chances).Title} {((RandomActions)chances).Description} телепорт на {number}");
                             Thread.Sleep(2000);
                         }
@@ -555,7 +557,7 @@ namespace MonopolyV20
             }
             //Balance -= ((Business)buildings[numberCell]).Upgradeprise;
         }//улучшение бизнеса
-        public bool CheckCell(Building buldings, List<User> users, Field field)//проверк ячейки на которую попал бот 
+        public bool CheckCell(Building buldings, List<User> users, Field field,int firstCube,int secondCube)//проверк ячейки на которую попал бот 
         {
             if (buldings.GetType() == typeof(Business))
             {
@@ -565,7 +567,7 @@ namespace MonopolyV20
                 }
                 if (IsCheckCellBy((Business)buldings))
                 {
-                    PayRent(buldings, users, field);
+                    PayRent(buldings, users, field, firstCube, secondCube);
                     return true;
                 }
                 if (!IsByCell(buldings, field.Buldings))
@@ -582,7 +584,7 @@ namespace MonopolyV20
                 }
                 if (IsCheckCellBy((CarInterior)buldings))
                 {
-                    PayRent(buldings, users, field);
+                    PayRent(buldings, users, field, firstCube, secondCube);
                     return true;
                 }
                 if (!IsByCell(buldings, field.Buldings))
@@ -600,7 +602,7 @@ namespace MonopolyV20
                 }
                 if (IsCheckCellBy((GamingCompanies)buldings))
                 {
-                    PayRent(buldings, users, field);
+                    PayRent(buldings, users, field, firstCube, secondCube);
                     return true;
                 }
                 if (!IsByCell(buldings, field.Buldings))
@@ -736,7 +738,7 @@ namespace MonopolyV20
             {
                 Random random = new Random();
                 Chances chance = ((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)];
-                ChanceAnalysis(chance, field, users);
+                ChanceAnalysis(chance, field, users, firstCube, secondCube);
             }//проверка что ячейка шанс
             else if (buldings.GetType() == typeof(Prison))
             {
