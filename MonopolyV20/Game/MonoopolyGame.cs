@@ -203,6 +203,7 @@ namespace MonopolyV20
         {
             List<User> user = new List<User>();
             List<int> SummIn = new List<int>();
+            int summaNext = 0;
             int chouce;
             int nextPlayer = 0;
             int bsnPrice = 0;
@@ -330,7 +331,7 @@ namespace MonopolyV20
                         isWork = false;
                         break;
                     }
-                    if (bsnPrice >= SummIn[0] && user.Count > 1)
+                    if (bsnPrice >= SummIn[summaNext] && user.Count > 1)
                     {
                         Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от попкупки бизнеса ");
                         Thread.Sleep(2000);
@@ -340,8 +341,6 @@ namespace MonopolyV20
                     Console.WriteLine($"Игрок {user[nextPlayer].Symbol} повышает поднимает ставку {bsnPrice} + 100");
                     Thread.Sleep(2000);
                     bsnPrice += 100;
-
-
                 }
                 else
                 {
@@ -743,7 +742,7 @@ namespace MonopolyV20
                 Console.WriteLine($"{{{(int)BuyMenu.Auction}}} Отказатся от покупки   ");
                 Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
             }
-            else if (number == 0)
+            else if (number == 1)
             {
                 Console.WriteLine($"{{{(int)PayMenu.RentPayment}}} {text}");
                 Console.WriteLine($"{{{(int)PayMenu.MortagageBsn}}} Заложить бизнес ");
@@ -864,6 +863,14 @@ namespace MonopolyV20
                     while (check)
                     {
                         //((Bot)Users[nextPlayer]).SurrenderLogic(Field.Buldings);
+                        if (Users[nextPlayer].StepSkip)
+                        {
+                            Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} пропускает ход ");
+                            Users[nextPlayer].StepSkip = false;
+                            Thread.Sleep(2000);
+                            check = false;
+                            continue;
+                        }
                         if (Users[nextPlayer].Prison == true)
                         {
                             if (Users[nextPlayer].Balance >= prisonPrice)
@@ -1321,7 +1328,7 @@ namespace MonopolyV20
                                             {
                                                 while (menu)
                                                 {
-                                                    ShowPayMenu("Выплатить налог", choose = 0);
+                                                    ShowPayMenu("Выплатить налог", 1);
                                                     Console.WriteLine($"Цена снятия составляет {((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
                                                     Console.Write("{ Ввод } > ");
                                                     Enum.TryParse(Console.ReadLine(), out buyMenu);
@@ -1425,7 +1432,7 @@ namespace MonopolyV20
                                             {
                                                 while (menu)
                                                 {
-                                                    ShowPayMenu("Выплатить налога на роскаш", choose = 1);
+                                                    ShowPayMenu("Выплатить налога на роскаш", 1);
                                                     Console.WriteLine($"Цена снятия составляет {((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
                                                     Console.Write("{ Ввод } > ");
                                                     Enum.TryParse(Console.ReadLine(), out buyMenu);
@@ -1525,9 +1532,7 @@ namespace MonopolyV20
                                             else if (((Player)Users[nextPlayer]).IsCheckCellChance(Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]))
                                             {
                                                 Random random = new Random();
-                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[rand.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
-                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[8];
-
+                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(chance))
                                                 {
                                                     while (menu)

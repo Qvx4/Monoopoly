@@ -59,6 +59,7 @@
     <Compile Include="Players\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Enums\TaxMenu.cs" />
     <Compile Include="The buldings\Bank.cs" />
     <Compile Include="The buldings\Bulding.cs" />
     <Compile Include="The buldings\Business.cs" />
