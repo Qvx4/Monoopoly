@@ -155,7 +155,7 @@ namespace MonopolyV20
             }
             return false;
         }//шанс снятие денег
-        public void PayRent(Building bulding, List<User> users, int firstCube, int secondCube)
+        public bool PayRent(Building bulding, List<User> users, int firstCube, int secondCube)
         {
             int summa = 0;
             if (bulding.GetType() == typeof(Business))
@@ -172,6 +172,7 @@ namespace MonopolyV20
                                 users[i].Balance += ((Business)bulding).Rent[((Business)bulding).Level];
                                 Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {((Business)bulding).Rent[((Business)bulding).Level]}");
                                 Thread.Sleep(2000);
+                                return true;
                             }
                         }
 
@@ -193,6 +194,7 @@ namespace MonopolyV20
                                 users[i].Balance += ((CarInterior)bulding).Rent[((CarInterior)bulding).Level];
                                 Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {((CarInterior)bulding).Rent[((CarInterior)bulding).Level]}");
                                 Thread.Sleep(2000);
+                                return true;
                             }
                         }
                     }
@@ -213,11 +215,13 @@ namespace MonopolyV20
                                 users[i].Balance += summa;
                                 Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {summa}");
                                 Thread.Sleep(2000);
+                                return true;
                             }
                         }
                     }
                 }
             }
+            return false;
         }//выплата ренты поля
         public bool CheckHaveBsn(Building building)
         {

@@ -8,5 +8,9 @@ namespace MonopolyV20
 {
     public enum TaxMenu
     {
+        TaxPayment = 1,
+        MortagageBsn,
+        BranchSale,
+        Surrender,
     }
 }

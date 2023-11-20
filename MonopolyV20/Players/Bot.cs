@@ -506,10 +506,6 @@ namespace MonopolyV20
                     return;
                 }
             }
-            //if (monopolyBusiness.Count == 0)
-            //{
-            //    return;
-            //}
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
                 if ((((Business)monopolyBusiness[i]).Level) > max)
@@ -544,9 +540,7 @@ namespace MonopolyV20
                     }
                 }
             }
-
             if (min == 5) return;
-
             numberCell = random.Next(monopolyBusiness.Count);
             if (((Business)monopolyBusiness[numberCell]).UpgradePrice <= Balance)
             {
@@ -555,7 +549,6 @@ namespace MonopolyV20
                 Console.WriteLine($"Игрок {Symbol} строит филиал цена {((Business)monopolyBusiness[numberCell]).UpgradePrice}");
                 Thread.Sleep(2000);
             }
-            //Balance -= ((Business)buildings[numberCell]).Upgradeprise;
         }//улучшение бизнеса
         public bool CheckCell(Building buldings, List<User> users, Field field,int firstCube,int secondCube)//проверк ячейки на которую попал бот 
         {

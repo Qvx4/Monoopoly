@@ -287,7 +287,7 @@ namespace MonopolyV20
                         {
                             case 1:
                                 {
-                                    Console.ForegroundColor= ConsoleColor.DarkGreen;
+                                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                                     Console.WriteLine($"Игрок {Users[i].Symbol} принял участие в аукционе");
                                     Console.ForegroundColor = ConsoleColor.Gray;
                                     Thread.Sleep(2000);
@@ -749,7 +749,7 @@ namespace MonopolyV20
                 Console.WriteLine($"{{{(int)PayMenu.BranchSale}}} Продать филиал ");
                 Console.WriteLine($"{{{(int)PayMenu.Surrender}}} Сдаться");
             }
-            else
+            else if (number == 2)
             {
                 Console.WriteLine($"{{{1}}} {text} ");
                 Console.WriteLine($"{{{(int)BuyMenu.MortagageBsn}}} Заложить бизнес ");
@@ -804,10 +804,12 @@ namespace MonopolyV20
             bool prison = false;
             bool skipping = false;
             bool opportunityEnter = false;
+            bool Jackpot = false;
             int choose = 0;
             bool menu = true;
             PayMenu payMenu;
             BuyMenu buyMenu;
+            TaxMenu taxMenu;
             while (true)
             {
                 prison = false;
@@ -966,7 +968,7 @@ namespace MonopolyV20
                                 Users[nextPlayer].CordinationPlayer -= firstCube + secondCube;
                                 Users[nextPlayer].CordinationPlayer += Field.Buldings.Count;
                             }
-                            ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field,firstCube,secondCube);
+                            ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field, firstCube, secondCube);
                             Users[nextPlayer].ReverseStroke = false;
                         }
                         else
@@ -993,7 +995,7 @@ namespace MonopolyV20
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
-                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field,firstCube,secondCube);
+                                ((Bot)Users[nextPlayer]).CheckCell(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, Field, firstCube, secondCube);
 
                             }//если игрок дивгается по пределам поля 
                         }
@@ -1145,6 +1147,8 @@ namespace MonopolyV20
 
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
+                                        firstCube = 20;
+                                        secondCube = 0;
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
                                         Thread.Sleep(2000);
@@ -1288,6 +1292,7 @@ namespace MonopolyV20
                                                     arrayCubs[i] = number;
                                                 }//проверка ввода чисел
                                                 firstCube = RollTheCube(rand);
+                                                firstCube = 5;
                                                 Console.WriteLine($"В джекпоте рандомно кинулся кубик и выпало число {firstCube}");
                                                 Thread.Sleep(2000);
                                                 for (int i = 0; i < arrayCubs.Length; i++)
@@ -1314,10 +1319,15 @@ namespace MonopolyV20
                                                         }
                                                         break;
                                                     }
-                                                    Console.WriteLine($"Кубики не совпали игрок {Users[nextPlayer].Symbol} проиграл");
+                                                }//проверка выигрыша
+                                                if (!Jackpot)
+                                                {
+                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                    Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} не выиграл ");
+                                                    Console.ForegroundColor = ConsoleColor.Gray;
                                                     Thread.Sleep(2000);
                                                     break;
-                                                }//проверка выигрыша
+                                                }
                                             }
                                             Users[nextPlayer].Jackpot = false;
 
@@ -1331,10 +1341,10 @@ namespace MonopolyV20
                                                     ShowPayMenu("Выплатить налог", 1);
                                                     Console.WriteLine($"Цена снятия составляет {((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
                                                     Console.Write("{ Ввод } > ");
-                                                    Enum.TryParse(Console.ReadLine(), out buyMenu);
-                                                    switch (buyMenu)
+                                                    Enum.TryParse(Console.ReadLine(), out taxMenu);
+                                                    switch (taxMenu)
                                                     {
-                                                        case BuyMenu.BuyBsn:
+                                                        case TaxMenu.TaxPayment:
                                                             {
                                                                 if (((Player)Users[nextPlayer]).Balance > ((Bank)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa)
                                                                 {
@@ -1350,7 +1360,7 @@ namespace MonopolyV20
                                                                 }
                                                             }
                                                             break;
-                                                        case BuyMenu.MortagageBsn:
+                                                        case TaxMenu.MortagageBsn:
                                                             {
                                                                 if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
                                                                 {
@@ -1372,7 +1382,7 @@ namespace MonopolyV20
                                                                 }
                                                             }
                                                             break;
-                                                        case BuyMenu.BranchSale:
+                                                        case TaxMenu.BranchSale:
                                                             {
                                                                 if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
                                                                 {
@@ -1407,13 +1417,7 @@ namespace MonopolyV20
                                                                 }
                                                             }
                                                             break;
-                                                        case BuyMenu.Auction:
-                                                            {
-                                                                Auction(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users[nextPlayer].Symbol);
-                                                                menu = false;
-                                                            }
-                                                            break;
-                                                        case BuyMenu.Surrender:
+                                                        case TaxMenu.Surrender:
                                                             {
                                                                 Users[nextPlayer].Surrender = true;
                                                                 ((Player)Users[nextPlayer]).Surrendered(Field);
@@ -1435,10 +1439,10 @@ namespace MonopolyV20
                                                     ShowPayMenu("Выплатить налога на роскаш", 1);
                                                     Console.WriteLine($"Цена снятия составляет {((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa}");
                                                     Console.Write("{ Ввод } > ");
-                                                    Enum.TryParse(Console.ReadLine(), out buyMenu);
-                                                    switch (buyMenu)
+                                                    Enum.TryParse(Console.ReadLine(), out taxMenu);
+                                                    switch (taxMenu)
                                                     {
-                                                        case BuyMenu.BuyBsn:
+                                                        case TaxMenu.TaxPayment:
                                                             {
                                                                 if (((Player)Users[nextPlayer]).Balance >= ((Tax)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Summa)
                                                                 {
@@ -1453,7 +1457,7 @@ namespace MonopolyV20
                                                                 }
                                                             }
                                                             break;
-                                                        case BuyMenu.MortagageBsn:
+                                                        case TaxMenu.MortagageBsn:
                                                             {
                                                                 if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
                                                                 {
@@ -1475,7 +1479,7 @@ namespace MonopolyV20
                                                                 }
                                                             }
                                                             break;
-                                                        case BuyMenu.BranchSale:
+                                                        case TaxMenu.BranchSale:
                                                             {
                                                                 if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
                                                                 {
@@ -1510,10 +1514,7 @@ namespace MonopolyV20
                                                                 }
                                                             }
                                                             break;
-                                                        case BuyMenu.Auction:
-                                                            { Auction(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users[nextPlayer].Symbol); menu = false; }
-                                                            break;
-                                                        case BuyMenu.Surrender:
+                                                        case TaxMenu.Surrender:
                                                             {
                                                                 Users[nextPlayer].Surrender = true;
                                                                 ((Player)Users[nextPlayer]).Surrendered(Field);
@@ -1523,7 +1524,6 @@ namespace MonopolyV20
                                                                 check = false;
                                                             }
                                                             break;
-
                                                     }
                                                     //Console.Clear();
                                                     ShowField("");
@@ -1537,12 +1537,12 @@ namespace MonopolyV20
                                                 {
                                                     while (menu)
                                                     {
-                                                        ShowPayMenu("оплатить", choose = 2);
+                                                        ShowPayMenu("оплатить", 2);
                                                         Console.Write("{ Ввод } > ");
-                                                        Enum.TryParse(Console.ReadLine(), out buyMenu);
-                                                        switch (buyMenu)
+                                                        Enum.TryParse(Console.ReadLine(), out taxMenu);
+                                                        switch (taxMenu)
                                                         {
-                                                            case BuyMenu.BuyBsn:
+                                                            case TaxMenu.TaxPayment:
                                                                 {
                                                                     if (!((Player)Users[nextPlayer]).ChanceIsWork(chance))
                                                                     {
@@ -1558,7 +1558,7 @@ namespace MonopolyV20
                                                                     Thread.Sleep(2000);
                                                                 }
                                                                 break;
-                                                            case BuyMenu.MortagageBsn:
+                                                            case TaxMenu.MortagageBsn:
                                                                 {
                                                                     if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
                                                                     {
@@ -1580,7 +1580,7 @@ namespace MonopolyV20
                                                                     }
                                                                 }
                                                                 break;
-                                                            case BuyMenu.BranchSale:
+                                                            case TaxMenu.BranchSale:
                                                                 {
                                                                     if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
                                                                     {
@@ -1622,7 +1622,7 @@ namespace MonopolyV20
                                                                     }
                                                                 }
                                                                 break;
-                                                            case BuyMenu.Surrender:
+                                                            case TaxMenu.Surrender:
                                                                 {
                                                                     Users[nextPlayer].Surrender = true;
                                                                     ((Player)Users[nextPlayer]).Surrendered(Field);
@@ -1650,7 +1650,7 @@ namespace MonopolyV20
                                             {
                                                 while (menu)
                                                 {
-                                                    ShowPayMenu("Купить бизнес", choose = 0);
+                                                    ShowPayMenu("Купить бизнес", 0);
                                                     Console.Write("{ Ввод } > ");
                                                     Enum.TryParse(Console.ReadLine(), out buyMenu);
                                                     switch (buyMenu)
@@ -1762,13 +1762,26 @@ namespace MonopolyV20
                                                 {
                                                     while (menu)
                                                     {
-                                                        ShowPayMenu("Оплатить ренту", choose = 1);
+                                                        ShowPayMenu("Оплатить ренту", 1);
                                                         Console.Write("{ Ввод } > ");
                                                         Enum.TryParse(Console.ReadLine(), out payMenu);
                                                         switch (payMenu)
                                                         {
                                                             case PayMenu.RentPayment:
-                                                                { ((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users,firstCube,secondCube); menu = false; }
+                                                                {
+                                                                    if (((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, firstCube, secondCube))
+                                                                    {
+                                                                        menu = false;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                        Console.WriteLine("У вас не хватает деньжат");
+                                                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                                                        Thread.Sleep(2000);
+                                                                        menu = true;
+                                                                    }
+                                                                }
                                                                 break;
                                                             case PayMenu.MortagageBsn:
                                                                 {
