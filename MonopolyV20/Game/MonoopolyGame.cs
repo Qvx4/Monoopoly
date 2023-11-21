@@ -805,8 +805,8 @@ namespace MonopolyV20
             bool skipping = false;
             bool opportunityEnter = false;
             bool Jackpot = false;
-            int choose = 0;
             bool menu = true;
+            bool test = true;
             PayMenu payMenu;
             BuyMenu buyMenu;
             TaxMenu taxMenu;
@@ -907,8 +907,17 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        //firstCube = 6;
-                        //secondCube = 6;
+                        if (test)
+                        {
+                            firstCube = 12;
+                            secondCube = 0;
+                            test = false;
+                        }
+                        else
+                        {
+                            firstCube = 16;
+                            secondCube = 0;
+                        }
                         #region Test
                         //if (t == 0)
                         //{
@@ -1144,11 +1153,8 @@ namespace MonopolyV20
                                     }
                                     else
                                     {
-
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        firstCube = 20;
-                                        secondCube = 0;
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
                                         Thread.Sleep(2000);
@@ -1196,14 +1202,11 @@ namespace MonopolyV20
                                             check = false;
                                             break;
                                         }
-
                                     }
                                     if (((Player)Users[nextPlayer]).Surrender != true && ((Player)Users[nextPlayer]).Prison != true && ((Player)Users[nextPlayer]).StepSkip != true)
                                     {
                                         if (Users[nextPlayer].ReverseStroke == true)
                                         {
-                                            firstCube = rand.Next(1, 6);
-                                            secondCube = rand.Next(1, 6);
                                             Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                             if (Users[nextPlayer].CordinationPlayer - (firstCube + secondCube) + Field.Buldings.Count > Field.Buldings.Count)
                                             {
@@ -1292,7 +1295,6 @@ namespace MonopolyV20
                                                     arrayCubs[i] = number;
                                                 }//проверка ввода чисел
                                                 firstCube = RollTheCube(rand);
-                                                firstCube = 5;
                                                 Console.WriteLine($"В джекпоте рандомно кинулся кубик и выпало число {firstCube}");
                                                 Thread.Sleep(2000);
                                                 for (int i = 0; i < arrayCubs.Length; i++)
@@ -1304,18 +1306,21 @@ namespace MonopolyV20
                                                             Users[nextPlayer].Balance += 2000;
                                                             Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} выиграл 2000 ");
                                                             Thread.Sleep(2000);
+                                                            Jackpot = true;
                                                         }
                                                         else if (arrayCubs.Length == 2)
                                                         {
                                                             Users[nextPlayer].Balance += 3000;
                                                             Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} выиграл 3000 ");
                                                             Thread.Sleep(2000);
+                                                            Jackpot = true;
                                                         }
                                                         else if (arrayCubs.Length == 1)
                                                         {
                                                             Users[nextPlayer].Balance += 6000;
                                                             Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} выиграл 6000 ");
                                                             Thread.Sleep(2000);
+                                                            Jackpot = true;
                                                         }
                                                         break;
                                                     }
