@@ -818,6 +818,16 @@ namespace MonopolyV20
                     {
                         ((CarInterior)myBuilding[i]).Mortgaged = true;
                         Balance += ((CarInterior)myBuilding[i]).ValueOfCollaterel;
+                        for (int j = 0; j < allBuilding.Count; j++)
+                        {
+                            if (allBuilding[j].GetType() == typeof(CarInterior))
+                            {
+                                if (allBuilding[j].Number != myBuilding[i].Number)
+                                {
+                                    ((Business)allBuilding[j]).Level -= 1;
+                                }
+                            }
+                        }
                         Console.WriteLine($"Игрок {Symbol} заложил бизнес {myBuilding[i].Title} цена {((CarInterior)myBuilding[i]).ValueOfCollaterel}");
                         Thread.Sleep(2000);
                         return true;
@@ -826,6 +836,16 @@ namespace MonopolyV20
                     {
                         ((GamingCompanies)myBuilding[i]).Mortgaged = true;
                         Balance += ((GamingCompanies)myBuilding[i]).ValueOfCollaterel;
+                        for (int j = 0; j < allBuilding.Count; j++) 
+                        {
+                            if (allBuilding[j].GetType() == typeof(GamingCompanies))
+                            {
+                                if (allBuilding[j].Number != myBuilding[i].Number)
+                                {
+                                    ((Business)allBuilding[j]).Level -= 1;
+                                }
+                            }
+                        }
                         Console.WriteLine($"Игрок {Symbol} заложил бизнес {myBuilding[i].Title} цена {((GamingCompanies)myBuilding[i]).ValueOfCollaterel}");
                         Thread.Sleep(2000);
                         return true;
@@ -833,7 +853,7 @@ namespace MonopolyV20
                 }
             }
             return false;
-        } //fix 50/50
+        } //fix 50/50 //проверить работает ли переделка с функцией продажи бизнесса геймкомпания
         public bool IsMonopolyPossible(Building business, List<Building> building)
         {
             for (int i = 0; i < building.Count; i++)
@@ -893,44 +913,9 @@ namespace MonopolyV20
         public bool BusinessBuyout(List<Building> building)//выкуп заложенного бизнеса
         {
             Random random = new Random();
-            //List<Building> listBuilding = new List<Building>();
             List<Building> listBuilding = building;
             int pos;
             const int minBalance = 3000;
-            //if (IsCheckMonoopollyLvl(building))
-            //{
-            //    for (int i = 0; i < building.Count; i++)
-            //    {
-            //        if (building[i].GetType() == typeof(Business))
-            //        {
-            //            if (((Business)building[i]).BusinessOwner == Symbol)
-            //            {
-            //                if (((Business)building[i]).Mortgaged)
-            //                {
-            //                    listBuilding.Add(building[i]);
-            //                }
-            //            }
-            //        }
-            //        else if (building[i].GetType() == typeof(CarInterior))
-            //        {
-            //            if (((CarInterior)building[i]).Mortgaged)
-            //            {
-            //                listBuilding.Add(building[i]);
-            //            }
-            //        }
-            //        else if (building[i].GetType() == typeof(GamingCompanies))
-            //        {
-            //            if (((GamingCompanies)building[i]).Mortgaged)
-            //            {
-            //                listBuilding.Add(building[i]);
-            //            }
-            //        }
-            //    }
-            //}
-            //else if (IsHaveMeMonoopoly(building))
-            //{
-            //    return false;
-            //}
             pos = random.Next(listBuilding.Count);
             if (listBuilding.Count == 0)
             {

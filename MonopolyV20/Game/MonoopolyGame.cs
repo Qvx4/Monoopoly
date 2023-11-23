@@ -777,9 +777,19 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             //Users[0].Balance -= 15000;
-            //Users[1].Balance = 4360;
+            Users[1].Balance = 5360;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
+            ((Business)Field.Buldings[29]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[27]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[26]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[29]).Level = 5;
+            ((Business)Field.Buldings[27]).Level = 5;
+            ((Business)Field.Buldings[26]).Level = 5;
+            ((Business)Field.Buldings[12]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[28]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[12]).Level = 1;
+            ((Business)Field.Buldings[28]).Level = 1;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -806,7 +816,6 @@ namespace MonopolyV20
             bool opportunityEnter = false;
             bool Jackpot = false;
             bool menu = true;
-            bool test = true;
             PayMenu payMenu;
             BuyMenu buyMenu;
             TaxMenu taxMenu;
@@ -907,17 +916,8 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        if (test)
-                        {
-                            firstCube = 12;
-                            secondCube = 0;
-                            test = false;
-                        }
-                        else
-                        {
-                            firstCube = 16;
-                            secondCube = 0;
-                        }
+                        firstCube = 29;
+                        secondCube = 0;
                         #region Test
                         //if (t == 0)
                         //{
@@ -1881,14 +1881,6 @@ namespace MonopolyV20
                                 break;
                             case GameMenu.SellTheBusiness://заложить бизнес
                                 {
-                                    //if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
-                                    //{
-                                    //    Console.ForegroundColor = ConsoleColor.DarkRed;
-                                    //    Console.WriteLine("Нету бизнесов которые можно заложить");
-                                    //    Console.ForegroundColor = ConsoleColor.Gray;
-                                    //    Thread.Sleep(2000);
-                                    //    break;
-                                    //}
                                     if (((Player)Users[nextPlayer]).ShowALlBsn(((Player)Users[nextPlayer]).GetAllBsn(Field.Buldings)))
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkRed;

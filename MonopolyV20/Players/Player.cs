@@ -686,7 +686,7 @@ namespace MonopolyV20
             {
                 if (max != min)
                 {
-                    if (((Business)result[i]).Level == max)
+                    if (((Business)result[i]).Level == min)
                     {
                         result.RemoveAt(i);
                     }
@@ -696,30 +696,6 @@ namespace MonopolyV20
         }//поиск улучшеных бизнесов монополии
         public bool ShowImprovedBsn(List<Business> businesses)
         {
-            #region Test
-            //int min = int.MaxValue, max = int.MinValue;
-            //for (int i = 0; i < businesses.Count; i++)
-            //{
-            //    if ((((Business)businesses[i]).Level) > max)
-            //    {
-            //        max = ((Business)businesses[i]).Level;
-            //    }
-            //    if ((((Business)businesses[i]).Level) < min)
-            //    {
-            //        min = ((Business)businesses[i]).Level;
-            //    }
-            //}
-            //for (int i = businesses.Count - 1; i >= 0; i--)
-            //{
-            //    if (max != min)
-            //    {
-            //        if (((Business)businesses[i]).Level == max)
-            //        {
-            //            businesses.RemoveAt(i);
-            //        }
-            //    }
-            //}
-            #endregion
             for (int i = 0; i < businesses.Count; i++)
             {
                 if (businesses[i].Mortgaged == true)
