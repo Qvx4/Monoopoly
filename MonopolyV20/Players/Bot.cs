@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 //using System.Linq;
 //using System.Text;
@@ -180,85 +181,140 @@ namespace MonopolyV20
         public void PayRent(Building bulding, List<User> user, Field field, int firstCube, int secondCube)
         {
             int summa = 0;
-            if (bulding.GetType() == typeof(Business))
+            if (bulding.GetType() == typeof(Business) && ((Business)bulding).Rent[((Business)bulding).Level] < Balance)
             {
-                if (((Business)bulding).Rent[((Business)bulding).Level] < Balance)
+                if (((Business)bulding).Mortgaged == false)
                 {
-                    if (((Business)bulding).Mortgaged == false)
-                    {
-                        Balance -= ((Business)bulding).Rent[((Business)bulding).Level];
-                        for (int i = 0; i < user.Count; i++)
-                        {
-                            if (((Business)bulding).BusinessOwner == user[i].Symbol)
-                            {
-                                user[i].Balance += ((Business)bulding).Rent[((Business)bulding).Level];
-                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {((Business)bulding).Rent[((Business)bulding).Level]}");
-                                Thread.Sleep(2000);
-                                return;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
-                    {
-                        SurrenderLogic(field.Buldings);
-                        return;
-                    }
-                    MortagageBusiness(BotBusinesses(field.Buldings), user, field.Buldings);
-                }
-            }
-            else if (bulding.GetType() == typeof(CarInterior))
-            {
-                if (((CarInterior)bulding).Rent[((CarInterior)bulding).Level] < Balance)
-                {
-                    if (((CarInterior)bulding).Mortgaged == false)
-                    {
-                        Balance -= ((CarInterior)bulding).Rent[((CarInterior)bulding).Level];
-                        for (int i = 0; i < user.Count; i++)
-                        {
-                            if (((CarInterior)bulding).BusinessOwner == user[i].Symbol)
-                            {
-                                user[i].Balance += ((CarInterior)bulding).Rent[((CarInterior)bulding).Level];
-                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {((CarInterior)bulding).Rent[((CarInterior)bulding).Level]}");
-                                Thread.Sleep(2000);
-                                return;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
-                    {
-                        SurrenderLogic(field.Buldings);
-                        return;
-                    }
-                    MortagageBusiness(BotBusinesses(field.Buldings), user, field.Buldings);
-                }
-            }
-            else if (bulding.GetType() == typeof(GamingCompanies))
-            {
-                if (((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level] < Balance)
-                {
-                    if (((GamingCompanies)bulding).Mortgaged == false)
+                    if (bulding.GetType() == typeof(GamingCompanies))
                     {
                         summa = (firstCube + secondCube) * ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
                         Balance -= summa;
-                        for (int i = 0; i < user.Count; i++)
+                    }
+                    else
+                    {
+                        Balance -= ((Business)bulding).Rent[((Business)bulding).Level];
+                    }
+                    for (int i = 0; i < user.Count; i++)
+                    {
+                        if (((Business)bulding).BusinessOwner == user[i].Symbol)
                         {
-                            if (((GamingCompanies)bulding).BusinessOwner == user[i].Symbol)
+                            if (bulding.GetType() == typeof(GamingCompanies))
                             {
                                 user[i].Balance += summa;
                                 Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {summa}");
                                 Thread.Sleep(2000);
                                 return;
                             }
+                            else
+                            {
+                                user[i].Balance += ((Business)bulding).Rent[((Business)bulding).Level];
+                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {((Business)bulding).Rent[((Business)bulding).Level]}");
+                                Thread.Sleep(2000);
+                                return;
+
+                            }
                         }
                     }
                 }
-                else
+
+                #region Test1
+                //else
+                //{
+                //    do
+                //    {
+                //        if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                //        {
+                //            SurrenderLogic(field.Buldings);
+                //            return;
+                //        }
+                //        MortagageBusiness(BotBusinesses(field.Buldings), user, field.Buldings);
+                //    }
+                //    while (((Business)bulding).Rent[((Business)bulding).Level] >= Balance);
+                //    if (((Business)bulding).Mortgaged == false)
+                //    {
+                //        Balance -= ((Business)bulding).Rent[((Business)bulding).Level];
+                //        for (int i = 0; i < user.Count; i++)
+                //        {
+                //            if (((Business)bulding).BusinessOwner == user[i].Symbol)
+                //            {
+                //                user[i].Balance += ((Business)bulding).Rent[((Business)bulding).Level];
+                //                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {((Business)bulding).Rent[((Business)bulding).Level]}");
+                //                Thread.Sleep(2000);
+                //                return;
+                //            }
+                //        }
+                //    }
+                //}
+                #endregion
+            }
+            #region Test
+            //else if (bulding.GetType() == typeof(CarInterior))
+            //{
+            //    if (((CarInterior)bulding).Rent[((CarInterior)bulding).Level] < Balance)
+            //    {
+            //        if (((CarInterior)bulding).Mortgaged == false)
+            //        {
+            //            Balance -= ((CarInterior)bulding).Rent[((CarInterior)bulding).Level];
+            //            for (int i = 0; i < user.Count; i++)
+            //            {
+            //                if (((CarInterior)bulding).BusinessOwner == user[i].Symbol)
+            //                {
+            //                    user[i].Balance += ((CarInterior)bulding).Rent[((CarInterior)bulding).Level];
+            //                    Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {((CarInterior)bulding).Rent[((CarInterior)bulding).Level]}");
+            //                    Thread.Sleep(2000);
+            //                    return;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        do
+            //        {
+            //            if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+            //            {
+            //                SurrenderLogic(field.Buldings);
+            //                return;
+            //            }
+            //            MortagageBusiness(BotBusinesses(field.Buldings), user, field.Buldings);
+            //        }
+            //        while (((Business)bulding).Rent[((Business)bulding).Level] >= Balance);
+            //    }
+            //}
+            //else if (bulding.GetType() == typeof(GamingCompanies))
+            //{
+            //    if (((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level] < Balance)
+            //    {
+            //        if (((GamingCompanies)bulding).Mortgaged == false)
+            //        {
+            //            summa = (firstCube + secondCube) * ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+            //            Balance -= summa;
+            //            for (int i = 0; i < user.Count; i++)
+            //            {
+            //                if (((GamingCompanies)bulding).BusinessOwner == user[i].Symbol)
+            //                {
+            //                    user[i].Balance += summa;
+            //                    Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {summa}");
+            //                    Thread.Sleep(2000);
+            //                    return;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+            //        {
+            //            SurrenderLogic(field.Buldings);
+            //            return;
+            //        }
+            //        MortagageBusiness(BotBusinesses(field.Buldings), user, field.Buldings);
+            //    }
+            //}
+            #endregion
+            else
+            {
+                do
                 {
                     if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
                     {
@@ -267,8 +323,43 @@ namespace MonopolyV20
                     }
                     MortagageBusiness(BotBusinesses(field.Buldings), user, field.Buldings);
                 }
+                while (((Business)bulding).Rent[((Business)bulding).Level] >= Balance);
+                if (((Business)bulding).Mortgaged == false)
+                {
+                    if (bulding.GetType() == typeof(GamingCompanies))
+                    {
+                        summa = (firstCube + secondCube) * ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+                        Balance -= summa;
+                    }
+                    else
+                    {
+                        Balance -= ((Business)bulding).Rent[((Business)bulding).Level];
+                    }
+                    for (int i = 0; i < user.Count; i++)
+                    {
+                        if (((Business)bulding).BusinessOwner == user[i].Symbol)
+                        {
+                            if (bulding.GetType() == typeof(GamingCompanies))
+                            {
+                                user[i].Balance += summa;
+                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {summa}");
+                                Thread.Sleep(2000);
+                                return;
+                            }
+                            else
+                            {
+                                user[i].Balance += ((Business)bulding).Rent[((Business)bulding).Level];
+                                Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {user[i].Symbol} цена {((Business)bulding).Rent[((Business)bulding).Level]}");
+                                Thread.Sleep(2000);
+                                return;
+
+                            }
+                        }
+                    }
+                }
             }
-        }//выплата ренты поля 
+
+        }//выплата ренты поля // баг
         public void ChanceAnalysis(Chances chances, Field field, List<User> users, int firstCube, int secondCube)
         {
             if (chances.GetType() == typeof(Profit))
@@ -308,7 +399,7 @@ namespace MonopolyV20
                                 CordinationPlayer += number;
                             }
                             field.Buldings[CordinationPlayer].Symbol.Add(Symbol);
-                            CheckCell(field.Buldings[CordinationPlayer], users, field,firstCube,secondCube);
+                            CheckCell(field.Buldings[CordinationPlayer], users, field, firstCube, secondCube);
                             Console.WriteLine($"Игроку {Symbol} выпал шанс {((RandomActions)chances).Title} {((RandomActions)chances).Description} телепорт на {number}");
                             Thread.Sleep(2000);
                         }
@@ -550,7 +641,7 @@ namespace MonopolyV20
                 Thread.Sleep(2000);
             }
         }//улучшение бизнеса
-        public bool CheckCell(Building buldings, List<User> users, Field field,int firstCube,int secondCube)//проверк ячейки на которую попал бот 
+        public bool CheckCell(Building buldings, List<User> users, Field field, int firstCube, int secondCube)//проверк ячейки на которую попал бот 
         {
             if (buldings.GetType() == typeof(Business))
             {
@@ -630,7 +721,7 @@ namespace MonopolyV20
                                 {
                                     break;
                                 }
-                                else if (j == arrayCell.Length -1)
+                                else if (j == arrayCell.Length - 1)
                                 {
                                     arrayCell[i] = random.Next(1, 7);
                                     Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
@@ -822,9 +913,16 @@ namespace MonopolyV20
                         {
                             if (allBuilding[j].GetType() == typeof(CarInterior))
                             {
-                                if (allBuilding[j].Number != myBuilding[i].Number)
+                                if (allBuilding[j].Number != myBuilding[i].Number && ((Business)allBuilding[j]).BusinessOwner == Symbol)
                                 {
-                                    ((Business)allBuilding[j]).Level -= 1;
+                                    if (((Business)allBuilding[j]).Level > 0)
+                                    {
+                                        ((Business)allBuilding[j]).Level -= 1;
+                                    }
+                                    else if (((Business)myBuilding[i]).Level > 0)
+                                    {
+                                        ((Business)myBuilding[i]).Level -= 1;
+                                    }
                                 }
                             }
                         }
@@ -836,13 +934,20 @@ namespace MonopolyV20
                     {
                         ((GamingCompanies)myBuilding[i]).Mortgaged = true;
                         Balance += ((GamingCompanies)myBuilding[i]).ValueOfCollaterel;
-                        for (int j = 0; j < allBuilding.Count; j++) 
+                        for (int j = 0; j < allBuilding.Count; j++)
                         {
                             if (allBuilding[j].GetType() == typeof(GamingCompanies))
                             {
-                                if (allBuilding[j].Number != myBuilding[i].Number)
+                                if (allBuilding[j].Number != myBuilding[i].Number && ((Business)allBuilding[j]).BusinessOwner == Symbol)
                                 {
-                                    ((Business)allBuilding[j]).Level -= 1;
+                                    if (((Business)allBuilding[j]).Level > 0)
+                                    {
+                                        ((Business)allBuilding[j]).Level -= 1;
+                                    }
+                                    else if (((Business)myBuilding[i]).Level > 0)
+                                    {
+                                        ((Business)myBuilding[i]).Level -= 1;
+                                    }
                                 }
                             }
                         }
@@ -910,10 +1015,10 @@ namespace MonopolyV20
             return businessValue;
         }
         #region NotuseMetod
-        public bool BusinessBuyout(List<Building> building)//выкуп заложенного бизнеса
+        public bool BusinessBuyout(List<Building> buildings)//выкуп заложенного бизнеса
         {
             Random random = new Random();
-            List<Building> listBuilding = building;
+            List<Building> listBuilding = buildings;
             int pos;
             const int minBalance = 3000;
             pos = random.Next(listBuilding.Count);
@@ -937,6 +1042,7 @@ namespace MonopolyV20
                     ((CarInterior)listBuilding[pos]).Mortgaged = false;
                     ((CarInterior)listBuilding[pos]).BusinessDowntrun = 15;
                     Balance -= ((CarInterior)listBuilding[pos]).RansomValue;
+                    ((Business)listBuilding[pos]).Level += 1;
                     Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((CarInterior)listBuilding[pos]).Title} за цену {((CarInterior)listBuilding[pos]).RansomValue}");
                     Thread.Sleep(2000);
                     return true;
@@ -946,13 +1052,14 @@ namespace MonopolyV20
                     ((GamingCompanies)listBuilding[pos]).Mortgaged = false;
                     ((GamingCompanies)listBuilding[pos]).BusinessDowntrun = 15;
                     Balance -= ((GamingCompanies)listBuilding[pos]).RansomValue;
+                    ((Business)listBuilding[pos]).Level += 1;
                     Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((GamingCompanies)listBuilding[pos]).Title} за цену {((GamingCompanies)listBuilding[pos]).RansomValue}");
                     Thread.Sleep(2000);
                     return true;
                 }
             }
             return false;
-        }
+        }// доделать с бизнесами кар центр и геймп центр сделать что бы цена вернулась в исходную после выкупа
         public bool MortagagedBusinesses(List<Building> building)
         {
             for (int i = 0; i < building.Count; i++)
@@ -1104,7 +1211,7 @@ namespace MonopolyV20
             }
             else
             {
-                summa = business.Price  * (interest[countBsnEnemy] - 0.10) + (Balance / 25);
+                summa = business.Price * (interest[countBsnEnemy] - 0.10) + (Balance / 25);
                 return (int)summa;
             }
         }

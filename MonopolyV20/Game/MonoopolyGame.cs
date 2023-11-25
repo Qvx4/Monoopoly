@@ -777,19 +777,17 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             //Users[0].Balance -= 15000;
-            Users[1].Balance = 5360;
+            Users[0].Balance = 15360;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
-            ((Business)Field.Buldings[29]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[27]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[26]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[29]).Level = 5;
-            ((Business)Field.Buldings[27]).Level = 5;
-            ((Business)Field.Buldings[26]).Level = 5;
-            ((Business)Field.Buldings[12]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[28]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[12]).Level = 1;
-            ((Business)Field.Buldings[28]).Level = 1;
+            ((Business)Field.Buldings[5]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[15]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[25]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[35]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[5]).Level = 3;
+            ((Business)Field.Buldings[15]).Level = 3;
+            ((Business)Field.Buldings[25]).Level = 3;
+            ((Business)Field.Buldings[35]).Level = 3;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -1188,6 +1186,7 @@ namespace MonopolyV20
                                         {
                                             luck++;
                                             check = true;
+                                            opportunityEnter = false;
                                         }
                                         else
                                         {
@@ -1377,7 +1376,7 @@ namespace MonopolyV20
                                                                 }
                                                                 Console.Write("{ Ввод } > ");
                                                                 int.TryParse(Console.ReadLine(), out numberCell);
-                                                                if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell))
+                                                                if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell,Field.Buldings))
                                                                 {
                                                                     Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                     Console.WriteLine("Неверный номер бизнеса введите новый");
@@ -1474,7 +1473,7 @@ namespace MonopolyV20
                                                                 }
                                                                 Console.Write("{ Ввод } > ");
                                                                 int.TryParse(Console.ReadLine(), out numberCell);
-                                                                if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell))
+                                                                if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell,Field.Buldings))
                                                                 {
                                                                     Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                     Console.WriteLine("Неверный номер бизнеса введите новый");
@@ -1575,7 +1574,7 @@ namespace MonopolyV20
                                                                     }
                                                                     Console.Write("{ Ввод } > ");
                                                                     int.TryParse(Console.ReadLine(), out numberCell);
-                                                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell))
+                                                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell, Field.Buldings))
                                                                     {
                                                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                         Console.WriteLine("Неверный номер бизнеса введите новый");
@@ -1688,7 +1687,7 @@ namespace MonopolyV20
                                                                 }
                                                                 Console.Write("{ Ввод } > ");
                                                                 int.TryParse(Console.ReadLine(), out numberCell);
-                                                                if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell))
+                                                                if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell, Field.Buldings))
                                                                 {
                                                                     Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                     Console.WriteLine("Неверный номер бизнеса введите новый");
@@ -1800,7 +1799,7 @@ namespace MonopolyV20
                                                                     }
                                                                     Console.Write("{ Ввод } > ");
                                                                     int.TryParse(Console.ReadLine(), out numberCell);
-                                                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell))
+                                                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell, Field.Buldings))
                                                                     {
                                                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                         Console.WriteLine("Неверный номер бизнеса введите новый");
@@ -1891,7 +1890,7 @@ namespace MonopolyV20
                                     }
                                     Console.Write("{ Ввод } > ");
                                     int.TryParse(Console.ReadLine(), out numberCell);
-                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell))
+                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell, Field.Buldings))
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                         Console.WriteLine("Неверный номер бизнеса введите новый");
@@ -1913,7 +1912,7 @@ namespace MonopolyV20
                                     }
                                     Console.Write("{ Ввод } > ");
                                     int.TryParse(Console.ReadLine(), out numberCell);
-                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).BsnBuyout(Field.Buldings[numberCell], numberCell))
+                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).BsnBuyout(Field.Buldings[numberCell], numberCell,Field.Buldings))
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                         Console.WriteLine("Неверный номер бизнеса введите новый");
