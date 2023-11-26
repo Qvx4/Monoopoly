@@ -216,7 +216,6 @@ namespace MonopolyV20
                         }
                     }
                 }
-
                 #region Test1
                 //else
                 //{
@@ -901,7 +900,7 @@ namespace MonopolyV20
                         {
                             ((Business)myBuilding[i]).Level -= 1;
                             Balance += ((Business)myBuilding[i]).UpgradePrice;
-                            Console.WriteLine($"Игрок {Symbol} продал филиал бизнеса цена {((Business)myBuilding[i]).UpgradePrice}");
+                            Console.WriteLine($"Игрок {Symbol} продал филиал бизнеса {myBuilding[i].Title} цена {((Business)myBuilding[i]).UpgradePrice}");
                             Thread.Sleep(2000);
                         }
                     }
@@ -1028,6 +1027,7 @@ namespace MonopolyV20
             }
             if (Balance >= minBalance)
             {
+                int maxcount = 0;
                 if (listBuilding[pos].GetType() == typeof(Business))
                 {
                     ((Business)listBuilding[pos]).Mortgaged = false;
@@ -1043,6 +1043,28 @@ namespace MonopolyV20
                     ((CarInterior)listBuilding[pos]).BusinessDowntrun = 15;
                     Balance -= ((CarInterior)listBuilding[pos]).RansomValue;
                     ((Business)listBuilding[pos]).Level += 1;
+                    for (int j = 0; j < buildings.Count; j++)
+                    {
+                        if (buildings[j].GetType() == typeof(CarInterior))
+                        {
+                            if (/*buildings[j].Number != index &&*/ ((Business)buildings[j]).BusinessOwner == Symbol && !((Business)buildings[j]).Mortgaged)
+                            {
+                                maxcount += 1;
+                            }
+                        }
+                    }
+                    maxcount -= 1;
+                    for (int j = 0; j < buildings.Count; j++)
+                    {
+                        if (buildings[j].GetType() == typeof(CarInterior))
+                        {
+                            if (/*buildings[j].Number != index &&*/ ((Business)buildings[j]).BusinessOwner == Symbol && !((Business)buildings[j]).Mortgaged)
+                            {
+                                ((Business)listBuilding[pos]).Level = maxcount;
+                                ((Business)buildings[j]).Level = maxcount;
+                            }
+                        }
+                    }
                     Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((CarInterior)listBuilding[pos]).Title} за цену {((CarInterior)listBuilding[pos]).RansomValue}");
                     Thread.Sleep(2000);
                     return true;
@@ -1052,7 +1074,24 @@ namespace MonopolyV20
                     ((GamingCompanies)listBuilding[pos]).Mortgaged = false;
                     ((GamingCompanies)listBuilding[pos]).BusinessDowntrun = 15;
                     Balance -= ((GamingCompanies)listBuilding[pos]).RansomValue;
-                    ((Business)listBuilding[pos]).Level += 1;
+                    //((Business)listBuilding[pos]).Level += 1;
+                    for (int j = 0; j < buildings.Count; j++)
+                    {
+                        if (buildings[j].GetType() == typeof(GamingCompanies))
+                        {
+                            if (buildings[j].Number != ((Business)listBuilding[pos]).Number && ((Business)buildings[j]).BusinessOwner == Symbol && !((Business)buildings[j]).Mortgaged)
+                            {
+                                if (((Business)buildings[j]).Level < 1)
+                                {
+                                    ((Business)buildings[j]).Level += 1;
+                                }
+                                else if (((Business)listBuilding[pos]).Level < 0)
+                                {
+                                    ((Business)listBuilding[pos]).Level += 1;
+                                }
+                            }
+                        }
+                    }
                     Console.WriteLine($"Бот {Symbol} выкупает свой бизнес {((GamingCompanies)listBuilding[pos]).Title} за цену {((GamingCompanies)listBuilding[pos]).RansomValue}");
                     Thread.Sleep(2000);
                     return true;

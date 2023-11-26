@@ -369,7 +369,6 @@ namespace MonopolyV20
                     ((CarInterior)building).Mortgaged = false;
                     ((CarInterior)building).BusinessDowntrun = 15;
                     Balance -= ((CarInterior)building).RansomValue;
-                    //((Business)building).Level += 1;
                     for (int j = 0; j < buildings.Count; j++)
                     {
                         if (buildings[j].GetType() == typeof(CarInterior))

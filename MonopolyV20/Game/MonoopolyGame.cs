@@ -777,17 +777,23 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             //Users[0].Balance -= 15000;
-            Users[0].Balance = 15360;
+            //Users[1].Balance = 5360;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
-            ((Business)Field.Buldings[5]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[15]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[25]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[35]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[5]).Level = 3;
-            ((Business)Field.Buldings[15]).Level = 3;
-            ((Business)Field.Buldings[25]).Level = 3;
-            ((Business)Field.Buldings[35]).Level = 3;
+            //((Business)Field.Buldings[29]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[27]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[26]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[29]).Level = 5;
+            //((Business)Field.Buldings[27]).Level = 5;
+            //((Business)Field.Buldings[26]).Level = 5;
+
+            //((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[8]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[9]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[6]).Level = 5;
+            //((Business)Field.Buldings[8]).Level = 5;
+            //((Business)Field.Buldings[9]).Level = 5;
+
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -914,8 +920,8 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        firstCube = 29;
-                        secondCube = 0;
+                        //firstCube = 29;
+                        //secondCube = 0;
                         #region Test
                         //if (t == 0)
                         //{
