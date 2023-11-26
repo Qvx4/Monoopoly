@@ -708,7 +708,7 @@ namespace MonopolyV20
                         Console.WriteLine($"Бот попал на джекпот и начинает игру запалтив {priceGame}");
                         Thread.Sleep(2000);
                         Balance -= priceGame;
-                        int[] arrayCell = new int[random.Next(1, 5)];
+                        int[] arrayCell = new int[random.Next(1, 4)];
                         Console.WriteLine($"Бот {Symbol} поставил количество кубиков {arrayCell.Length}   ");
                         Thread.Sleep(2000);
                         for (int i = 0; i < arrayCell.Length; i++)

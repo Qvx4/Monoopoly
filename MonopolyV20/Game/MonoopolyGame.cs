@@ -216,7 +216,7 @@ namespace MonopolyV20
             Thread.Sleep(2000);
             for (int i = 0; i < Users.Count; i++)
             {
-                if (Users[i].Symbol != symbol)
+                if (Users[i].Symbol != symbol && !Users[i].Surrender)
                 {
 
                     if (Users[i].GetType() == typeof(Bot))
@@ -754,7 +754,7 @@ namespace MonopolyV20
                 Console.WriteLine($"{{{1}}} {text} ");
                 Console.WriteLine($"{{{(int)BuyMenu.MortagageBsn}}} Заложить бизнес ");
                 Console.WriteLine($"{{{(int)BuyMenu.BranchSale}}} Продать филиал ");
-                Console.WriteLine($"{{{(int)BuyMenu.Surrender}}} Сдаться");
+                Console.WriteLine($"{{{(int)PayMenu.Surrender}}} Сдаться");
             }
         } // вывод меню выплаты
         public void ShowWinGame()
@@ -776,8 +776,8 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[0].Balance -= 15000;
-            //Users[1].Balance = 5360;
+            Users[0].Balance -= 15000;
+            Users[1].Balance -= 15000;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
             //((Business)Field.Buldings[29]).BusinessOwner = Users[0].Symbol;
@@ -1159,6 +1159,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
+                                        firstCube = 36;
+                                        secondCube = 0;
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
                                         Thread.Sleep(2000);
