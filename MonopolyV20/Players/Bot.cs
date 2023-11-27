@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 //using System.Linq;
 //using System.Text;
@@ -369,15 +368,33 @@ namespace MonopolyV20
             }
             else if (chances.GetType() == typeof(Lesion))
             {
+                Console.WriteLine($"Игроку {Symbol} выпал шанс {((Lesion)chances).Title} {((Lesion)chances).Description}");
+                Thread.Sleep(2000);
                 if (Balance > ((Lesion)chances).WriteOffMoney)
                 {
-                    Balance -= ((Lesion)chances).WriteOffMoney;
-                    Console.WriteLine($"Игроку {Symbol} выпал шанс {((Lesion)chances).Title} {((Lesion)chances).Description}");
+                    Console.WriteLine($"Игроку {Symbol} выплатил шанс {((Lesion)chances).Title} {((Lesion)chances).Description}");
                     Thread.Sleep(2000);
+                    Balance -= ((Lesion)chances).WriteOffMoney;
                 }
                 else
                 {
-                    MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
+                    Console.WriteLine($"у Игроку {Symbol} не хватило деняг");
+                    Thread.Sleep(2000);
+                    do
+                    {
+                        if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                        {
+                            SurrenderLogic(field.Buldings);
+                            Console.WriteLine($"У Бота {Symbol} нету деняг и бизнесов которые можно заложить по этому он решил сдаться");
+                            Thread.Sleep(2000);
+                            return;
+                        }
+                        MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
+                    }
+                    while (((Lesion)chances).WriteOffMoney >= Balance);
+                    Console.WriteLine($"Игроку {Symbol} выплатил шанс {((Lesion)chances).Title} {((Lesion)chances).Description}");
+                    Balance -= ((Lesion)chances).WriteOffMoney;
+                    Thread.Sleep(2000);
                 }
             }
             else if (chances.GetType() == typeof(RandomActions))
@@ -698,9 +715,10 @@ namespace MonopolyV20
             else if (buldings.GetType() == typeof(Jackpot))
             {
                 Random random = new Random();
-                int numberCubs = 0;
+                int numberCubs = random.Next(1, 7);
                 int priceGame = 1000;
                 bool JackpotWin = false;
+                int intermediateRusult = 0;
                 if (random.Next(0, 1) == 0)
                 {
                     if (Balance > priceGame)
@@ -711,20 +729,50 @@ namespace MonopolyV20
                         int[] arrayCell = new int[random.Next(1, 4)];
                         Console.WriteLine($"Бот {Symbol} поставил количество кубиков {arrayCell.Length}   ");
                         Thread.Sleep(2000);
-                        for (int i = 0; i < arrayCell.Length; i++)
+                        do
                         {
-                            numberCubs = random.Next(1, 7);
-                            for (int j = 0; j < arrayCell.Length; j++)
+                            intermediateRusult = random.Next(1, 7);
+                            for (int i = 0; i < arrayCell.Length; j++)
                             {
-                                if (numberCubs == arrayCell[j])
+                                if (arrayCell[j] == intermediateRusult)
                                 {
-                                    break;
+
+                                    j = 0;
+                                    continue;
                                 }
-                                else if (j == arrayCell.Length - 1)
+                                if (j == arrayCell.Length - 1)
                                 {
                                     arrayCell[i] = random.Next(1, 7);
                                     Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
                                     Thread.Sleep(2000);
+                                }
+                            }
+                        }
+                        while (false);
+
+                        for (int i = 0; i < arrayCell.Length; i++)
+                        {
+                            intermediateRusult = random.Next(1, 7);
+                            if (numberCubs == intermediateRusult)
+                            {
+                                arrayCell[i] = intermediateRusult;
+                                break;
+                            }
+                            else
+                            {
+                                for (int j = 0; j < arrayCell.Length; j++)
+                                {
+                                    if (arrayCell[j] == intermediateRusult)
+                                    {
+
+                                    }
+
+                                    if (j == arrayCell.Length - 1)
+                                    {
+                                        arrayCell[i] = random.Next(1, 7);
+                                        Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
+                                        Thread.Sleep(2000);
+                                    }
                                 }
                             }
                         }
@@ -780,24 +828,40 @@ namespace MonopolyV20
             }//проверка что ячейка джекпот 
             else if (buldings.GetType() == typeof(Bank))
             {
+                Console.WriteLine($"Игрок {Symbol} попал на ячейку банк сумма списания {((Bank)buldings).Summa}");
+                Thread.Sleep(2000);
                 if (Balance > ((Bank)buldings).Summa)
                 {
-                    Balance -= ((Bank)buldings).Summa;
-                    Console.WriteLine($"Игрок {Symbol} попал на ячейку банк сумма списания {((Bank)buldings).Summa}");
+                    Console.WriteLine($"Игрок {Symbol} Выплатил {((Bank)buldings).Summa}");
                     Thread.Sleep(2000);
+                    Balance -= ((Bank)buldings).Summa;
                 }
                 else
                 {
-                    if (!MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings))
+                    Console.WriteLine($"Игрок {Symbol} не хватило деняг");
+                    Thread.Sleep(2000);
+                    do
                     {
-                        Console.WriteLine($"У Бота {Symbol} нету деняг и бизнесов которые можно заложить по этому он решил сдаться");
-                        Thread.Sleep(2000);
-                        SurrenderLogic(field.Buldings);
+                        if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                        {
+                            SurrenderLogic(field.Buldings);
+                            Console.WriteLine($"У Бота {Symbol} нету деняг и бизнесов которые можно заложить по этому он решил сдаться");
+                            Thread.Sleep(2000);
+                            return true;
+                        }
+                        MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
                     }
+                    while (((Bank)buldings).Summa >= Balance);
+                    Console.WriteLine($"Игрок {Symbol} Выплатил {((Bank)buldings).Summa}");
+                    Thread.Sleep(2000);
+                    Balance -= ((Bank)buldings).Summa;
+
                 }
             }//проверка что ячейка налог 
             else if (buldings.GetType() == typeof(Tax))
             {
+                Console.WriteLine($"Игрок {Symbol} попал на ячейку налог сумма списания {((Tax)buldings).Summa}");
+                Thread.Sleep(2000);
                 if (Balance > ((Tax)buldings).Summa)
                 {
                     Balance -= ((Tax)buldings).Summa;
@@ -806,7 +870,23 @@ namespace MonopolyV20
                 }
                 else
                 {
-                    MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
+                    Console.WriteLine($"Игрок {Symbol} не хватило деняг");
+                    Thread.Sleep(2000);
+                    do
+                    {
+                        if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                        {
+                            SurrenderLogic(field.Buldings);
+                            Console.WriteLine($"У Бота {Symbol} нету деняг и бизнесов которые можно заложить по этому он решил сдаться");
+                            Thread.Sleep(2000);
+                            return true;
+                        }
+                        MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
+                    }
+                    while (((Tax)buldings).Summa >= Balance);
+                    Console.WriteLine($"Игрок {Symbol} Выплатил {((Bank)buldings).Summa}");
+                    Balance -= ((Tax)buldings).Summa;
+                    Thread.Sleep(2000);
                 }
             }//проверка что ячейка налог на богадство 
             else if (buldings.GetType() == typeof(PoliceStation))
