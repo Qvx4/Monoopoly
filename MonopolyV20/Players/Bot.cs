@@ -729,26 +729,26 @@ namespace MonopolyV20
                         int[] arrayCell = new int[random.Next(1, 4)];
                         Console.WriteLine($"Бот {Symbol} поставил количество кубиков {arrayCell.Length}   ");
                         Thread.Sleep(2000);
-                        do
-                        {
-                            intermediateRusult = random.Next(1, 7);
-                            for (int i = 0; i < arrayCell.Length; j++)
-                            {
-                                if (arrayCell[j] == intermediateRusult)
-                                {
+                        //do
+                        //{
+                        //    intermediateRusult = random.Next(1, 7);
+                        //    for (int i = 0; i < arrayCell.Length; i++)
+                        //    {
+                        //        if (arrayCell[i] == intermediateRusult)
+                        //        {
 
-                                    j = 0;
-                                    continue;
-                                }
-                                if (j == arrayCell.Length - 1)
-                                {
-                                    arrayCell[i] = random.Next(1, 7);
-                                    Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
-                                    Thread.Sleep(2000);
-                                }
-                            }
-                        }
-                        while (false);
+                        //            i = 0;
+                        //            continue;
+                        //        }
+                        //        if (i == arrayCell.Length - 1)
+                        //        {
+                        //            arrayCell[i] = random.Next(1, 7);
+                        //            Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
+                        //            Thread.Sleep(2000);
+                        //        }
+                        //    }
+                        //}
+                        //while (false);
 
                         for (int i = 0; i < arrayCell.Length; i++)
                         {
@@ -764,12 +764,15 @@ namespace MonopolyV20
                                 {
                                     if (arrayCell[j] == intermediateRusult)
                                     {
+                                        intermediateRusult = random.Next(1, 7);
+                                        j = 0;
+                                        continue;
 
                                     }
-
-                                    if (j == arrayCell.Length - 1)
+                                    else
                                     {
-                                        arrayCell[i] = random.Next(1, 7);
+
+                                        arrayCell[i] = intermediateRusult;
                                         Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
                                         Thread.Sleep(2000);
                                     }
