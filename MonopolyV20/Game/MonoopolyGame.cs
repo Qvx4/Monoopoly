@@ -920,8 +920,8 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        //firstCube = 29;
-                        //secondCube = 0;
+                        firstCube = 20;
+                        secondCube = 0;
                         #region Test
                         //if (t == 0)
                         //{

@@ -753,37 +753,31 @@ namespace MonopolyV20
                         for (int i = 0; i < arrayCell.Length; i++)
                         {
                             intermediateRusult = random.Next(1, 7);
-                            if (numberCubs == intermediateRusult)
+
+                            for (int j = 0; j < arrayCell.Length; j++)
                             {
-                                arrayCell[i] = intermediateRusult;
-                                break;
-                            }
-                            else
-                            {
-                                for (int j = 0; j < arrayCell.Length; j++)
+                                if (arrayCell[j] == intermediateRusult)
                                 {
-                                    if (arrayCell[j] == intermediateRusult)
-                                    {
-                                        intermediateRusult = random.Next(1, 7);
-                                        j = 0;
-                                        continue;
+                                    intermediateRusult = random.Next(1, 7);
+                                    j = 0;
+                                    continue;
 
-                                    }
-                                    else
-                                    {
-
-                                        arrayCell[i] = intermediateRusult;
-                                        Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
-                                        Thread.Sleep(2000);
-                                    }
+                                }
+                                else
+                                {
+                                    arrayCell[i] = intermediateRusult;
+                                    Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
+                                    Thread.Sleep(2000);
+                                    break;
                                 }
                             }
+
                         }
                         Console.WriteLine($"В казино выпал рандомный кубик {numberCubs}");
                         Thread.Sleep(2000);
-                        //firstCube = RollTheCube(rand);    
                         for (int i = 0; i < arrayCell.Length; i++)
                         {
+
                             if (arrayCell[i] == numberCubs)
                             {
                                 Console.WriteLine("Кубики совпали");
