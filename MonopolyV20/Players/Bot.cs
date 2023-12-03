@@ -719,6 +719,7 @@ namespace MonopolyV20
                 int priceGame = 1000;
                 bool JackpotWin = false;
                 int intermediateRusult = 0;
+                bool intermediate = false;
                 if (random.Next(0, 1) == 0)
                 {
                     if (Balance > priceGame)
@@ -726,58 +727,44 @@ namespace MonopolyV20
                         Console.WriteLine($"Бот попал на джекпот и начинает игру запалтив {priceGame}");
                         Thread.Sleep(2000);
                         Balance -= priceGame;
-                        int[] arrayCell = new int[random.Next(1, 4)];
+                        //int[] arrayCell = new int[random.Next(1, 4)];
+                        int[] arrayCell = new int[3];
                         Console.WriteLine($"Бот {Symbol} поставил количество кубиков {arrayCell.Length}   ");
                         Thread.Sleep(2000);
-                        //do
-                        //{
-                        //    intermediateRusult = random.Next(1, 7);
-                        //    for (int i = 0; i < arrayCell.Length; i++)
-                        //    {
-                        //        if (arrayCell[i] == intermediateRusult)
-                        //        {
-
-                        //            i = 0;
-                        //            continue;
-                        //        }
-                        //        if (i == arrayCell.Length - 1)
-                        //        {
-                        //            arrayCell[i] = random.Next(1, 7);
-                        //            Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
-                        //            Thread.Sleep(2000);
-                        //        }
-                        //    }
-                        //}
-                        //while (false);
-
                         for (int i = 0; i < arrayCell.Length; i++)
                         {
                             intermediateRusult = random.Next(1, 7);
-
-                            for (int j = 0; j < arrayCell.Length; j++)
+                            do
                             {
-                                if (arrayCell[j] == intermediateRusult)
+                                if (intermediate)
                                 {
                                     intermediateRusult = random.Next(1, 7);
-                                    j = 0;
-                                    continue;
-
+                                    intermediate = false;
                                 }
-                                else
+                                for (int j = 0; j < arrayCell.Length; j++)
+                                {
+                                    if (arrayCell[j] == intermediateRusult)
+                                    {
+                                        intermediateRusult = random.Next(1, 7);
+                                        j = 0;
+                                        intermediate = true;
+                                        break;
+
+                                    }
+                                }
+                                if (!intermediate)
                                 {
                                     arrayCell[i] = intermediateRusult;
                                     Console.WriteLine($"Бот {Symbol} ввел число {arrayCell[i]} в ячейке {i}");
                                     Thread.Sleep(2000);
-                                    break;
                                 }
                             }
-
+                            while (intermediate);
                         }
                         Console.WriteLine($"В казино выпал рандомный кубик {numberCubs}");
                         Thread.Sleep(2000);
                         for (int i = 0; i < arrayCell.Length; i++)
                         {
-
                             if (arrayCell[i] == numberCubs)
                             {
                                 Console.WriteLine("Кубики совпали");
@@ -805,12 +792,12 @@ namespace MonopolyV20
                                 }
                                 break;
                             }
-                            if (!JackpotWin)
-                            {
-                                Console.WriteLine("Кубики не совпали бот проиграл");
-                                Thread.Sleep(2000);
-                                break;
-                            }
+                        }
+                        if (!JackpotWin)
+                        {
+                            Console.WriteLine("Кубики не совпали бот проиграл");
+                            Thread.Sleep(2000);
+                            return true;
                         }
                         return true;
                     }
