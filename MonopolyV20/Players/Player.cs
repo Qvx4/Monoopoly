@@ -83,6 +83,14 @@ namespace MonopolyV20
             }
             return false;
         }
+        public bool IsCheckChanceIsTepeport(Chances chances)
+        {
+            if (chances.GetType() == typeof(RandomActions) && ((RandomActions)chances).Actions == Actions.Teleport)
+            {
+                return true;
+            }
+            return false;
+        }
         public bool IsByCell(Building building, List<Building> buildings)
         {
             bool checkBalanc = true;
@@ -501,7 +509,7 @@ namespace MonopolyV20
             }
             return list;
         }
-        public void ChanceAnalysis(Chances chances, Field field)
+        public void ChanceCheck(Chances chances, Field field)
         {
             if (chances.GetType() == typeof(Profit))
             {

@@ -358,7 +358,7 @@ namespace MonopolyV20
             }
 
         }//выплата ренты поля // баг
-        public void ChanceAnalysis(Chances chances, Field field, List<User> users, int firstCube, int secondCube)
+        public void ChanceCheck(Chances chances, Field field, List<User> users, int firstCube, int secondCube)
         {
             if (chances.GetType() == typeof(Profit))
             {
@@ -727,8 +727,7 @@ namespace MonopolyV20
                         Console.WriteLine($"Бот попал на джекпот и начинает игру запалтив {priceGame}");
                         Thread.Sleep(2000);
                         Balance -= priceGame;
-                        //int[] arrayCell = new int[random.Next(1, 4)];
-                        int[] arrayCell = new int[3];
+                        int[] arrayCell = new int[random.Next(1, 4)];
                         Console.WriteLine($"Бот {Symbol} поставил количество кубиков {arrayCell.Length}   ");
                         Thread.Sleep(2000);
                         for (int i = 0; i < arrayCell.Length; i++)
@@ -896,7 +895,7 @@ namespace MonopolyV20
             {
                 Random random = new Random();
                 Chances chance = ((Chance)buldings).Chances[random.Next(0, ((Chance)buldings).Chances.Count)];
-                ChanceAnalysis(chance, field, users, firstCube, secondCube);
+                ChanceCheck(chance, field, users, firstCube, secondCube);
             }//проверка что ячейка шанс
             else if (buldings.GetType() == typeof(Prison))
             {
