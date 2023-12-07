@@ -1160,8 +1160,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        firstCube = 2;
-                                        secondCube = 0;
+                                        //firstCube = 2;
+                                        //secondCube = 0;
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
                                         Thread.Sleep(2000);
@@ -1213,6 +1213,7 @@ namespace MonopolyV20
                                     }
                                     if (((Player)Users[nextPlayer]).Surrender != true && ((Player)Users[nextPlayer]).Prison != true && ((Player)Users[nextPlayer]).StepSkip != true)
                                     {
+                                        teleport:
                                         if (Users[nextPlayer].ReverseStroke == true)
                                         {
                                             Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
@@ -1545,8 +1546,8 @@ namespace MonopolyV20
                                             else if (((Player)Users[nextPlayer]).IsCheckCellChance(Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]))
                                             {
                                                 Random random = new Random();
-                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
-                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[11];
+                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
+                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[11];
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(chance))
                                                 {
                                                     while (menu)
@@ -1654,7 +1655,7 @@ namespace MonopolyV20
                                                 else if (((Player)Users[nextPlayer]).IsCheckChanceIsTepeport(chance))
                                                 {
                                                     ((Player)Users[nextPlayer]).ChanceCheck(chance, Field);
-                                                    break;
+                                                    goto teleport;
                                                 }
                                                 else
                                                 {

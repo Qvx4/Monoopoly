@@ -1233,6 +1233,10 @@ namespace MonopolyV20
         public bool CheckBsnAllMortagaged(List<Building> buildings)
         {
             bool checkBsnAllMortagaged = true; ;
+            if (buildings.Count == 0)
+            {
+                return false;
+            }
             for (int i = 0; i < buildings.Count; i++)
             {
                 if (buildings[i].GetType() == typeof(Business))
