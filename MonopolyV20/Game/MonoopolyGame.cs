@@ -780,9 +780,9 @@ namespace MonopolyV20
             //Users[1].Balance -= 15000;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
-            //((Business)Field.Buldings[29]).BusinessOwner = Users[0].Symbol;
-            //((Business)Field.Buldings[27]).BusinessOwner = Users[0].Symbol;
-            //((Business)Field.Buldings[26]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[6]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[8]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[9]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[29]).Level = 5;
             //((Business)Field.Buldings[27]).Level = 5;
             //((Business)Field.Buldings[26]).Level = 5;

@@ -299,7 +299,7 @@ namespace MonopolyV20
                 {
                     ((CarInterior)building).Mortgaged = true;
                     Balance += ((CarInterior)building).ValueOfCollaterel;
-                    ((Business)building).Level -= 1;
+                    //((Business)building).Level -= 1;
                     for (int j = 0; j < buildings.Count; j++)
                     {
                         if (buildings[j].GetType() == typeof(CarInterior))
