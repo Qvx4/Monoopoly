@@ -531,12 +531,23 @@ namespace MonopolyV20
                 {
                     case Actions.Teleport:
                         {
-                            field.Buldings[CordinationPlayer].Symbol.Remove(Symbol);
                             Random random = new Random();
-                            CordinationPlayer += random.Next(0, 20);
-                            field.Buldings[CordinationPlayer].Symbol.Add(Symbol);
-                            Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
-                            Thread.Sleep(2000);
+                            int number = random.Next(0, 20);
+                            field.Buldings[CordinationPlayer].Symbol.Remove(Symbol);
+                            if ((CordinationPlayer += number) > field.Buldings.Count)
+                            {
+                                CordinationPlayer += number - field.Buldings.Count;
+                                field.Buldings[CordinationPlayer].Symbol.Add(Symbol);
+                                Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
+                                Thread.Sleep(2000);
+                            }
+                            else
+                            {
+                                CordinationPlayer += number;
+                                field.Buldings[CordinationPlayer].Symbol.Add(Symbol);
+                                Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
+                                Thread.Sleep(2000);
+                            }
                         }
                         break;
                     case Actions.WalkBackWards:

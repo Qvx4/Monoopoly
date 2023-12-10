@@ -780,9 +780,9 @@ namespace MonopolyV20
             //Users[1].Balance -= 15000;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
-            ((Business)Field.Buldings[6]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[8]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[9]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[6]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[8]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[9]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[29]).Level = 5;
             //((Business)Field.Buldings[27]).Level = 5;
             //((Business)Field.Buldings[26]).Level = 5;
@@ -1160,8 +1160,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        //firstCube = 2;
-                                        //secondCube = 0;
+                                        firstCube = 38;
+                                        secondCube = 0;
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
                                         Thread.Sleep(2000);
@@ -1546,8 +1546,8 @@ namespace MonopolyV20
                                             else if (((Player)Users[nextPlayer]).IsCheckCellChance(Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]))
                                             {
                                                 Random random = new Random();
-                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
-                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[11];
+                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
+                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[11];
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(chance))
                                                 {
                                                     while (menu)
