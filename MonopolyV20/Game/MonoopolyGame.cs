@@ -821,6 +821,7 @@ namespace MonopolyV20
             bool Jackpot = false;
             bool menu = true;
             bool CheckTeleportActionTrue = false;
+            int t = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
             TaxMenu taxMenu;
@@ -1160,8 +1161,17 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        firstCube = 38;
-                                        secondCube = 0;
+                                        if (t == 0)
+                                        {
+                                            firstCube = 39;
+                                            secondCube = 0;
+                                            t += 1;
+                                        }
+                                        else if(t == 1)
+                                        {
+                                            firstCube = 6;
+                                            secondCube = 6;
+                                        }
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
                                         Thread.Sleep(2000);
@@ -1213,7 +1223,7 @@ namespace MonopolyV20
                                     }
                                     if (((Player)Users[nextPlayer]).Surrender != true && ((Player)Users[nextPlayer]).Prison != true && ((Player)Users[nextPlayer]).StepSkip != true)
                                     {
-                                        teleport:
+                                    teleport:
                                         if (Users[nextPlayer].ReverseStroke == true)
                                         {
                                             Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
@@ -1263,6 +1273,7 @@ namespace MonopolyV20
                                         ShowField("");
                                         if (Users[nextPlayer].Jackpot == true)
                                         {
+                                            bool intermediate = true;
                                             int number = 0;
                                             Console.WriteLine("{ 1 } Сыграть в джекпот | { 2 } Отказатся от игры ");
                                             Console.Write("{ Ввод } >> ");
@@ -1283,25 +1294,35 @@ namespace MonopolyV20
                                                 {
                                                     do
                                                     {
-                                                        Console.WriteLine($"Введите число от 1 до 6 в ячейку номер {i}");
-                                                        Console.Write("{ Ввод } >> ");
-                                                        int.TryParse(Console.ReadLine(), out number);
-                                                    }
-                                                    while (number < 1 || number > 6);
-                                                    for (int j = 0; j < arrayCubs.Length; j++)
-                                                    {
-                                                        if (arrayCubs[i] == number)
+                                                        if (intermediate)
                                                         {
-                                                            checkJack = true;
-                                                            break;
+                                                            do
+                                                            {
+                                                                Console.WriteLine($"Введите число от 1 до 6 в ячейку номер {i}");
+                                                                Console.Write("{ Ввод } >> ");
+                                                                int.TryParse(Console.ReadLine(), out number);
+                                                            }
+                                                            while (number < 1 || number > 6);
+                                                            intermediate = false;
                                                         }
-                                                        else
+                                                        for (int j = 0; j < arrayCubs.Length; j++)
                                                         {
-                                                            checkJack = false;
-                                                        }
-                                                    }
+                                                            if (arrayCubs[j] == number)
+                                                            {
+                                                                j = 0;
+                                                                intermediate = true;
+                                                                break;
 
-                                                    arrayCubs[i] = number;
+                                                            }
+                                                        }
+                                                        if (!intermediate)
+                                                        {
+                                                            arrayCubs[i] = number;
+                                                            Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} ввел число {arrayCubs[i]} в ячейке {i}");
+                                                            Thread.Sleep(2000);
+                                                        }
+                                                    }
+                                                    while (intermediate);
                                                 }//проверка ввода чисел
                                                 firstCube = RollTheCube(rand);
                                                 Console.WriteLine($"В джекпоте рандомно кинулся кубик и выпало число {firstCube}");
@@ -1546,8 +1567,8 @@ namespace MonopolyV20
                                             else if (((Player)Users[nextPlayer]).IsCheckCellChance(Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]))
                                             {
                                                 Random random = new Random();
-                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
-                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[11];
+                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
+                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[11];
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(chance))
                                                 {
                                                     while (menu)
