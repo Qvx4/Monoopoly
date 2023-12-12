@@ -1133,6 +1133,7 @@ namespace MonopolyV20
                                             Thread.Sleep(2000);
                                             if (firstCube == secondCube)
                                             {
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 ((Player)Users[nextPlayer]).Prison = false;
                                             }
                                             else
@@ -1145,6 +1146,7 @@ namespace MonopolyV20
                                         {
                                             if (Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer].GetType() == typeof(Prison))
                                             {
+                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 ((Player)Users[nextPlayer]).Balance -= ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost;
                                                 ((Player)Users[nextPlayer]).Prison = false;
                                                 continue;
@@ -1161,17 +1163,19 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        if (t == 0)
-                                        {
-                                            firstCube = 39;
-                                            secondCube = 0;
-                                            t += 1;
-                                        }
-                                        else if(t == 1)
-                                        {
-                                            firstCube = 6;
-                                            secondCube = 6;
-                                        }
+                                        firstCube = 30;
+                                        secondCube = 0;
+                                        //if (t == 0)
+                                        //{
+                                        //    firstCube = 39;
+                                        //    secondCube = 0;
+                                        //    t += 1;
+                                        //}
+                                        //else if(t == 1)
+                                        //{
+                                        //    firstCube = 6;
+                                        //    secondCube = 6;
+                                        //}
                                         ShowGameCube(firstCube);
                                         ShowGameCube(secondCube);
                                         Thread.Sleep(2000);
@@ -1361,6 +1365,7 @@ namespace MonopolyV20
                                                     Console.WriteLine($"Игрок {Users[nextPlayer].Symbol} не выиграл ");
                                                     Console.ForegroundColor = ConsoleColor.Gray;
                                                     Thread.Sleep(2000);
+                                                    Users[nextPlayer].Jackpot = false;
                                                     break;
                                                 }
                                             }
