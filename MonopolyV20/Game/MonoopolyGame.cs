@@ -922,6 +922,8 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
+                        firstCube = 30;
+                        secondCube = 0;
                         //firstCube = 20;
                         //secondCube = 0;
                         #region Test
@@ -1163,8 +1165,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        firstCube = 30;
-                                        secondCube = 0;
+                                        //firstCube = 30;
+                                        //secondCube = 0;
                                         //if (t == 0)
                                         //{
                                         //    firstCube = 39;
@@ -1227,7 +1229,7 @@ namespace MonopolyV20
                                     }
                                     if (((Player)Users[nextPlayer]).Surrender != true && ((Player)Users[nextPlayer]).Prison != true && ((Player)Users[nextPlayer]).StepSkip != true)
                                     {
-                                    teleport:
+                                        teleport:
                                         if (Users[nextPlayer].ReverseStroke == true)
                                         {
                                             Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
