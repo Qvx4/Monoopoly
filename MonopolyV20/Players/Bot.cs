@@ -878,6 +878,8 @@ namespace MonopolyV20
                 {
                     if (field.Buldings[i].GetType() == typeof(Prison))
                     {
+                        Console.WriteLine($"Игрок {Symbol} попал на клетку тюрьмы и по этому он отправляется в тюрьму");
+                        Thread.Sleep(2000);
                         field.Buldings[CordinationPlayer].Symbol.Remove(Symbol);
                         field.Buldings[i].Symbol.Add(Symbol);
                         CordinationPlayer = field.Buldings[i].Number;

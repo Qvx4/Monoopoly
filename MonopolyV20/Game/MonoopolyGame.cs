@@ -815,7 +815,6 @@ namespace MonopolyV20
             int secondCube = 0;
             int luck = 0;
             bool surrender = false;
-            bool prison = false;
             bool skipping = false;
             bool opportunityEnter = false;
             bool Jackpot = false;
@@ -827,7 +826,6 @@ namespace MonopolyV20
             TaxMenu taxMenu;
             while (true)
             {
-                prison = false;
                 if (IsCheckWinGame())
                 {
                     Console.Write("Нажмите любую кнопку что бы вернуться на начальную страницу >>> ");
@@ -864,10 +862,6 @@ namespace MonopolyV20
                             nextPlayer++;
                         }
                     }
-                }
-                if (Users[nextPlayer].Prison == true)
-                {
-                    prison = true;
                 }
                 if (Users[nextPlayer].ReverseStroke == true)
                 {
@@ -922,8 +916,6 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        firstCube = 30;
-                        secondCube = 0;
                         //firstCube = 20;
                         //secondCube = 0;
                         #region Test
@@ -1148,7 +1140,7 @@ namespace MonopolyV20
                                         {
                                             if (Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer].GetType() == typeof(Prison))
                                             {
-                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                                                //Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 ((Player)Users[nextPlayer]).Balance -= ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost;
                                                 ((Player)Users[nextPlayer]).Prison = false;
                                                 continue;
@@ -1165,8 +1157,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        //firstCube = 30;
-                                        //secondCube = 0;
+                                        firstCube = 30;
+                                        secondCube = 0;
                                         //if (t == 0)
                                         //{
                                         //    firstCube = 39;

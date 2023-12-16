@@ -1697,16 +1697,6 @@ namespace MonopolyV20
                                 {
                                     Console.Write(" ");
                                 }
-
-                                //for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
-                                //{
-                                //    Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
-                                //}
-                                //Console.ForegroundColor = ConsoleColor.Gray;
-                                //for (int o = 0; o < countSpaceInBox - Buldings[cellNumber[lastCell]].Symbol.Count; o++)
-                                //{
-                                //    Console.Write(" ");
-                                //}
                             } //fix
                             else
                             {
