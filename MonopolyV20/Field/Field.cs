@@ -1674,7 +1674,7 @@ namespace MonopolyV20
                                 Console.BackgroundColor = ConsoleColor.DarkYellow;
                                 for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
                                 {
-                                    if (!users[k].Prison)
+                                    if (!users[o].Prison)
                                     {
                                         Console.ForegroundColor = ConsoleColor.Black;
                                         Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
@@ -1700,6 +1700,7 @@ namespace MonopolyV20
                             } //fix
                             else
                             {
+                                //FIX проблема каунта 0
                                 bool isColor = false;
                                 int number = 0;
                                 consoleColorType = FieldPainting(Buldings[cellNumber[lastCell]], users);
@@ -1738,7 +1739,7 @@ namespace MonopolyV20
                                     {
                                         for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
                                         {
-                                            if (!users[k].Prison)
+                                            if (!users[o].Prison)
                                             {
                                                 Console.ForegroundColor = ConsoleColor.White;
                                                 Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
@@ -1794,7 +1795,7 @@ namespace MonopolyV20
                                     {
                                         for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
                                         {
-                                            if (!users[k].Prison)
+                                            if (!users[o].Prison)
                                             {
                                                 Console.ForegroundColor = ConsoleColor.White;
                                                 Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
@@ -1850,7 +1851,8 @@ namespace MonopolyV20
                                     {
                                         for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
                                         {
-                                            if (!users[k].Prison)
+                                            //баг к 1 когда игрок 0 не в тюрьме 
+                                            if (!users[o].Prison)
                                             {
                                                 Console.ForegroundColor = ConsoleColor.White;
                                                 Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");

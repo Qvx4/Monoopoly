@@ -1157,8 +1157,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        firstCube = 30;
-                                        secondCube = 0;
+                                        //firstCube = 30;
+                                        //secondCube = 0;
                                         //if (t == 0)
                                         //{
                                         //    firstCube = 39;
