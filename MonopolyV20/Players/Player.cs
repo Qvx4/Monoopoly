@@ -210,12 +210,37 @@ namespace MonopolyV20
             }
             else if (bulding.GetType() == typeof(GamingCompanies))
             {
-                if (((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level] <= Balance)
+                //fix баг снимает больше деняг чем есть 
+                if (((GamingCompanies)bulding).Level > 0)
+                {
+                    if (((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level] <= Balance)
+                    {
+                        if (((GamingCompanies)bulding).Mortgaged == false)
+                        {
+                            if (((GamingCompanies)bulding).Level > 0)
+                            {
+                                summa = (firstCube + secondCube) * ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
+                            }
+                            Balance -= summa;
+                            for (int i = 0; i < users.Count; i++)
+                            {
+                                if (((GamingCompanies)bulding).BusinessOwner == users[i].Symbol)
+                                {
+                                    users[i].Balance += summa;
+                                    Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {summa}");
+                                    Thread.Sleep(2000);
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                else
                 {
                     if (((GamingCompanies)bulding).Mortgaged == false)
                     {
-                        summa = (firstCube + secondCube) * ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
-                        Balance -= summa;
+                        Balance -= ((GamingCompanies)bulding).Rent[((GamingCompanies)bulding).Level];
                         for (int i = 0; i < users.Count; i++)
                         {
                             if (((GamingCompanies)bulding).BusinessOwner == users[i].Symbol)
