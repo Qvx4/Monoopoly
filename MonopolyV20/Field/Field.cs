@@ -964,23 +964,29 @@ namespace MonopolyV20
                             Console.BackgroundColor = ConsoleColor.DarkYellow;
                             for (int k = 0; k < Buldings[cellNumber[j]].Symbol.Count; k++)
                             {
-                                if (!users[k].Prison)
+                                for (int o = 0; o < users.Count; o++)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Black;
-                                    Console.Write($"{Buldings[cellNumber[j]].Symbol[k]}");
-                                    if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
+                                    if (users[o].Symbol == Buldings[cellNumber[j]].Symbol[k])
                                     {
-                                        Console.Write(" ");
+                                        if (!users[o].Prison)
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Black;
+                                            Console.Write($"{Buldings[cellNumber[j]].Symbol[k]}");
+                                            if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
+                                            {
+                                                Console.Write(" ");
+                                            }
+                                            else
+                                            {
+                                                Console.Write(",");
+                                            }
+                                            Console.ForegroundColor = ConsoleColor.Gray;
+                                        }
+                                        else
+                                        {
+                                            number += 2;
+                                        }
                                     }
-                                    else
-                                    {
-                                        Console.Write(",");
-                                    }
-                                    Console.ForegroundColor = ConsoleColor.Gray;
-                                }
-                                else
-                                {
-                                    number += 2;
                                 }
                             }
                             for (int k = 0; k < count - Buldings[cellNumber[j]].Symbol.Count - Buldings[cellNumber[j]].Symbol.Count + number; k++)
@@ -1030,23 +1036,29 @@ namespace MonopolyV20
                                 {
                                     for (int k = 0; k < Buldings[cellNumber[j]].Symbol.Count; k++)
                                     {
-                                        if (!users[k].Prison)
+                                        for (int o = 0; o < users.Count; o++)
                                         {
-                                            Console.ForegroundColor = ConsoleColor.White;
-                                            Console.Write($"{Buldings[cellNumber[j]].Symbol[k]}");
-                                            if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
+                                            if (users[o].Symbol == Buldings[cellNumber[j]].Symbol[k])
                                             {
-                                                Console.Write(" ");
+                                                if (!users[o].Prison)
+                                                {
+                                                    Console.ForegroundColor = ConsoleColor.White;
+                                                    Console.Write($"{Buldings[cellNumber[j]].Symbol[k]}");
+                                                    if (k == Buldings[cellNumber[j]].Symbol.Count - 1)
+                                                    {
+                                                        Console.Write(" ");
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.Write(",");
+                                                    }
+                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                }
+                                                else
+                                                {
+                                                    number += 2;
+                                                }
                                             }
-                                            else
-                                            {
-                                                Console.Write(",");
-                                            }
-                                            Console.ForegroundColor = ConsoleColor.Gray;
-                                        }
-                                        else
-                                        {
-                                            number += 2;
                                         }
                                     }
                                 }
@@ -1686,23 +1698,29 @@ namespace MonopolyV20
                                 Console.BackgroundColor = ConsoleColor.DarkYellow;
                                 for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
                                 {
-                                    if (!users[o].Prison)
+                                    for (int e = 0; e < users.Count; e++)
                                     {
-                                        Console.ForegroundColor = ConsoleColor.Black;
-                                        Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
-                                        if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                        if (users[e].Symbol == Buldings[cellNumber[lastCell]].Symbol[o])
                                         {
-                                            Console.Write(" ");
+                                            if (!users[e].Prison)
+                                            {
+                                                Console.ForegroundColor = ConsoleColor.White;
+                                                Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                                if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                                {
+                                                    Console.Write(" ");
+                                                }
+                                                else
+                                                {
+                                                    Console.Write(",");
+                                                }
+                                                Console.ForegroundColor = ConsoleColor.Gray;
+                                            }
+                                            else
+                                            {
+                                                number += 2;
+                                            }
                                         }
-                                        else
-                                        {
-                                            Console.Write(",");
-                                        }
-                                        Console.ForegroundColor = ConsoleColor.Gray;
-                                    }
-                                    else
-                                    {
-                                        number += 2;
                                     }
                                 }
                                 for (int o = 0; o < countSpaceInBox - Buldings[cellNumber[lastCell]].Symbol.Count - Buldings[cellNumber[lastCell]].Symbol.Count + number; o++)
@@ -1751,25 +1769,51 @@ namespace MonopolyV20
                                     {
                                         for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
                                         {
-                                            if (!users[o].Prison)
+                                            for (int e = 0; e < users.Count; e++)
                                             {
-                                                Console.ForegroundColor = ConsoleColor.White;
-                                                Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
-                                                if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                                if (users[e].Symbol == Buldings[cellNumber[lastCell]].Symbol[o])
                                                 {
-                                                    Console.Write(" ");
+                                                    if (!users[e].Prison)
+                                                    { 
+                                                        Console.ForegroundColor = ConsoleColor.White;
+                                                        Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                                        if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                                        {
+                                                            Console.Write(" ");
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.Write(",");
+                                                        }
+                                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                                    }
+                                                    else
+                                                    {
+                                                        number += 2;
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    Console.Write(",");
-                                                }
-                                                Console.ForegroundColor = ConsoleColor.Gray;
                                             }
-                                            else
-                                            {
-                                                number += 2;
-                                            }
+                                            #region Test
+                                            //if (!users[o].Prison)
+                                            //{
+                                            //    Console.ForegroundColor = ConsoleColor.White;
+                                            //    Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                            //    if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                            //    {
+                                            //        Console.Write(" ");
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        Console.Write(",");
+                                            //    }
+                                            //    Console.ForegroundColor = ConsoleColor.Gray;
+                                            //}
+                                            //else
+                                            //{
+                                            //    number += 2;
+                                            //}
                                             //Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                            #endregion;
                                         }
                                     }
                                 }
@@ -1807,25 +1851,51 @@ namespace MonopolyV20
                                     {
                                         for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
                                         {
-                                            if (!users[o].Prison)
+                                            for (int e = 0; e < users.Count; e++)
                                             {
-                                                Console.ForegroundColor = ConsoleColor.White;
-                                                Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
-                                                if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                                if (users[e].Symbol == Buldings[cellNumber[lastCell]].Symbol[o])
                                                 {
-                                                    Console.Write(" ");
+                                                    if (!users[e].Prison)
+                                                    {
+                                                        Console.ForegroundColor = ConsoleColor.White;
+                                                        Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                                        if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                                        {
+                                                            Console.Write(" ");
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.Write(",");
+                                                        }
+                                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                                    }
+                                                    else
+                                                    {
+                                                        number += 2;
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    Console.Write(",");
-                                                }
-                                                Console.ForegroundColor = ConsoleColor.Gray;
                                             }
-                                            else
-                                            {
-                                                number += 2;
-                                            }
-                                            //Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                            #region Test
+                                            //if (!users[o].Prison)
+                                            //{
+                                            //    Console.ForegroundColor = ConsoleColor.White;
+                                            //    Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                            //    if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                            //    {
+                                            //        Console.Write(" ");
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        Console.Write(",");
+                                            //    }
+                                            //    Console.ForegroundColor = ConsoleColor.Gray;
+                                            //}
+                                            //else
+                                            //{
+                                            //    number += 2;
+                                            //}
+                                            ////Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                            #endregion
                                         }
                                     }
                                 }
@@ -1864,25 +1934,30 @@ namespace MonopolyV20
                                         for (int o = 0; o < Buldings[cellNumber[lastCell]].Symbol.Count; o++)
                                         {
                                             //баг к 1 когда игрок 0 не в тюрьме 
-                                            if (!users[o].Prison)
+                                            for (int e = 0; e < users.Count; e++)
                                             {
-                                                Console.ForegroundColor = ConsoleColor.White;
-                                                Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
-                                                if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                                if (users[e].Symbol == Buldings[cellNumber[lastCell]].Symbol[o])
                                                 {
-                                                    Console.Write(" ");
+                                                    if (!users[e].Prison)
+                                                    {
+                                                        Console.ForegroundColor = ConsoleColor.White;
+                                                        Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
+                                                        if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
+                                                        {
+                                                            Console.Write(" ");
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.Write(",");
+                                                        }
+                                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                                    }
+                                                    else
+                                                    {
+                                                        number += 2;
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    Console.Write(",");
-                                                }
-                                                Console.ForegroundColor = ConsoleColor.Gray;
                                             }
-                                            else
-                                            {
-                                                number += 2;
-                                            }
-                                            //Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
                                         }
                                     }
                                 }
