@@ -1704,7 +1704,7 @@ namespace MonopolyV20
                                         {
                                             if (!users[e].Prison)
                                             {
-                                                Console.ForegroundColor = ConsoleColor.White;
+                                                Console.ForegroundColor = ConsoleColor.Black;
                                                 Console.Write($"{Buldings[cellNumber[lastCell]].Symbol[o]}");
                                                 if (o == Buldings[cellNumber[lastCell]].Symbol.Count - 1)
                                                 {
