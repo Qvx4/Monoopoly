@@ -867,7 +867,7 @@ namespace MonopolyV20
                         MortagageBusiness(BotBusinesses(field.Buldings), users, field.Buldings);
                     }
                     while (((Tax)buldings).Summa >= Balance);
-                    Console.WriteLine($"Игрок {Symbol} Выплатил {((Bank)buldings).Summa}");
+                    Console.WriteLine($"Игрок {Symbol} Выплатил {((Tax)buldings).Summa}");
                     Balance -= ((Tax)buldings).Summa;
                     Thread.Sleep(2000);
                 }

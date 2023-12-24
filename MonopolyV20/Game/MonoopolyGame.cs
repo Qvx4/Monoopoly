@@ -287,6 +287,14 @@ namespace MonopolyV20
                         {
                             case 1:
                                 {
+                                    if (bsnPrice > Users[i].Balance)
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("!!! У игрока не хватает деняг на аукцион и он не может принять участие !!!");
+                                        Console.ForegroundColor= ConsoleColor.Gray;
+                                        Thread.Sleep(2000);
+                                        break;
+                                    }
                                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                                     Console.WriteLine($"Игрок {Users[i].Symbol} принял участие в аукционе");
                                     Console.ForegroundColor = ConsoleColor.Gray;
@@ -1128,6 +1136,7 @@ namespace MonopolyV20
                                             {
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 ((Player)Users[nextPlayer]).Prison = false;
+                                                continue;
                                             }
                                             else
                                             {
