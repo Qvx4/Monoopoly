@@ -249,11 +249,10 @@ namespace MonopolyV20
                                 Console.ForegroundColor = ConsoleColor.Gray;
                                 Thread.Sleep(2000);
                                 user.Add(Users[i]);
-                                SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
+                                SummIn.Add(((Bot)Users[i]).CountBsnPrice((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
                                 continue;
                             }
                         }
-
                         if (Users[i].Symbol != symbol && !Users[i].Surrender && Users[i].Balance > bsnPrice)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -261,7 +260,7 @@ namespace MonopolyV20
                             Console.ForegroundColor = ConsoleColor.Gray;
                             Thread.Sleep(2000);
                             user.Add(Users[i]);
-                            SummIn.Add(((Bot)Users[i]).CountBsn((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
+                            SummIn.Add(((Bot)Users[i]).CountBsnPrice((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
                         }
                         else
                         {
@@ -784,24 +783,20 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[0].Balance -= 15000;
+            Users[0].Balance -= 14500;
             //Users[1].Balance -= 15000;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
-            //((Business)Field.Buldings[6]).BusinessOwner = Users[0].Symbol;
-            //((Business)Field.Buldings[8]).BusinessOwner = Users[0].Symbol;
-            //((Business)Field.Buldings[9]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[6]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[8]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[29]).Level = 5;
             //((Business)Field.Buldings[27]).Level = 5;
             //((Business)Field.Buldings[26]).Level = 5;
 
-            //((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[8]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[9]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[6]).Level = 5;
-            //((Business)Field.Buldings[8]).Level = 5;
-            //((Business)Field.Buldings[9]).Level = 5;
-
+            ((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[32]).BusinessOwner = Users[1].Symbol;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -923,8 +918,8 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        //firstCube = 5;
-                        //secondCube = 0;
+                        firstCube = 9;
+                        secondCube = 0;
                         #region Test
                         //if (t == 0)
                         //{

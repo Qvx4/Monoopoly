@@ -117,8 +117,8 @@ namespace MonopolyV20
                 }
             }
             return checkLvlTry;
-        }//проверка уровня монополии /// не используется 
-        public bool IsByCell(Building building, List<Building> buildings)
+        }//проверка уровня монополии
+        public bool IsByCell(Building building, List<Building> buildings,List<User> users)
         {
             if (building.GetType() == typeof(Business))
             {
@@ -129,6 +129,29 @@ namespace MonopolyV20
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((Business)building).Price}");
                     Thread.Sleep(2000);
                     return true;
+                }
+                else
+                {
+                    int count = CountBsnByType((Business)building, buildings, users);
+                    if (count == 2)
+                    {
+                        do
+                        {
+                            if (CheckBsnAllMortagaged(BotBusinesses(buildings)))
+                            {
+                                return false;
+                            }
+                            MortagageBusiness(BotBusinesses(buildings), users, buildings);
+                        }
+                        while (((Business)building).Price >= Balance);
+
+                        ((Business)building).BusinessOwner = Symbol;
+                        Balance -= ((Business)building).Price;
+                        Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((Business)building).Price}");
+                        Thread.Sleep(2000);
+                        return true;
+
+                    }
                 }
             }
             else if (building.GetType() == typeof(CarInterior))
@@ -152,6 +175,24 @@ namespace MonopolyV20
                     Thread.Sleep(2000);
                     return true;
                 }
+                else
+                {
+                    do
+                    {
+                        if (CheckBsnAllMortagaged(BotBusinesses(buildings)))
+                        {
+                            return false;
+                        }
+                        MortagageBusiness(BotBusinesses(buildings), users, buildings);
+                    }
+                    while (((CarInterior)building).Price >= Balance);
+                    ((CarInterior)building).BusinessOwner = Symbol;
+                    Balance -= ((CarInterior)building).Price;
+                    Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((CarInterior)building).Price}");
+                    Thread.Sleep(2000);
+                    return true;
+                }
+;
             }
             else if (building.GetType() == typeof(GamingCompanies))
             {
@@ -170,6 +211,23 @@ namespace MonopolyV20
                         }
                     }
                     CountGameBsn += 1;
+                    Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((GamingCompanies)building).Price}");
+                    Thread.Sleep(2000);
+                    return true;
+                }
+                else 
+                {
+                    do
+                    {
+                        if (CheckBsnAllMortagaged(BotBusinesses(buildings)))
+                        {
+                            return false;
+                        }
+                        MortagageBusiness(BotBusinesses(buildings), users, buildings);
+                    }
+                    while (((GamingCompanies)building).Price >= Balance);
+                    ((GamingCompanies)building).BusinessOwner = Symbol;
+                    Balance -= ((GamingCompanies)building).Price;
                     Console.WriteLine($"Игрок {Symbol} покупает бизнес {building.Title} цена {((GamingCompanies)building).Price}");
                     Thread.Sleep(2000);
                     return true;
@@ -670,7 +728,7 @@ namespace MonopolyV20
                     PayRent(buldings, users, field, firstCube, secondCube);
                     return true;
                 }
-                if (!IsByCell(buldings, field.Buldings))
+                if (!IsByCell(buldings, field.Buldings, users))
                 {
                     Auction = true;
                 }
@@ -687,7 +745,7 @@ namespace MonopolyV20
                     PayRent(buldings, users, field, firstCube, secondCube);
                     return true;
                 }
-                if (!IsByCell(buldings, field.Buldings))
+                if (!IsByCell(buldings, field.Buldings, users))
                 {
                     Auction = true;
                 }
@@ -705,7 +763,7 @@ namespace MonopolyV20
                     PayRent(buldings, users, field, firstCube, secondCube);
                     return true;
                 }
-                if (!IsByCell(buldings, field.Buldings))
+                if (!IsByCell(buldings, field.Buldings, users))
                 {
                     Auction = true;
                 }
@@ -1275,7 +1333,7 @@ namespace MonopolyV20
             Thread.Sleep(2000);
             return true;
         } //бот сдаётся 
-        public int CountBsn(Business business, List<Building> buildings, List<User> users, char symbol)//проверка сколько бизнесов типа у бота 
+        public int CountBsnPrice(Business business, List<Building> buildings, List<User> users, char symbol)//проверка сколько бизнесов типа у бота 
         {
             double summa = 0;
             int countBsn = 0;
@@ -1322,6 +1380,21 @@ namespace MonopolyV20
                 summa = business.Price * (interest[countBsnEnemy] - 0.10) + (Balance / 25);
                 return (int)summa;
             }
+        }
+        public int CountBsnByType(Business business, List<Building> buildings, List<User> users)
+        {
+            int count = 0;
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                if (buildings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buildings[i]).BusinessType == business.BusinessType && ((Business)buildings[i]).BusinessOwner == Symbol)
+                    {
+                        count++;
+                    }
+                }
+            }
+            return count;
         }
     }
 }
