@@ -783,12 +783,12 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            Users[0].Balance -= 14500;
+            Users[1].Balance -= 14500;
             //Users[1].Balance -= 15000;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
-            ((Business)Field.Buldings[6]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[8]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[8]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[29]).Level = 5;
             //((Business)Field.Buldings[27]).Level = 5;
             //((Business)Field.Buldings[26]).Level = 5;
