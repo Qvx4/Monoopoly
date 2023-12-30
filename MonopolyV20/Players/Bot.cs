@@ -118,7 +118,7 @@ namespace MonopolyV20
             }
             return checkLvlTry;
         }//проверка уровня монополии
-        public bool IsByCell(Building building, List<Building> buildings,List<User> users)
+        public bool IsByCell(Building building, List<Building> buildings, List<User> users)
         {
             if (building.GetType() == typeof(Business))
             {
@@ -141,7 +141,7 @@ namespace MonopolyV20
                             {
                                 return false;
                             }
-                            MortagagedBsnOtherType((Business)building, BotBusinesses(buildings), buildings);
+                            MortagagedBsnOtherType((Business)building, BotBusinesses(buildings), buildings,users);
                         }
                         while (((Business)building).Price >= Balance);
 
@@ -215,7 +215,7 @@ namespace MonopolyV20
                     Thread.Sleep(2000);
                     return true;
                 }
-                else 
+                else
                 {
                     do
                     {
@@ -1333,7 +1333,7 @@ namespace MonopolyV20
             Thread.Sleep(2000);
             return true;
         } //бот сдаётся 
-        public int CountBsnPrice(Business business, List<Building> buildings, List<User> users, char symbol)//проверка сколько бизнесов типа у бота 
+        public int CountBsnPrice(Business business, List<Building> buildings, List<User> users, char symbol)//проверка сколько бизнесов типа у бота цена 
         {
             double summa = 0;
             int countBsn = 0;
@@ -1395,9 +1395,11 @@ namespace MonopolyV20
                 }
             }
             return count;
-        }
-        public bool MortagagedBsnOtherType(Business business, List<Building> Mybuildings,List<Building> Allbuildings)
+        }//подсчет сколько бизнесов типа 
+        public bool MortagagedBsnOtherType(Business business, List<Building> Mybuildings, List<Building> Allbuildings,List<User> users)//метод закладывает бизнес для покупки бизнеса на который попал игрок в случаи нехватки деняг 
         {
+            int max = 0;
+            int min = 0;
             for (int i = 0; i < Mybuildings.Count; i++)
             {
                 if (Mybuildings[i].GetType() == typeof(Business))
@@ -1406,11 +1408,14 @@ namespace MonopolyV20
                     {
                         if (((Business)Mybuildings[i]).Level == 0)
                         {
-                            ((Business)Mybuildings[i]).Mortgaged = true;
-                            Balance += ((Business)Mybuildings[i]).ValueOfCollaterel;
-                            Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((Business)Mybuildings[i]).ValueOfCollaterel}");
-                            Thread.Sleep(2000);
-                            return true;
+                            if (((Business)Mybuildings[i]).RansomValue >= business.Price)
+                            {
+                                ((Business)Mybuildings[i]).Mortgaged = true;
+                                Balance += ((Business)Mybuildings[i]).ValueOfCollaterel;
+                                Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((Business)Mybuildings[i]).ValueOfCollaterel}");
+                                Thread.Sleep(2000);
+                                return true;
+                            }
                         }
                         else
                         {
@@ -1442,7 +1447,7 @@ namespace MonopolyV20
                             }
                         }
                     }
-                    Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((CarInterior)Mybuildings [i]).ValueOfCollaterel}");
+                    Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((CarInterior)Mybuildings[i]).ValueOfCollaterel}");
                     Thread.Sleep(2000);
                     return true;
                 }
@@ -1470,6 +1475,98 @@ namespace MonopolyV20
                     Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((GamingCompanies)Mybuildings[i]).ValueOfCollaterel}");
                     Thread.Sleep(2000);
                     return true;
+                }
+            }
+            if (Mybuildings.Count == 0)
+            {
+                return false;
+            }
+            List<int> businessValue = new List<int>();
+            for (int i = 0; i < Mybuildings.Count; i++)
+            {
+                if (max < ((Business)Mybuildings[i]).RansomValue)
+                {
+                    max = ((Business)Mybuildings[i]).RansomValue;
+                }
+                if (min > ((Business)Mybuildings[i]).RansomValue)
+                {
+                    min = ((Business)Mybuildings[i]).RansomValue;
+                }
+                businessValue.Add(BusinessValuation(Mybuildings[i], Mybuildings, Allbuildings, users));
+            }
+            //int min = businessValue.Min();
+            for (int i = 0; i < Mybuildings.Count; i++)
+            {
+                if (max == ((Business)Mybuildings[i]).RansomValue)
+                {
+                    if (Mybuildings[i].GetType() == typeof(Business))
+                    {
+                        if (((Business)Mybuildings[i]).Level == 0)
+                        {
+                            ((Business)Mybuildings[i]).Mortgaged = true;
+                            Balance += ((Business)Mybuildings[i]).ValueOfCollaterel;
+                            Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((Business)Mybuildings[i]).ValueOfCollaterel}");
+                            Thread.Sleep(2000);
+                            return true;
+                        }
+                        else
+                        {
+                            ((Business)Mybuildings[i]).Level -= 1;
+                            Balance += ((Business)Mybuildings[i]).UpgradePrice;
+                            Console.WriteLine($"Игрок {Symbol} продал филиал бизнеса {Mybuildings[i].Title} цена {((Business)Mybuildings[i]).UpgradePrice}");
+                            Thread.Sleep(2000);
+                        }
+                    }
+                    if (Mybuildings[i].GetType() == typeof(CarInterior))
+                    {
+                        ((CarInterior)Mybuildings[i]).Mortgaged = true;
+                        Balance += ((CarInterior)Mybuildings[i]).ValueOfCollaterel;
+                        for (int j = 0; j < Allbuildings.Count; j++)
+                        {
+                            if (Allbuildings[j].GetType() == typeof(CarInterior))
+                            {
+                                if (Allbuildings[j].Number != Mybuildings[i].Number && ((Business)Allbuildings[j]).BusinessOwner == Symbol)
+                                {
+                                    if (((Business)Allbuildings[j]).Level > 0)
+                                    {
+                                        ((Business)Allbuildings[j]).Level -= 1;
+                                    }
+                                    else if (((Business)Mybuildings[i]).Level > 0)
+                                    {
+                                        ((Business)Mybuildings[i]).Level -= 1;
+                                    }
+                                }
+                            }
+                        }
+                        Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((CarInterior)Mybuildings[i]).ValueOfCollaterel}");
+                        Thread.Sleep(2000);
+                        return true;
+                    }
+                    if (Mybuildings[i].GetType() == typeof(GamingCompanies))
+                    {
+                        ((GamingCompanies)Mybuildings[i]).Mortgaged = true;
+                        Balance += ((GamingCompanies)Mybuildings[i]).ValueOfCollaterel;
+                        for (int j = 0; j < Allbuildings.Count; j++)
+                        {
+                            if (Allbuildings[j].GetType() == typeof(GamingCompanies))
+                            {
+                                if (Allbuildings[j].Number != Mybuildings[i].Number && ((Business)Allbuildings[j]).BusinessOwner == Symbol)
+                                {
+                                    if (((Business)Allbuildings[j]).Level > 0)
+                                    {
+                                        ((Business)Allbuildings[j]).Level -= 1;
+                                    }
+                                    else if (((Business)Mybuildings[i]).Level > 0)
+                                    {
+                                        ((Business)Mybuildings[i]).Level -= 1;
+                                    }
+                                }
+                            }
+                        }
+                        Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((GamingCompanies)Mybuildings[i]).ValueOfCollaterel}");
+                        Thread.Sleep(2000);
+                        return true;
+                    }
                 }
             }
             return false;
