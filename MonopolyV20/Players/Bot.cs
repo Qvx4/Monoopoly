@@ -1400,83 +1400,85 @@ namespace MonopolyV20
         {
             int max = 0;
             int min = 0;
-            for (int i = 0; i < Mybuildings.Count; i++)
-            {
-                if (Mybuildings[i].GetType() == typeof(Business))
-                {
-                    if (((Business)Mybuildings[i]).BusinessType != business.BusinessType && ((Business)Mybuildings[i]).BusinessOwner == Symbol)
-                    {
-                        if (((Business)Mybuildings[i]).Level == 0)
-                        {
-                            if (((Business)Mybuildings[i]).RansomValue >= business.Price)
-                            {
-                                ((Business)Mybuildings[i]).Mortgaged = true;
-                                Balance += ((Business)Mybuildings[i]).ValueOfCollaterel;
-                                Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((Business)Mybuildings[i]).ValueOfCollaterel}");
-                                Thread.Sleep(2000);
-                                return true;
-                            }
-                        }
-                        else
-                        {
-                            ((Business)Mybuildings[i]).Level -= 1;
-                            Balance += ((Business)Mybuildings[i]).UpgradePrice;
-                            Console.WriteLine($"Игрок {Symbol} продал филиал бизнеса {Mybuildings[i].Title} цена {((Business)Mybuildings[i]).UpgradePrice}");
-                            Thread.Sleep(2000);
-                        }
-                    }
-                }
-                if (Mybuildings[i].GetType() == typeof(CarInterior))
-                {
-                    ((CarInterior)Mybuildings[i]).Mortgaged = true;
-                    Balance += ((CarInterior)Mybuildings[i]).ValueOfCollaterel;
-                    for (int j = 0; j < Allbuildings.Count; j++)
-                    {
-                        if (Allbuildings[j].GetType() == typeof(CarInterior))
-                        {
-                            if (Allbuildings[j].Number != Mybuildings[i].Number && ((Business)Allbuildings[j]).BusinessOwner == Symbol)
-                            {
-                                if (((Business)Allbuildings[j]).Level > 0)
-                                {
-                                    ((Business)Allbuildings[j]).Level -= 1;
-                                }
-                                else if (((Business)Mybuildings[i]).Level > 0)
-                                {
-                                    ((Business)Mybuildings[i]).Level -= 1;
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((CarInterior)Mybuildings[i]).ValueOfCollaterel}");
-                    Thread.Sleep(2000);
-                    return true;
-                }
-                if (Mybuildings[i].GetType() == typeof(GamingCompanies))
-                {
-                    ((GamingCompanies)Mybuildings[i]).Mortgaged = true;
-                    Balance += ((GamingCompanies)Mybuildings[i]).ValueOfCollaterel;
-                    for (int j = 0; j < Allbuildings.Count; j++)
-                    {
-                        if (Allbuildings[j].GetType() == typeof(GamingCompanies))
-                        {
-                            if (Allbuildings[j].Number != Mybuildings[i].Number && ((Business)Allbuildings[j]).BusinessOwner == Symbol)
-                            {
-                                if (((Business)Allbuildings[j]).Level > 0)
-                                {
-                                    ((Business)Allbuildings[j]).Level -= 1;
-                                }
-                                else if (((Business)Mybuildings[i]).Level > 0)
-                                {
-                                    ((Business)Mybuildings[i]).Level -= 1;
-                                }
-                            }
-                        }
-                    }
-                    Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((GamingCompanies)Mybuildings[i]).ValueOfCollaterel}");
-                    Thread.Sleep(2000);
-                    return true;
-                }
-            }
+            #region Test
+            //for (int i = 0; i < Mybuildings.Count; i++)
+            //{
+            //    if (Mybuildings[i].GetType() == typeof(Business))
+            //    {
+            //        if (((Business)Mybuildings[i]).BusinessType != business.BusinessType && ((Business)Mybuildings[i]).BusinessOwner == Symbol)
+            //        {
+            //            if (((Business)Mybuildings[i]).Level == 0)
+            //            {
+            //                if (((Business)Mybuildings[i]).RansomValue >= business.Price)
+            //                {
+            //                    ((Business)Mybuildings[i]).Mortgaged = true;
+            //                    Balance += ((Business)Mybuildings[i]).ValueOfCollaterel;
+            //                    Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((Business)Mybuildings[i]).ValueOfCollaterel}");
+            //                    Thread.Sleep(2000);
+            //                    return true;
+            //                }
+            //            }
+            //            else
+            //            {
+            //                ((Business)Mybuildings[i]).Level -= 1;
+            //                Balance += ((Business)Mybuildings[i]).UpgradePrice;
+            //                Console.WriteLine($"Игрок {Symbol} продал филиал бизнеса {Mybuildings[i].Title} цена {((Business)Mybuildings[i]).UpgradePrice}");
+            //                Thread.Sleep(2000);
+            //            }
+            //        }
+            //    }
+            //    if (Mybuildings[i].GetType() == typeof(CarInterior))
+            //    {
+            //        ((CarInterior)Mybuildings[i]).Mortgaged = true;
+            //        Balance += ((CarInterior)Mybuildings[i]).ValueOfCollaterel;
+            //        for (int j = 0; j < Allbuildings.Count; j++)
+            //        {
+            //            if (Allbuildings[j].GetType() == typeof(CarInterior))
+            //            {
+            //                if (Allbuildings[j].Number != Mybuildings[i].Number && ((Business)Allbuildings[j]).BusinessOwner == Symbol)
+            //                {
+            //                    if (((Business)Allbuildings[j]).Level > 0)
+            //                    {
+            //                        ((Business)Allbuildings[j]).Level -= 1;
+            //                    }
+            //                    else if (((Business)Mybuildings[i]).Level > 0)
+            //                    {
+            //                        ((Business)Mybuildings[i]).Level -= 1;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((CarInterior)Mybuildings[i]).ValueOfCollaterel}");
+            //        Thread.Sleep(2000);
+            //        return true;
+            //    }
+            //    if (Mybuildings[i].GetType() == typeof(GamingCompanies))
+            //    {
+            //        ((GamingCompanies)Mybuildings[i]).Mortgaged = true;
+            //        Balance += ((GamingCompanies)Mybuildings[i]).ValueOfCollaterel;
+            //        for (int j = 0; j < Allbuildings.Count; j++)
+            //        {
+            //            if (Allbuildings[j].GetType() == typeof(GamingCompanies))
+            //            {
+            //                if (Allbuildings[j].Number != Mybuildings[i].Number && ((Business)Allbuildings[j]).BusinessOwner == Symbol)
+            //                {
+            //                    if (((Business)Allbuildings[j]).Level > 0)
+            //                    {
+            //                        ((Business)Allbuildings[j]).Level -= 1;
+            //                    }
+            //                    else if (((Business)Mybuildings[i]).Level > 0)
+            //                    {
+            //                        ((Business)Mybuildings[i]).Level -= 1;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        Console.WriteLine($"Игрок {Symbol} заложил бизнес {Mybuildings[i].Title} цена {((GamingCompanies)Mybuildings[i]).ValueOfCollaterel}");
+            //        Thread.Sleep(2000);
+            //        return true;
+            //    }
+            //}
+            #endregion
             if (Mybuildings.Count == 0)
             {
                 return false;
