@@ -1483,8 +1483,8 @@ namespace MonopolyV20
             {
                 return false;
             }
-            List<int> businessValue = new List<int>();
-            for (int i = 0; i < Mybuildings.Count; i++)
+            //List<int> businessValue = new List<int>();
+            for (int i = 0; i < Mybuildings.Count; i++) 
             {
                 if (max < ((Business)Mybuildings[i]).RansomValue)
                 {
@@ -1493,10 +1493,17 @@ namespace MonopolyV20
                 if (min > ((Business)Mybuildings[i]).RansomValue)
                 {
                     min = ((Business)Mybuildings[i]).RansomValue;
-                }
-                businessValue.Add(BusinessValuation(Mybuildings[i], Mybuildings, Allbuildings, users));
+                }   
             }
-            //int min = businessValue.Min();
+            for (int i = Mybuildings.Count- 1; i >= 0; i--)
+            {
+                if (((Business)Mybuildings[i]).RansomValue <= business.Price)
+                {
+                    Console.WriteLine($"Бизнес {((Business)Mybuildings[i + 1]).Title} заложен");
+                    ((Business)Mybuildings[i + 1]).Mortgaged = true;
+                    Balance += ((Business)Mybuildings[i + 1]).RansomValue;
+                }
+            }
             for (int i = 0; i < Mybuildings.Count; i++)
             {
                 if (max == ((Business)Mybuildings[i]).RansomValue)
