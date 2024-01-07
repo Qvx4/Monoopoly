@@ -793,10 +793,10 @@ namespace MonopolyV20
             //((Business)Field.Buldings[27]).Level = 5;
             //((Business)Field.Buldings[26]).Level = 5;
 
-            ((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[3]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[32]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[16]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[18]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
