@@ -784,19 +784,19 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             //Users[1].Balance -= 14500;
-            Users[1].Balance -= 15000;
+            //Users[1].Balance -= 15000;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
-            ((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[8]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[8]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[29]).Level = 5;
             //((Business)Field.Buldings[27]).Level = 5;
             //((Business)Field.Buldings[26]).Level = 5;
 
-            ((Business)Field.Buldings[16]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[18]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[16]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[18]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
             #region TestBot
             //Users[1].Balance -= 15000;
             //Users[2].Balance -= 14500;
@@ -918,8 +918,8 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        firstCube = 9;
-                        secondCube = 0;
+                        //firstCube = 9;
+                        //secondCube = 0;
                         #region Test
                         //if (t == 0)
                         //{
