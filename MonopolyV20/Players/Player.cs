@@ -874,7 +874,7 @@ namespace MonopolyV20
                     }
                 }
             }
-            if (countBsn == 3)
+            if (countBsn == 3 || countBsn == 2 || countBsn == 1)
             {
                 return true;
             }
