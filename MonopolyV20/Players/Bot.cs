@@ -238,7 +238,7 @@ namespace MonopolyV20
         public void PayRent(Building bulding, List<User> user, Field field, int firstCube, int secondCube)
         {
             int summa = 0;
-            if (bulding.GetType() == typeof(Business) && ((Business)bulding).Rent[((Business)bulding).Level] < Balance)
+            if (/*bulding.GetType() == typeof(Business) &&*/ ((Business)bulding).Rent[((Business)bulding).Level] < Balance)
             {
                 if (((Business)bulding).Mortgaged == false)
                 {
