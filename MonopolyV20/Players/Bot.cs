@@ -372,7 +372,7 @@ namespace MonopolyV20
             {
                 do
                 {
-                    if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                    if (!CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
                     {
                         SurrenderLogic(field.Buldings);
                         return;
@@ -440,7 +440,7 @@ namespace MonopolyV20
                     Thread.Sleep(2000);
                     do
                     {
-                        if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                        if (!CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
                         {
                             SurrenderLogic(field.Buldings);
                             Console.WriteLine($"У Бота {Symbol} нету деняг и бизнесов которые можно заложить по этому он решил сдаться");
@@ -883,7 +883,7 @@ namespace MonopolyV20
                     Thread.Sleep(2000);
                     do
                     {
-                        if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                        if (!CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
                         {
                             SurrenderLogic(field.Buldings);
                             Console.WriteLine($"У Бота {Symbol} нету деняг и бизнесов которые можно заложить по этому он решил сдаться");
@@ -915,7 +915,7 @@ namespace MonopolyV20
                     Thread.Sleep(2000);
                     do
                     {
-                        if (CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
+                        if (!CheckBsnAllMortagaged(BotBusinesses(field.Buldings)))
                         {
                             SurrenderLogic(field.Buldings);
                             Console.WriteLine($"У Бота {Symbol} нету деняг и бизнесов которые можно заложить по этому он решил сдаться");
@@ -971,7 +971,7 @@ namespace MonopolyV20
             {
                 if (building[i].GetType() == typeof(Business))
                 {
-                    if (((Business)building[i]).BusinessOwner == Symbol && !((Business)building[i]).Mortgaged /*&& !IsMonopolyByType(((Business)building[i]).BusinessType, building)*/)
+                    if (((Business)building[i]).BusinessOwner == Symbol && !((Business)building[i]).Mortgaged)
                     {
                         bsn.Add(building[i]);
                     }

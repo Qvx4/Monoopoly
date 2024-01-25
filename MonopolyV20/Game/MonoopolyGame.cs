@@ -221,7 +221,7 @@ namespace MonopolyV20
 
                     if (Users[i].GetType() == typeof(Bot))
                     {
-                        if (Users[i].Balance <= ((Business)bulding).Price)
+                        if (Users[i].Balance <= bsnPrice)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine($"Игрок {Users[i].Symbol} отказался принять участие в аукцион потому что нету деняг");
@@ -783,8 +783,8 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[0].Balance -= 14500;
-            //Users[1].Balance -= 14000;
+            ((Player)Users[0]).Prison = true;
+            //Users[1].Balance -= 15000;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
             //((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
@@ -826,7 +826,7 @@ namespace MonopolyV20
             bool Jackpot = false;
             bool menu = true;
             bool CheckTeleportActionTrue = false;
-            int test = 0;
+            int prisonSumm = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
             TaxMenu taxMenu;
@@ -922,6 +922,8 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
+                        firstCube = 2;
+                        secondCube = 0;
                         //if (test == 0)
                         //{
                         //    firstCube = 39;
@@ -1133,6 +1135,14 @@ namespace MonopolyV20
                                         Console.WriteLine(" { 1 } Кинуть кубики | { 2 } Заплатить 500");
                                         Console.Write("{ Ввод } > ");
                                         int.TryParse(Console.ReadLine(), out int number);
+                                        if (prisonSumm == 3)
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                                            Console.WriteLine("!!! Больше нельзя кидать кубики надо заплатить что бы выйти из тюрьмы !!!");
+                                            Console.ForegroundColor = ConsoleColor.Gray;
+                                            Thread.Sleep(2000);
+                                            continue;
+                                        }
                                         if (number == 1)
                                         {
                                             firstCube = RollTheCube(rand);
@@ -1148,6 +1158,7 @@ namespace MonopolyV20
                                             }
                                             else
                                             {
+                                                prisonSumm += 1;
                                                 check = false;
                                                 break;
                                             }
@@ -1165,7 +1176,7 @@ namespace MonopolyV20
                                         else
                                         {
                                             Console.ForegroundColor = ConsoleColor.DarkRed;
-                                            Console.WriteLine("Неверное здначение для выбора !");
+                                            Console.WriteLine("Неверное значение для выбора !");
                                             Console.ForegroundColor = ConsoleColor.Gray;
                                         }
                                     }
