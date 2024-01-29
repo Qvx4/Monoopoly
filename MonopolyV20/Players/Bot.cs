@@ -1303,21 +1303,21 @@ namespace MonopolyV20
                 {
                     if (!((Business)buildings[i]).Mortgaged)
                     {
-                        return checkBsnAllMortagaged = false;
+                        return checkBsnAllMortagaged = true;
                     }
                 }
                 else if (buildings[i].GetType() == typeof(CarInterior))
                 {
                     if (!((CarInterior)buildings[i]).Mortgaged)
                     {
-                        return checkBsnAllMortagaged = false;
+                        return checkBsnAllMortagaged = true;
                     }
                 }
                 else if (buildings[i].GetType() == typeof(GamingCompanies))
                 {
                     if (!((GamingCompanies)buildings[i]).Mortgaged)
                     {
-                        return checkBsnAllMortagaged = false;
+                        return checkBsnAllMortagaged = true;
                     }
                 }
             }
@@ -1327,6 +1327,20 @@ namespace MonopolyV20
         {
 
             buildings[CordinationPlayer].Symbol.Remove(Symbol);
+            for (int i = 0; i < buildings.Count; i++)
+            {
+                if (buildings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buildings[i]).BusinessOwner == Symbol)
+                    {
+                        if (((Business)buildings[i]).Level > 0)
+                        {
+                            ((Business)buildings[i]).Level = 0;
+                        }
+                        ((Business)buildings[i]).BusinessOwner = ' ';
+                    }
+                }
+            }
             CordinationPlayer = 0;
             Surrender = true;
             Console.WriteLine($"Игрок {Symbol} Сдался ");
@@ -1372,12 +1386,18 @@ namespace MonopolyV20
             }
             if (countBsnEnemy == 0)
             {
-                summa = business.Price * interest[countBsn] + (Balance / 25);
+                if (business.Price * interest[countBsn] + (Balance / 25) < Balance)
+                {
+                    summa = business.Price * interest[countBsn] + (Balance / 25);
+                }
                 return (int)summa;
             }
             else
             {
-                summa = business.Price * (interest[countBsnEnemy] - 0.10) + (Balance / 25);
+                if (business.Price * (interest[countBsnEnemy] - 0.10) + (Balance / 25) < Balance)
+                {
+                    summa = business.Price * (interest[countBsnEnemy] - 0.10) + (Balance / 25);
+                }
                 return (int)summa;
             }
         }

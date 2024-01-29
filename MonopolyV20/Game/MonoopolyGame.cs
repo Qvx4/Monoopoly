@@ -255,12 +255,21 @@ namespace MonopolyV20
                         }
                         if (Users[i].Symbol != symbol && !Users[i].Surrender && Users[i].Balance > bsnPrice)
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkGreen;
-                            Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
+                            if (((Bot)Users[i]).CountBsnPrice((Business)bulding, Field.Buldings, Users, Users[i].Symbol) != 0)
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                Console.WriteLine($"Игрок {Users[i].Symbol} согласился принять участие в аукционе");
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                                Thread.Sleep(2000);
+                                user.Add(Users[i]);
+                                SummIn.Add(((Bot)Users[i]).CountBsnPrice((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
+                                continue;
+                            }
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine($"Игрок {Users[i].Symbol} отказался от участия на аукционе");
                             Console.ForegroundColor = ConsoleColor.Gray;
                             Thread.Sleep(2000);
-                            user.Add(Users[i]);
-                            SummIn.Add(((Bot)Users[i]).CountBsnPrice((Business)bulding, Field.Buldings, Users, Users[i].Symbol));
+                            continue;
                         }
                         else
                         {
@@ -290,7 +299,7 @@ namespace MonopolyV20
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                         Console.WriteLine("!!! У игрока не хватает деняг на аукцион и он не может принять участие !!!");
-                                        Console.ForegroundColor= ConsoleColor.Gray;
+                                        Console.ForegroundColor = ConsoleColor.Gray;
                                         Thread.Sleep(2000);
                                         break;
                                     }
@@ -322,6 +331,10 @@ namespace MonopolyV20
             }
             while (isWork)
             {
+                if (summaNext >= SummIn.Count)
+                {
+                    summaNext = 0;
+                }
                 if (nextPlayer >= user.Count)
                 {
                     nextPlayer = 0;
@@ -338,7 +351,7 @@ namespace MonopolyV20
                         isWork = false;
                         break;
                     }
-                    if (bsnPrice >= SummIn[summaNext] && user.Count > 1)
+                    if ((bsnPrice + 100) >= SummIn[summaNext] /*&& user.Count > 1*/)
                     {
                         Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от попкупки бизнеса ");
                         Thread.Sleep(2000);
@@ -380,6 +393,7 @@ namespace MonopolyV20
                     }
                 }
                 nextPlayer++;
+                summaNext++;
             }
             if (nextPlayer >= user.Count)
             {
@@ -783,8 +797,9 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            ((Player)Users[0]).Prison = true;
-            //Users[1].Balance -= 15000;
+            //Users[1].Balance -= 14940;
+            //Users[2].Balance -= 9000;
+            //Users[3].Balance -= 7500;
             //Users[2].Balance = 4920;
             //Users[3].Balance = 3520;
             //((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
@@ -796,9 +811,13 @@ namespace MonopolyV20
             //((Business)Field.Buldings[27]).Level = 5;
             //((Business)Field.Buldings[26]).Level = 5;
 
-            //((Business)Field.Buldings[16]).BusinessOwner = Users[0].Symbol;
-            //((Business)Field.Buldings[18]).BusinessOwner = Users[0].Symbol;
-            //((Business)Field.Buldings[39]).BusinessOwner = Users[0].Symbol;
+            ((Business)Field.Buldings[14]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[13]).BusinessOwner = Users[3].Symbol;
+            //((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[39]).Level = 1;
+            //((Business)Field.Buldings[37]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[23]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[24]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[19]).BusinessOwner = Users[0].Symbol;
             #region TestBot
             //Users[1].Balance -= 15000;
@@ -922,7 +941,7 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        firstCube = 2;
+                        firstCube = 14;
                         secondCube = 0;
                         //if (test == 0)
                         //{
@@ -1135,16 +1154,16 @@ namespace MonopolyV20
                                         Console.WriteLine(" { 1 } Кинуть кубики | { 2 } Заплатить 500");
                                         Console.Write("{ Ввод } > ");
                                         int.TryParse(Console.ReadLine(), out int number);
-                                        if (prisonSumm == 3)
-                                        {
-                                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                                            Console.WriteLine("!!! Больше нельзя кидать кубики надо заплатить что бы выйти из тюрьмы !!!");
-                                            Console.ForegroundColor = ConsoleColor.Gray;
-                                            Thread.Sleep(2000);
-                                            continue;
-                                        }
                                         if (number == 1)
                                         {
+                                            if (prisonSumm == 3)
+                                            {
+                                                Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                Console.WriteLine("!!! Больше нельзя кидать кубики надо заплатить что бы выйти из тюрьмы !!!");
+                                                Console.ForegroundColor = ConsoleColor.Gray;
+                                                Thread.Sleep(2000);
+                                                continue;
+                                            }
                                             firstCube = RollTheCube(rand);
                                             secondCube = RollTheCube(rand);
                                             ShowGameCube(firstCube);
@@ -1170,6 +1189,7 @@ namespace MonopolyV20
                                                 //Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 ((Player)Users[nextPlayer]).Balance -= ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost;
                                                 ((Player)Users[nextPlayer]).Prison = false;
+                                                prisonSumm = 0;
                                                 continue;
                                             }
                                         }
@@ -1184,8 +1204,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        //firstCube = 2;
-                                        //secondCube = 0;
+                                        firstCube = 2;
+                                        secondCube = 0;
                                         //if (t == 0)
                                         //{
                                         //    firstCube = 39;
@@ -1248,7 +1268,7 @@ namespace MonopolyV20
                                     }
                                     if (((Player)Users[nextPlayer]).Surrender != true && ((Player)Users[nextPlayer]).Prison != true && ((Player)Users[nextPlayer]).StepSkip != true)
                                     {
-                                        teleport:
+                                    teleport:
                                         if (Users[nextPlayer].ReverseStroke == true)
                                         {
                                             Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
@@ -1593,8 +1613,9 @@ namespace MonopolyV20
                                             else if (((Player)Users[nextPlayer]).IsCheckCellChance(Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]))
                                             {
                                                 Random random = new Random();
-                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
-                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[3];
+                                                //14chance 
+                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
+                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[1];
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(chance))
                                                 {
                                                     while (menu)
