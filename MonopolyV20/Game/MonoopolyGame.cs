@@ -941,8 +941,7 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
-                        firstCube = 14;
-                        secondCube = 0;
+ 
                         //if (test == 0)
                         //{
                         //    firstCube = 39;
@@ -1204,8 +1203,8 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        firstCube = 2;
-                                        secondCube = 0;
+                                        //firstCube = 2;
+                                        //secondCube = 0;
                                         //if (t == 0)
                                         //{
                                         //    firstCube = 39;
@@ -1614,8 +1613,8 @@ namespace MonopolyV20
                                             {
                                                 Random random = new Random();
                                                 //14chance 
-                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
-                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[1];
+                                                Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[random.Next(0, ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances.Count)];
+                                                //Chances chance = ((Chance)Field.Buldings[Users[nextPlayer].CordinationPlayer]).Chances[1];
                                                 if (((Player)Users[nextPlayer]).IsCheckChanceIsLesion(chance))
                                                 {
                                                     while (menu)
@@ -1723,12 +1722,12 @@ namespace MonopolyV20
                                                 }
                                                 else if (((Player)Users[nextPlayer]).IsCheckChanceIsTepeport(chance))
                                                 {
-                                                    ((Player)Users[nextPlayer]).ChanceCheck(chance, Field);
+                                                    ((Player)Users[nextPlayer]).ChanceCheck(chance, Field,Users);
                                                     goto teleport;
                                                 }
                                                 else
                                                 {
-                                                    ((Player)Users[nextPlayer]).ChanceCheck(chance, Field);
+                                                    ((Player)Users[nextPlayer]).ChanceCheck(chance, Field,Users);
                                                 }
                                             }//проверка что ячейка шанс снятие деняг 
                                         }//fix

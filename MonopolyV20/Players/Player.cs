@@ -509,7 +509,7 @@ namespace MonopolyV20
             }
             return list;
         }
-        public void ChanceCheck(Chances chances, Field field)
+        public void ChanceCheck(Chances chances, Field field,List<User> users)
         {
             if (chances.GetType() == typeof(Profit))
             {
@@ -578,6 +578,23 @@ namespace MonopolyV20
                             StepSkip = true;
                             Console.WriteLine($"Игрок {Symbol} {((RandomActions)chances).Description}");
                             Thread.Sleep(2000);
+                        }
+                        break;
+                    case Actions.Birthday:
+                        {
+                            Console.WriteLine($"У игрок {Symbol} {((RandomActions)chances).Description}");
+                            Thread.Sleep(2000);
+                            int priceBirthdayParty = 150;
+                            for (int i = 0; i < users.Count; i++)
+                            {
+                                if (users[i].Balance > 150 && users[i].Symbol != Symbol)
+                                {
+                                    Console.WriteLine($"Игрок {users[i].Symbol} подарил игроку {Symbol} 150 ");
+                                    Thread.Sleep(2000);
+                                    users[i].Balance -= priceBirthdayParty;
+                                    Balance += priceBirthdayParty;
+                                }
+                            }
                         }
                         break;
                     case Actions.Empty:
