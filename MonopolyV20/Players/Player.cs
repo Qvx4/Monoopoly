@@ -43,7 +43,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(Business business)//Проверка куплен ли бизнес 
         {
-            if (business.BusinessOwner == 0)
+            if (business.BusinessOwner == '\0')
             {
                 return true;
             }
@@ -51,7 +51,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(CarInterior carInterior)//проверка куплен ли автоцентр
         {
-            if (carInterior.BusinessOwner == 0)
+            if (carInterior.BusinessOwner == '\0')
             {
                 return true;
             }
@@ -59,7 +59,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(GamingCompanies gamingCompanies)//проверка куплена ли игровая компания
         {
-            if (gamingCompanies.BusinessOwner == 0)
+            if (gamingCompanies.BusinessOwner == '\0')
             {
                 return true;
             }
@@ -163,7 +163,7 @@ namespace MonopolyV20
             }
             return false;
         }//шанс снятие денег
-        public bool PayRent(Building bulding, List<User> users, int firstCube, int secondCube)
+        public int PayRent(Building bulding, List<User> users, int firstCube, int secondCube)
         {
             int summa = 0;
             if (bulding.GetType() == typeof(Business))
@@ -180,10 +180,14 @@ namespace MonopolyV20
                                 users[i].Balance += ((Business)bulding).Rent[((Business)bulding).Level];
                                 Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {((Business)bulding).Rent[((Business)bulding).Level]}");
                                 Thread.Sleep(2000);
-                                return true;
+                                return 0;
                             }
                         }
 
+                    }
+                    else
+                    {
+                        return 1;
                     }
 
                 }
@@ -202,9 +206,13 @@ namespace MonopolyV20
                                 users[i].Balance += ((CarInterior)bulding).Rent[((CarInterior)bulding).Level];
                                 Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {((CarInterior)bulding).Rent[((CarInterior)bulding).Level]}");
                                 Thread.Sleep(2000);
-                                return true;
+                                return 0;
                             }
                         }
+                    }
+                    else
+                    {
+                        return 1;
                     }
                 }
             }
@@ -223,13 +231,18 @@ namespace MonopolyV20
                                 users[i].Balance += summa;
                                 Console.WriteLine($"Игрок {Symbol} выплатил ренту игроку {users[i].Symbol} цена {summa}");
                                 Thread.Sleep(2000);
-                                return true;
+                                return 0;
                             }
                         }
                     }
+                    else
+                    {
+                        return 1;
+                    }
+
                 }
             }
-            return false;
+            return -1;
         }//выплата ренты поля
         public bool CheckHaveBsn(Building building)
         {
@@ -300,6 +313,10 @@ namespace MonopolyV20
                     ((CarInterior)building).Mortgaged = true;
                     Balance += ((CarInterior)building).ValueOfCollaterel;
                     //((Business)building).Level -= 1;
+                    if (((CarInterior)building).Level > 0)
+                    {
+                        ((CarInterior)building).Level -= 1;
+                    }
                     for (int j = 0; j < buildings.Count; j++)
                     {
                         if (buildings[j].GetType() == typeof(CarInterior))
@@ -964,5 +981,13 @@ namespace MonopolyV20
             }
             return false;
         }//вывод всех бизнесов которые можно заложить 
+        public bool CheckingIsMortgaged(Building building)
+        {
+            if (((Business)building).Mortgaged == true)
+            {
+                return true;
+            }
+            return false;
+        }//проверка что бизнес заложен у другого игрока 
     }
 }

@@ -110,7 +110,7 @@ namespace MonopolyV20
                 }
                 else if (Field.Buldings[i].GetType() == typeof(CarInterior))
                 {
-                    if (((CarInterior)Field.Buldings[i]).BusinessOwner == symbol && ((CarInterior)Field.Buldings[i]).Level == 0)
+                    if (((CarInterior)Field.Buldings[i]).BusinessOwner == symbol)
                     {
                         if (((CarInterior)Field.Buldings[i]).Mortgaged == false)
                         {
@@ -533,7 +533,7 @@ namespace MonopolyV20
                     {
                         ((Business)building[i]).Mortgaged = false;
                         ((Business)building[i]).BusinessDowntrun = 15;
-                        ((Business)building[i]).BusinessOwner = '0';
+                        ((Business)building[i]).BusinessOwner = '\0';
                     }
                 }
                 if (building[i].GetType() == typeof(CarInterior))
@@ -546,7 +546,7 @@ namespace MonopolyV20
                     {
                         ((CarInterior)building[i]).Mortgaged = false;
                         ((CarInterior)building[i]).BusinessDowntrun = 15;
-                        ((CarInterior)building[i]).BusinessOwner = '0';
+                        ((CarInterior)building[i]).BusinessOwner = '\0';
                     }
                 }
                 if (building[i].GetType() == typeof(GamingCompanies))
@@ -559,7 +559,7 @@ namespace MonopolyV20
                     {
                         ((GamingCompanies)building[i]).Mortgaged = false;
                         ((GamingCompanies)building[i]).BusinessDowntrun = 15;
-                        ((GamingCompanies)building[i]).BusinessOwner = '0';
+                        ((GamingCompanies)building[i]).BusinessOwner = '\0';
                     }
 
                 }
@@ -632,21 +632,21 @@ namespace MonopolyV20
                     {
                         if (((Business)buildings[j]).BusinessOwner == users[i].Symbol)
                         {
-                            ((Business)buildings[j]).BusinessOwner = ' ';
+                            ((Business)buildings[j]).BusinessOwner = '\0';
                         }
                     }
                     if (buildings[j].GetType() == typeof(CarInterior))
                     {
                         if (((CarInterior)buildings[j]).BusinessOwner == users[i].Symbol)
                         {
-                            ((CarInterior)buildings[j]).BusinessOwner = ' ';
+                            ((CarInterior)buildings[j]).BusinessOwner = '\0';
                         }
                     }
                     if (buildings[j].GetType() == typeof(GamingCompanies))
                     {
                         if (((GamingCompanies)buildings[j]).BusinessOwner == users[i].Symbol)
                         {
-                            ((GamingCompanies)buildings[j]).BusinessOwner = ' ';
+                            ((GamingCompanies)buildings[j]).BusinessOwner = '\0';
 
                         }
                     }
@@ -797,13 +797,25 @@ namespace MonopolyV20
             {
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
-            //Users[1].Balance -= 14940;
-            //Users[2].Balance -= 9000;
+            //3 - 5
+            //Users[1].Balance -= 14750;
+            //Users[1].Balance = 610;
             //Users[3].Balance -= 7500;
-            //Users[2].Balance = 4920;
+            //Users[2].Balance = 9000;
             //Users[3].Balance = 3520;
+            //((Business)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[5]).Mortgaged = true;
             //((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[8]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[13]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[21]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[21]).Mortgaged = true;
+            //((Business)Field.Buldings[21]).BusinessDowntrun = 1;
+            //((Business)Field.Buldings[24]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[28]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[12]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[12]).Level = 1;
+            //((Business)Field.Buldings[28]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[28]).Level = 1;
             //((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[37]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[39]).Level = 1;
@@ -811,12 +823,21 @@ namespace MonopolyV20
             //((Business)Field.Buldings[27]).Level = 5;
             //((Business)Field.Buldings[26]).Level = 5;
 
-            ((Business)Field.Buldings[14]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[1]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[19]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[21]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[24]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[1]).Mortgaged = false;
+            //((Business)Field.Buldings[19]).Mortgaged = true;
+            //((Business)Field.Buldings[21]).Mortgaged = true;
+            //((Business)Field.Buldings[24]).Mortgaged = true;
+            //((Business)Field.Buldings[14]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[13]).BusinessOwner = Users[3].Symbol;
-            //((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[39]).Level = 1;
-            //((Business)Field.Buldings[37]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[23]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[39]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[39]).Level = 3;
+            //((Business)Field.Buldings[37]).Level = 4;
+            //((Business)Field.Buldings[37]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[37]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[24]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[19]).BusinessOwner = Users[0].Symbol;
             #region TestBot
@@ -846,6 +867,7 @@ namespace MonopolyV20
             bool menu = true;
             bool CheckTeleportActionTrue = false;
             int prisonSumm = 0;
+            int test = 0;
             PayMenu payMenu;
             BuyMenu buyMenu;
             TaxMenu taxMenu;
@@ -941,17 +963,18 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
- 
+                        //firstCube = 23;
+                        //secondCube = 0;
                         //if (test == 0)
                         //{
-                        //    firstCube = 39;
+                        //    firstCube = 20;
                         //    secondCube = 0;
                         //    test = 1;
                         //}
                         //else if (test == 1)
                         //{
-                        //    firstCube = 7;
-                        //    secondCube = 0;
+                        //    firstCube = 3;
+                        //    secondCube = 5;
                         //}
                         #region Test
                         //if (t == 0)
@@ -1203,7 +1226,7 @@ namespace MonopolyV20
                                     {
                                         firstCube = RollTheCube(rand);
                                         secondCube = RollTheCube(rand);
-                                        //firstCube = 2;
+                                        //firstCube = 21;
                                         //secondCube = 0;
                                         //if (t == 0)
                                         //{
@@ -1305,7 +1328,6 @@ namespace MonopolyV20
                                             }//если игрок вышел за приделы поля 
                                             else
                                             {
-
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer + firstCube + secondCube].Symbol.Add(Users[nextPlayer].Symbol);
                                                 Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
                                                 Users[nextPlayer].CordinationPlayer += firstCube + secondCube;
@@ -1722,12 +1744,12 @@ namespace MonopolyV20
                                                 }
                                                 else if (((Player)Users[nextPlayer]).IsCheckChanceIsTepeport(chance))
                                                 {
-                                                    ((Player)Users[nextPlayer]).ChanceCheck(chance, Field,Users);
+                                                    ((Player)Users[nextPlayer]).ChanceCheck(chance, Field, Users);
                                                     goto teleport;
                                                 }
                                                 else
                                                 {
-                                                    ((Player)Users[nextPlayer]).ChanceCheck(chance, Field,Users);
+                                                    ((Player)Users[nextPlayer]).ChanceCheck(chance, Field, Users);
                                                 }
                                             }//проверка что ячейка шанс снятие деняг 
                                         }//fix
@@ -1848,8 +1870,17 @@ namespace MonopolyV20
                                             {
                                                 if (((Player)Users[nextPlayer]).CheckHaveBsn(Field.Buldings[Users[nextPlayer].CordinationPlayer]))
                                                 {
+                                                    if (((Player)Users[nextPlayer]).CheckingIsMortgaged(Field.Buldings[Users[nextPlayer].CordinationPlayer]))
+                                                    {
+                                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                        Console.WriteLine("!!! Вы попали на поле которое было заложено и не надо олачивать ренту !!! ");
+                                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                                        Thread.Sleep(2000);
+                                                        break;
+                                                    }
                                                     while (menu)
                                                     {
+
                                                         ShowPayMenu("Оплатить ренту", 1);
                                                         Console.Write("{ Ввод } > ");
                                                         Enum.TryParse(Console.ReadLine(), out payMenu);
@@ -1857,7 +1888,7 @@ namespace MonopolyV20
                                                         {
                                                             case PayMenu.RentPayment:
                                                                 {
-                                                                    if (((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, firstCube, secondCube))
+                                                                    if (((Player)Users[nextPlayer]).PayRent(Field.Buldings[Users[nextPlayer].CordinationPlayer], Users, firstCube, secondCube) == 0)
                                                                     {
                                                                         menu = false;
                                                                     }
@@ -1873,7 +1904,7 @@ namespace MonopolyV20
                                                                 break;
                                                             case PayMenu.MortagageBsn:
                                                                 {
-                                                                    if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                                                    if (((Player)Users[nextPlayer]).ShowALlBsn(((Player)Users[nextPlayer]).GetAllBsn(Field.Buldings)))
                                                                     {
                                                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                         Console.WriteLine("Нету бизнесов которые можно заложить");
