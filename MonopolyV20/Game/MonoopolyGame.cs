@@ -92,47 +92,49 @@ namespace MonopolyV20
             int cube = rand.Next(1, 7);
             return cube;
         }
-        public bool ShowMyBsn(char symbol)
-        {
-            bool checkBsn = true;
-            for (int i = 0; i < Field.Buldings.Count; i++)
-            {
-                if (Field.Buldings[i].GetType() == typeof(Business))
-                {
-                    if (((Business)Field.Buldings[i]).BusinessOwner == symbol)
-                    {
-                        if (((Business)Field.Buldings[i]).Mortgaged == false && ((Business)Field.Buldings[i]).Level == 0)
-                        {
-                            Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
-                            checkBsn = false;
-                        }
-                    }
-                }
-                else if (Field.Buldings[i].GetType() == typeof(CarInterior))
-                {
-                    if (((CarInterior)Field.Buldings[i]).BusinessOwner == symbol)
-                    {
-                        if (((CarInterior)Field.Buldings[i]).Mortgaged == false)
-                        {
-                            Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
-                            checkBsn = false;
-                        }
-                    }
-                }
-                else if (Field.Buldings[i].GetType() == typeof(GamingCompanies))
-                {
-                    if (((GamingCompanies)Field.Buldings[i]).BusinessOwner == symbol && ((GamingCompanies)Field.Buldings[i]).Level == 0)
-                    {
-                        if (((GamingCompanies)Field.Buldings[i]).Mortgaged == false)
-                        {
-                            Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
-                            checkBsn = false;
-                        }
-                    }
-                }
-            }
-            return checkBsn;
-        }//Вывод бизнесов игрока которые не заложенные
+        #region TestCodeShowMyBsn
+        //public bool ShowMyBsn(char symbol)
+        //{
+        //    bool checkBsn = true;
+        //    for (int i = 0; i < Field.Buldings.Count; i++)
+        //    {
+        //        if (Field.Buldings[i].GetType() == typeof(Business))
+        //        {
+        //            if (((Business)Field.Buldings[i]).BusinessOwner == symbol)
+        //            {
+        //                if (((Business)Field.Buldings[i]).Mortgaged == false && ((Business)Field.Buldings[i]).Level == 0)
+        //                {
+        //                    Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
+        //                    checkBsn = false;
+        //                }
+        //            }
+        //        }
+        //        else if (Field.Buldings[i].GetType() == typeof(CarInterior))
+        //        {
+        //            if (((CarInterior)Field.Buldings[i]).BusinessOwner == symbol)
+        //            {
+        //                if (((CarInterior)Field.Buldings[i]).Mortgaged == false)
+        //                {
+        //                    Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
+        //                    checkBsn = false;
+        //                }
+        //            }
+        //        }
+        //        else if (Field.Buldings[i].GetType() == typeof(GamingCompanies))
+        //        {
+        //            if (((GamingCompanies)Field.Buldings[i]).BusinessOwner == symbol && ((GamingCompanies)Field.Buldings[i]).Level == 0)
+        //            {
+        //                if (((GamingCompanies)Field.Buldings[i]).Mortgaged == false)
+        //                {
+        //                    Console.WriteLine($"{i} > [ {Field.Buldings[i].Title} ] ");
+        //                    checkBsn = false;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return checkBsn;
+        //}//Вывод бизнесов игрока которые не заложенные
+        #endregion
         public bool ShowMortgagedBsn(char symbol)
         {
             int countBsn = 0;
@@ -377,6 +379,15 @@ namespace MonopolyV20
                             Console.Write("{ Ввод } >> ");
                             int.TryParse(Console.ReadLine(), out choise);
                             Console.ForegroundColor = ConsoleColor.Gray;
+                        }
+                        if (user[nextPlayer].Balance < bsnPrice)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine($"Игрок {user[nextPlayer].Symbol} отказался от участия на аукционе");
+                            Thread.Sleep(2000);
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            user.Remove(user[nextPlayer]);
+                            break;
                         }
                         if (choise == 1)
                         {
@@ -798,14 +809,14 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             //3 - 5
-            //Users[1].Balance -= 14750;
-            //Users[1].Balance = 610;
-            //Users[3].Balance -= 7500;
+            Users[0].Balance = 1000;
+            Users[1].Balance = 4100;
+            Users[2].Balance = 3900;
             //Users[2].Balance = 9000;
             //Users[3].Balance = 3520;
-            //((Business)Field.Buldings[5]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[11]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[5]).Mortgaged = true;
-            //((Business)Field.Buldings[6]).BusinessOwner = Users[1].Symbol;
+            ((Business)Field.Buldings[13]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[13]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[21]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[21]).Mortgaged = true;
@@ -963,6 +974,11 @@ namespace MonopolyV20
                         ((Bot)Users[nextPlayer]).BusinessBuyout(((Bot)Users[nextPlayer]).AllMortagagedBusinesses(Field.Buldings));
                         firstCube = RollTheCube(rand);
                         secondCube = RollTheCube(rand);
+                        if (nextPlayer == 0)
+                        {
+                            firstCube = 14;
+                            secondCube = 0;
+                        }
                         //firstCube = 23;
                         //secondCube = 0;
                         //if (test == 0)
@@ -1464,7 +1480,7 @@ namespace MonopolyV20
                                                             break;
                                                         case TaxMenu.MortagageBsn:
                                                             {
-                                                                if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                                                if (((Player)Users[nextPlayer]).ShowALlBsn(((Player)Users[nextPlayer]).GetAllBsn(Field.Buldings)))
                                                                 {
                                                                     Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                     Console.WriteLine("Нету бизнесов которые можно заложить");
@@ -1561,7 +1577,7 @@ namespace MonopolyV20
                                                             break;
                                                         case TaxMenu.MortagageBsn:
                                                             {
-                                                                if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                                                if (((Player)Users[nextPlayer]).ShowALlBsn(((Player)Users[nextPlayer]).GetAllBsn(Field.Buldings)))
                                                                 {
                                                                     Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                     Console.WriteLine("Нету бизнесов которые можно заложить");
@@ -1665,7 +1681,7 @@ namespace MonopolyV20
                                                                 break;
                                                             case TaxMenu.MortagageBsn:
                                                                 {
-                                                                    if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                                                    if (((Player)Users[nextPlayer]).ShowALlBsn(((Player)Users[nextPlayer]).GetAllBsn(Field.Buldings)))
                                                                     {
                                                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                         Console.WriteLine("Нету бизнесов которые можно заложить");
@@ -1783,7 +1799,7 @@ namespace MonopolyV20
                                                             break;
                                                         case BuyMenu.MortagageBsn:
                                                             {
-                                                                if (ShowMyBsn(((Player)Users[nextPlayer]).Symbol))
+                                                                if (((Player)Users[nextPlayer]).ShowALlBsn(((Player)Users[nextPlayer]).GetAllBsn(Field.Buldings)))
                                                                 {
                                                                     Console.ForegroundColor = ConsoleColor.DarkRed;
                                                                     Console.WriteLine("Нету бизнесов которые можно заложить");
@@ -2027,10 +2043,19 @@ namespace MonopolyV20
                                     }
                                     Console.Write("{ Ввод } > ");
                                     int.TryParse(Console.ReadLine(), out numberCell);
-                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).BsnBuyout(Field.Buldings[numberCell], numberCell, Field.Buldings))
+                                    int choise = ((Player)Users[nextPlayer]).BsnBuyout(Field.Buldings[numberCell], numberCell, Field.Buldings);
+                                    if (numberCell >= maxFieldCount || numberCell < 0 || choise == -1)
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkRed;
                                         Console.WriteLine("Неверный номер бизнеса введите новый");
+                                        Console.ForegroundColor = ConsoleColor.Gray;
+                                        Thread.Sleep(2000);
+                                        break;
+                                    }
+                                    else if(choise == 1)
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("Не хватает деняг для выкупа бизнеса");
                                         Console.ForegroundColor = ConsoleColor.Gray;
                                         Thread.Sleep(2000);
                                         break;

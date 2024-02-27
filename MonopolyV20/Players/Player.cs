@@ -369,7 +369,7 @@ namespace MonopolyV20
             }
             return true;
         }//заложить бизнес игрока
-        public bool BsnBuyout(Building building, int index, List<Building> buildings)//выкуп своего бизнеса
+        public int BsnBuyout(Building building, int index, List<Building> buildings)//выкуп своего бизнеса
         {
             int maxcount = 0;
             if (building.GetType() == typeof(Business))
@@ -381,9 +381,9 @@ namespace MonopolyV20
                     Balance -= ((Business)building).RansomValue;
                     Console.WriteLine($"Игрок {Symbol} выкупает свой бизнес {building.Title} цена {((Business)building).RansomValue}");
                     Thread.Sleep(2000);
-                    return false;
+                    return 0;
                 }
-                return true;
+                return 1;
             }
             else if (building.GetType() == typeof(CarInterior))
             {
@@ -418,9 +418,9 @@ namespace MonopolyV20
                     }
                     Console.WriteLine($"Игрок {Symbol} выкупает свой бизнес {building.Title} цена {((CarInterior)building).RansomValue}");
                     Thread.Sleep(2000);
-                    return false;
+                    return 0;
                 }
-                return true;
+                return 1;
             }
             else if (building.GetType() == typeof(GamingCompanies))
             {
@@ -450,11 +450,11 @@ namespace MonopolyV20
                     }
                     Console.WriteLine($"Игрок {Symbol} выкупает свой бизнес {building.Title} цена {((GamingCompanies)building).RansomValue}");
                     Thread.Sleep(2000);
-                    return false;
+                    return 0;
                 }
-                return true;
+                return 1;
             }
-            return true;
+            return -1;
         }
         public void Surrendered(Field field)
         {

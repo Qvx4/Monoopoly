@@ -1384,7 +1384,7 @@ namespace MonopolyV20
             int countBsn = 0;
             int countBsnEnemy = 0;
             int interimAccount = 0;
-            double[] interest = new double[] { 1.35, 1.75, 1.95 };
+            double[] interest = new double[] { 1.35, 1.75, 3.10 };
             for (int i = 0; i < buildings.Count; i++)
             {
                 if (buildings[i].GetType() == typeof(Business))
