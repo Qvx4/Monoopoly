@@ -809,14 +809,14 @@ namespace MonopolyV20
                 Field.Buldings[0].Symbol.Add(Users[i].Symbol);
             }
             //3 - 5
-            Users[0].Balance = 1000;
-            Users[1].Balance = 4100;
-            Users[2].Balance = 3900;
-            //Users[2].Balance = 9000;
-            //Users[3].Balance = 3520;
-            ((Business)Field.Buldings[11]).BusinessOwner = Users[1].Symbol;
-            //((Business)Field.Buldings[5]).Mortgaged = true;
-            ((Business)Field.Buldings[13]).BusinessOwner = Users[1].Symbol;
+            //Users[0].Balance = 1000;
+            //Users[1].Balance = 4100;
+            //Users[2].Balance = 3900;
+            ////Users[2].Balance = 9000;
+            ////Users[3].Balance = 3520;
+            //((Business)Field.Buldings[11]).BusinessOwner = Users[1].Symbol;
+            ////((Business)Field.Buldings[5]).Mortgaged = true;
+            //((Business)Field.Buldings[13]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[13]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[21]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[21]).Mortgaged = true;

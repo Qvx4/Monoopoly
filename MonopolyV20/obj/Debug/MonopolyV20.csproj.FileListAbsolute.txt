@@ -13,3 +13,10 @@ C:\Users\sudik\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\obj\Debu
 C:\Users\sudik\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\obj\Debug\MonopolyV20.exe
 C:\Users\sudik\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\obj\Debug\MonopolyV20.pdb
 C:\Users\sudik\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\bin\Debug\MonopolyV20.pdb
+C:\Users\zxcha\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\bin\Debug\MonopolyV20.exe.config
+C:\Users\zxcha\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\bin\Debug\MonopolyV20.exe
+C:\Users\zxcha\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\bin\Debug\MonopolyV20.pdb
+C:\Users\zxcha\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\obj\Debug\MonopolyV20.csproj.AssemblyReference.cache
+C:\Users\zxcha\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\obj\Debug\MonopolyV20.csproj.CoreCompileInputs.cache
+C:\Users\zxcha\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\obj\Debug\MonopolyV20.exe
+C:\Users\zxcha\OneDrive\Документы\GitHub\Monoopoly\MonopolyV20\obj\Debug\MonopolyV20.pdb
