@@ -813,10 +813,10 @@ namespace MonopolyV20
             //Users[1].Balance = 4100;
             //Users[2].Balance = 3900;
             ////Users[2].Balance = 9000;
-            ////Users[3].Balance = 3520;
-            //((Business)Field.Buldings[11]).BusinessOwner = Users[1].Symbol;
-            ////((Business)Field.Buldings[5]).Mortgaged = true;
-            //((Business)Field.Buldings[13]).BusinessOwner = Users[1].Symbol;
+            ////Users[3].Balance = 3520; 
+            ((Business)Field.Buldings[1]).BusinessOwner = Users[0].Symbol;
+            //((Business)Field.Buldings[5]).Mortgaged = true;
+            ((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[13]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[21]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[21]).Mortgaged = true;
@@ -1362,12 +1362,21 @@ namespace MonopolyV20
                                             int.TryParse(Console.ReadLine(), out int choise);
                                             if (choise == 1)
                                             {
+                                                if (Users[nextPlayer].Balance < 1000)
+                                                {
+                                                    Console.WriteLine("У вас не хватает деняг что бы сыграть в джекпот");
+                                                    Thread.Sleep(2000);
+                                                    break;
+                                                }
                                                 Users[nextPlayer].Balance -= 1000;
                                                 bool checkJack = false;
                                                 do
                                                 {
+                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
                                                     Console.WriteLine(" Введите количество кубиков не больше 3 ");
+                                                    Console.ForegroundColor = ConsoleColor.Gray;
                                                     Console.Write("{ Ввод } >> ");
+                                                    Users[nextPlayer].Jackpot = false; 
                                                     int.TryParse(Console.ReadLine(), out number);
                                                 }
                                                 while (number < 1 || number > 3);
