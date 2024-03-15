@@ -519,9 +519,8 @@ namespace MonopolyV20
             {
                 if (IsMonopolyByType((BusinessType)i, buldings))
                 {
-                    list = buldings.Where(x => x.GetType() == typeof(Business)).
-                        Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList();
-                    break;
+                    list.AddRange(buldings.Where(x => x.GetType() == typeof(Business)).
+                        Where(x => ((Business)x).BusinessType == (BusinessType)i).ToList());
                 }
             }
             return list;
@@ -660,6 +659,13 @@ namespace MonopolyV20
         {
             int min = int.MaxValue, max = int.MinValue;
             List<Building> monopolyBusiness = buldings;
+            for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
+            {
+                if (((Business)monopolyBusiness[i]).Level == 5)
+                {
+                    monopolyBusiness.RemoveAt(i);
+                }
+            }
             #region Test
             //for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
             //{
