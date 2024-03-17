@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\zxcha\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\Monoopoly\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F7933518-D653-43D1-B47C-F578B7B7544D}|MonopolyV20\\MonopolyV20.csproj|c:\\users\\zxcha\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\github\\monoopoly\\monopolyv20\\game\\monoopolygame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7933518-D653-43D1-B47C-F578B7B7544D}|MonopolyV20\\MonopolyV20.csproj|solutionrelative:monopolyv20\\game\\monoopolygame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F7933518-D653-43D1-B47C-F578B7B7544D}|MonopolyV20\\MonopolyV20.csproj|c:\\users\\zxcha\\onedrive\\\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\github\\monoopoly\\monopolyv20\\players\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7933518-D653-43D1-B47C-F578B7B7544D}|MonopolyV20\\MonopolyV20.csproj|solutionrelative:monopolyv20\\players\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F7933518-D653-43D1-B47C-F578B7B7544D}|MonopolyV20\\MonopolyV20.csproj|C:\\Users\\zxcha\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\Monoopoly\\monopolyv20\\players\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7933518-D653-43D1-B47C-F578B7B7544D}|MonopolyV20\\MonopolyV20.csproj|solutionrelative:monopolyv20\\players\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F7933518-D653-43D1-B47C-F578B7B7544D}|MonopolyV20\\MonopolyV20.csproj|C:\\Users\\zxcha\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\Monoopoly\\monopolyv20\\game\\monoopolygame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7933518-D653-43D1-B47C-F578B7B7544D}|MonopolyV20\\MonopolyV20.csproj|solutionrelative:monopolyv20\\game\\monoopolygame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F7933518-D653-43D1-B47C-F578B7B7544D}|MonopolyV20\\MonopolyV20.csproj|C:\\Users\\zxcha\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\Monoopoly\\monopolyv20\\field\\field.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -145,7 +145,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -153,13 +153,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MonoopolyGame.cs",
               "DocumentMoniker": "C:\\Users\\zxcha\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\Monoopoly\\MonopolyV20\\Game\\MonoopolyGame.cs",
               "RelativeDocumentMoniker": "MonopolyV20\\Game\\MonoopolyGame.cs",
               "ToolTip": "C:\\Users\\zxcha\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\Monoopoly\\MonopolyV20\\Game\\MonoopolyGame.cs",
               "RelativeToolTip": "MonopolyV20\\Game\\MonoopolyGame.cs",
-              "ViewState": "AQIAAGYCAAAAAAAAAAA1wDsDAABLAAAA",
+              "ViewState": "AQIAAFQEAAAAAAAAAAAAAEUIAAC2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-14T07:32:54.087Z",
               "EditorCaption": ""
@@ -198,8 +198,7 @@
               "RelativeToolTip": "MonopolyV20\\Field\\Field.cs",
               "ViewState": "AQIAACoAAAAAAAAAAAAiwDUAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T07:32:54.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T07:32:54.109Z"
             },
             {
               "$type": "Document",
@@ -223,18 +222,17 @@
               "RelativeToolTip": "MonopolyV20\\Players\\Bot.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAcwBcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T07:32:54.111Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T07:32:54.111Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\zxcha\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\Monoopoly\\MonopolyV20\\Players\\Player.cs",
               "RelativeDocumentMoniker": "MonopolyV20\\Players\\Player.cs",
               "ToolTip": "C:\\Users\\zxcha\\OneDrive\\\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u044B\\GitHub\\Monoopoly\\MonopolyV20\\Players\\Player.cs",
               "RelativeToolTip": "MonopolyV20\\Players\\Player.cs",
-              "ViewState": "AQIAAAwCAAAAAAAAAAAwwJUCAABAAAAA",
+              "ViewState": "AQIAACEAAAAAAAAAAAAwwAcCAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-14T07:32:54.112Z",
               "EditorCaption": ""
@@ -309,8 +307,7 @@
               "RelativeToolTip": "MonopolyV20\\Enums\\BusinessType.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T07:32:54.123Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T07:32:54.123Z"
             },
             {
               "$type": "Document",

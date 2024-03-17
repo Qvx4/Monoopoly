@@ -525,7 +525,7 @@ namespace MonopolyV20
             }
             return list;
         }
-        public void ChanceCheck(Chances chances, Field field,List<User> users)
+        public void ChanceCheck(Chances chances, Field field, List<User> users)
         {
             if (chances.GetType() == typeof(Profit))
             {
@@ -659,13 +659,6 @@ namespace MonopolyV20
         {
             int min = int.MaxValue, max = int.MinValue;
             List<Building> monopolyBusiness = buldings;
-            for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
-            {
-                if (((Business)monopolyBusiness[i]).Level == 5)
-                {
-                    monopolyBusiness.RemoveAt(i);
-                }
-            }
             #region Test
             //for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
             //{
@@ -707,7 +700,7 @@ namespace MonopolyV20
             }
             for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
             {
-                if (((Business)monopolyBusiness[i]).Level == 5)
+                if (((Business)monopolyBusiness[i]).Level == max)
                 {
                     monopolyBusiness.RemoveAt(i);
                 }
