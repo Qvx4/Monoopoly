@@ -603,7 +603,7 @@ namespace MonopolyV20
                             int priceBirthdayParty = 150;
                             for (int i = 0; i < users.Count; i++)
                             {
-                                if (users[i].Balance > 150 && users[i].Symbol != Symbol)
+                                if (users[i].Balance > 150 && users[i].Symbol != Symbol && !users[i].Surrender)
                                 {
                                     Console.WriteLine($"Игрок {users[i].Symbol} подарил игроку {Symbol} 150 ");
                                     Thread.Sleep(2000);
