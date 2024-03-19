@@ -655,10 +655,41 @@ namespace MonopolyV20
             }
             return false;
         }//проверка есть ли хоть одна купленная монополия 
-        public List<Building> ShowBsn(List<Building> buldings) //переделать список бизнесов которые можно улучшить // поменять название метода 
+        public bool ReturnMonopolyTypes(BusinessType type, List<Building> buldings)
+        {
+            for (int i = 0;i < buldings.Count; i++)
+            {
+                if (buldings[i].GetType() == typeof(Business))
+                {
+                    if (((Business)buldings[i]).BusinessType == type)
+                    {
+                        if (((Business)buldings[i]).BusinessOwner != Symbol)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else if(type== BusinessType.Car || type == BusinessType.GameCorparation)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public List<Building> ShowBsn(List<Building> buldings,List<Building> Allbuildings) //переделать список бизнесов которые можно улучшить // поменять название метода 
         {
             int min = int.MaxValue, max = int.MinValue;
+            List<Building> businesses = new List<Building>();
+            List<BusinessType> businessTypes = new List<BusinessType>();
+            for (int i = (int)BusinessType.Restaurants; i <= (int)BusinessType.GameCorparation; i++)
+            {
+                if (ReturnMonopolyTypes((BusinessType)i, Allbuildings))
+                 {
+                    businessTypes.Add((BusinessType)i);
+                }
+            }
             List<Building> monopolyBusiness = buldings;
+            int maxLvl = 5;
             #region Test
             //for (int i = (int)BusinessType.Airlines; i <= (int)BusinessType.GameCorparation; i++)
             //{
@@ -672,39 +703,48 @@ namespace MonopolyV20
             #endregion
             for (int i = 0; i < monopolyBusiness.Count; i++)
             {
-                if ((((Business)monopolyBusiness[i]).Level) > max)
-                {
-                    max = ((Business)monopolyBusiness[i]).Level;
-                }
-                if ((((Business)monopolyBusiness[i]).Level) < min)
-                {
-                    min = ((Business)monopolyBusiness[i]).Level;
-                }
-            }
-            for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
-            {
-                if (max != min)
-                {
-                    if (((Business)monopolyBusiness[i]).Level == max)
-                    {
-                        monopolyBusiness.RemoveAt(i);
-                    }
-                }
-            }
-            for (int i = 0; i < buldings.Count; i++)
-            {
-                if (buldings[i].GetType() == typeof(Business) && ((Business)buldings[i]).Mortgaged == true)
-                {
-                    return new List<Building>();
-                }
-            }
-            for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
-            {
-                if (((Business)monopolyBusiness[i]).Level == max)
+                if (((Business)monopolyBusiness[i]).Level == maxLvl)
                 {
                     monopolyBusiness.RemoveAt(i);
                 }
             }
+            #region Other
+            //for (int i = 0; i < monopolyBusiness.Count; i++)
+            //{
+            //    if ((((Business)monopolyBusiness[i]).Level) > max)
+            //    {
+            //        max = ((Business)monopolyBusiness[i]).Level;
+            //    }
+            //    if ((((Business)monopolyBusiness[i]).Level) < min)
+            //    {
+            //        min = ((Business)monopolyBusiness[i]).Level;
+            //    }
+            //}
+            //for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
+            //{
+            //    if (max != min)
+            //    {
+            //        if (((Business)monopolyBusiness[i]).Level == max)
+            //        {
+            //            monopolyBusiness.RemoveAt(i);
+            //        }
+            //    }
+            //}
+            //for (int i = 0; i < buldings.Count; i++)
+            //{
+            //    if (buldings[i].GetType() == typeof(Business) && ((Business)buldings[i]).Mortgaged == true)
+            //    {
+            //        return new List<Building>();
+            //    }
+            //}
+            //for (int i = monopolyBusiness.Count - 1; i >= 0; i--)
+            //{
+            //    if (((Business)monopolyBusiness[i]).Level == max)
+            //    {
+            //        monopolyBusiness.RemoveAt(i);
+            //    }
+            //}
+            #endregion
             return monopolyBusiness;
         }//добовление бизнесов которых можно улучшить
         public void ShowUpdateBsn(List<Building> buldings)
