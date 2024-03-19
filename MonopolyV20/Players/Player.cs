@@ -708,6 +708,27 @@ namespace MonopolyV20
                     monopolyBusiness.RemoveAt(i);
                 }
             }
+            for (int i = 0; i < (int)businessTypes.Count; i++)
+            {
+                for (int j = 0; j < buldings.Count; j++)
+                {
+                    if (((Business)buldings[j]).BusinessType == businessTypes[i])
+                    {
+                        if ((((Business)monopolyBusiness[j]).Level) < min)
+                        {
+                            min = ((Business)monopolyBusiness[j]).Level;
+                        }
+                    }
+                }
+                for (int j = 0; j < buldings.Count; j++)
+                {
+                    if (((Business)buldings[j]).BusinessType == businessTypes[i] && (((Business)buldings[j]).Level == min))
+                    {
+                        businesses.Add(buldings[j]);
+                    }
+                }
+                min = 5;
+            }
             #region Other
             //for (int i = 0; i < monopolyBusiness.Count; i++)
             //{
@@ -745,7 +766,7 @@ namespace MonopolyV20
             //    }
             //}
             #endregion
-            return monopolyBusiness;
+            return businesses;
         }//добовление бизнесов которых можно улучшить
         public void ShowUpdateBsn(List<Building> buldings)
         {
