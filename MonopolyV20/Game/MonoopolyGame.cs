@@ -815,18 +815,13 @@ namespace MonopolyV20
             ////Users[2].Balance = 9000;
             ////Users[3].Balance = 3520;
             ((Business)Field.Buldings[1]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[1]).Level = 2;
             //((Business)Field.Buldings[5]).Mortgaged = true;
             ((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[3]).Level = 3;
 
             ((Business)Field.Buldings[39]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[39]).Level = 4;
-            ((Business)Field.Buldings[37]).Level = 5;
             ((Business)Field.Buldings[37]).BusinessOwner = Users[0].Symbol;
 
             ((Business)Field.Buldings[26]).BusinessOwner = Users[0].Symbol;
-            ((Business)Field.Buldings[26]).Level = 1;
             ((Business)Field.Buldings[27]).BusinessOwner = Users[0].Symbol;
             ((Business)Field.Buldings[29]).BusinessOwner = Users[0].Symbol;
             //((Business)Field.Buldings[13]).BusinessOwner = Users[1].Symbol;
@@ -1206,7 +1201,7 @@ namespace MonopolyV20
                                         int.TryParse(Console.ReadLine(), out int number);
                                         if (number == 1)
                                         {
-                                            if (prisonSumm == 3)
+                                            if (prisonSumm == 2)
                                             {
                                                 Console.ForegroundColor = ConsoleColor.DarkRed;
                                                 Console.WriteLine("!!! Больше нельзя кидать кубики надо заплатить что бы выйти из тюрьмы !!!");
