@@ -23,7 +23,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(Business business)//Проверка куплен ли бизнес 
         {
-            if (business.BusinessOwner != 0)
+            if (business.BusinessOwner != '\0')
             {
                 return true;
             }
@@ -31,7 +31,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(CarInterior carInterior)//проверка куплен ли автоцентр
         {
-            if (carInterior.BusinessOwner != 0)
+            if (carInterior.BusinessOwner != '\0')
             {
                 return true;
             }
@@ -39,7 +39,7 @@ namespace MonopolyV20
         }
         public bool IsCheckCellBy(GamingCompanies gamingCompanies)//проверка куплена ли игровая компания
         {
-            if (gamingCompanies.BusinessOwner != 0)
+            if (gamingCompanies.BusinessOwner != '\0')
             {
                 return true;
             }
@@ -1366,7 +1366,7 @@ namespace MonopolyV20
                         {
                             ((Business)buildings[i]).Level = 0;
                         }
-                          ((Business)buildings[i]).BusinessDowntrun = 0;
+                        ((Business)buildings[i]).BusinessDowntrun = 0;
                         ((Business)buildings[i]).Mortgaged = false;
                         ((Business)buildings[i]).BusinessOwner = '\0';
                     }
