@@ -816,8 +816,8 @@ namespace MonopolyV20
             ////Users[3].Balance = 3520;
             ///
 
-            ((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
-            ((Business)Field.Buldings[37]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
+            //((Business)Field.Buldings[37]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[1]).BusinessOwner = Users[0].Symbol;
             ////((Business)Field.Buldings[5]).Mortgaged = true;
             //((Business)Field.Buldings[3]).BusinessOwner = Users[0].Symbol;
@@ -2172,9 +2172,16 @@ namespace MonopolyV20
                                         Thread.Sleep(2000);
                                         break;
                                     }
-                                    Console.Write("{ Ввод } > ");
-                                    int.TryParse(Console.ReadLine(), out numberCell);
+                                    do
+                                    {
+                                        Console.Write("{ Ввод } > ");
+                                        int.TryParse(Console.ReadLine(), out numberCell);
+
+                                    }
+                                    while (numberCell > Field.Buldings.Count || numberCell < 0);
+
                                     int choise = ((Player)Users[nextPlayer]).BsnBuyout(Field.Buldings[numberCell], numberCell, Field.Buldings);
+
                                     if (numberCell >= maxFieldCount || numberCell < 0 || choise == -1)
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkRed;
