@@ -813,8 +813,10 @@ namespace MonopolyV20
             //Users[1].Balance = 4100;
             //Users[2].Balance = 3900;
             ////Users[2].Balance = 9000;
-            ////Users[3].Balance = 3520;
-            ///
+            ////Users[3].Balance = 3520; 
+            //Users[0].Balance = 400;
+            //((Player)Users[0]).Prison = true;
+            //((Player)Users[0]).CordinationPlayer = 10;
 
             //((Business)Field.Buldings[39]).BusinessOwner = Users[1].Symbol;
             //((Business)Field.Buldings[37]).BusinessOwner = Users[1].Symbol;
@@ -1233,124 +1235,121 @@ namespace MonopolyV20
                                         }
                                         else if (number == 2)
                                         {
-                                            if (Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer].GetType() == typeof(Prison))
+                                            if (((Player)Users[nextPlayer]).Balance < ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost)
                                             {
-                                                if (((Player)Users[nextPlayer]).Balance < ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost)
+                                                while (menu)
                                                 {
-                                                    while (menu)
+                                                    ShowPayMenu("оплатить", 2);
+                                                    Console.Write("{ Ввод } > ");
+                                                    Enum.TryParse(Console.ReadLine(), out taxMenu);
+                                                    switch (taxMenu)
                                                     {
-                                                        ShowPayMenu("оплатить", 2);
-                                                        Console.Write("{ Ввод } > ");
-                                                        Enum.TryParse(Console.ReadLine(), out taxMenu);
-                                                        switch (taxMenu)
-                                                        {
-                                                            case TaxMenu.TaxPayment:
+                                                        case TaxMenu.TaxPayment:
+                                                            {
+                                                                if (((Player)Users[nextPlayer]).Balance < ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost)
                                                                 {
-                                                                    if (((Player)Users[nextPlayer]).Balance < ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost)
-                                                                    {
-                                                                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                                                                        Console.WriteLine("Не хватает деняг !!!");
-                                                                        Console.ForegroundColor = ConsoleColor.Gray;
-                                                                        Thread.Sleep(2000);
-                                                                        continue;
-                                                                    }
-                                                                    menu = false;
-                                                                    Console.ForegroundColor = ConsoleColor.Green;
-                                                                    Console.WriteLine("Оплата прошла успешно");
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("Не хватает деняг !!!");
                                                                     Console.ForegroundColor = ConsoleColor.Gray;
                                                                     Thread.Sleep(2000);
-                                                                    ((Player)Users[nextPlayer]).Balance -= ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost;
-                                                                    ((Player)Users[nextPlayer]).Prison = false;
-                                                                    prisonSumm = 0;
                                                                     continue;
                                                                 }
-                                                                break;
-                                                            case TaxMenu.MortagageBsn:
+                                                                menu = false;
+                                                                Console.ForegroundColor = ConsoleColor.Green;
+                                                                Console.WriteLine("Оплата прошла успешно");
+                                                                Console.ForegroundColor = ConsoleColor.Gray;
+                                                                Thread.Sleep(2000);
+                                                                ((Player)Users[nextPlayer]).Balance -= ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost;
+                                                                ((Player)Users[nextPlayer]).Prison = false;
+                                                                prisonSumm = 0;
+                                                                continue;
+                                                            }
+                                                            break;
+                                                        case TaxMenu.MortagageBsn:
+                                                            {
+                                                                if (((Player)Users[nextPlayer]).ShowALlBsn(((Player)Users[nextPlayer]).GetAllBsn(Field.Buldings)))
                                                                 {
-                                                                    if (((Player)Users[nextPlayer]).ShowALlBsn(((Player)Users[nextPlayer]).GetAllBsn(Field.Buldings)))
-                                                                    {
-                                                                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                                                                        Console.WriteLine("Нету бизнесов которые можно заложить");
-                                                                        Console.ForegroundColor = ConsoleColor.Gray;
-                                                                        Thread.Sleep(2000);
-                                                                        break;
-                                                                    }
-                                                                    Console.Write("{ Ввод } > ");
-                                                                    int.TryParse(Console.ReadLine(), out numberCell);
-                                                                    if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell, Field.Buldings))
-                                                                    {
-                                                                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                                                                        Console.WriteLine("Неверный номер бизнеса введите новый");
-                                                                        Console.ForegroundColor = ConsoleColor.Gray;
-                                                                        Thread.Sleep(2000);
-                                                                        break;
-                                                                    }
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("Нету бизнесов которые можно заложить");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                    Thread.Sleep(2000);
+                                                                    break;
                                                                 }
-                                                                break;
-                                                            case TaxMenu.BranchSale:
+                                                                Console.Write("{ Ввод } > ");
+                                                                int.TryParse(Console.ReadLine(), out numberCell);
+                                                                if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).LayACell(Field.Buldings[numberCell], numberCell, Field.Buldings))
                                                                 {
-                                                                    if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("Неверный номер бизнеса введите новый");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                    Thread.Sleep(2000);
+                                                                    break;
+                                                                }
+                                                            }
+                                                            break;
+                                                        case TaxMenu.BranchSale:
+                                                            {
+                                                                if (((Player)Users[nextPlayer]).IsHaveMeMonoopoly(Field.Buldings))
+                                                                {
+                                                                    if (((Player)Users[nextPlayer]).GetBsnWithBranch(Field.Buldings))
                                                                     {
-                                                                        if (((Player)Users[nextPlayer]).GetBsnWithBranch(Field.Buldings))
-                                                                        {
-                                                                            if (((Player)Users[nextPlayer]).ShowImprovedBsn(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings)))
-                                                                            {
-                                                                                Console.ForegroundColor = ConsoleColor.DarkRed;
-                                                                                Console.WriteLine("Нельзя продать филиал");
-                                                                                Console.ForegroundColor = ConsoleColor.Gray;
-                                                                                Thread.Sleep(2000);
-                                                                                break;
-                                                                            }
-                                                                            Console.Write("Введите номер бизнеса : > ");
-                                                                            int.TryParse(Console.ReadLine(), out numberCell);
-                                                                            if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).BranchSale(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings), numberCell))
-                                                                            {
-                                                                                Console.ForegroundColor = ConsoleColor.DarkRed;
-                                                                                Console.WriteLine("Неверный номер бизнеса введите новый");
-                                                                                Console.ForegroundColor = ConsoleColor.Gray;
-                                                                                Thread.Sleep(2000);
-                                                                                break;
-                                                                            }
-                                                                        }
-                                                                        else
+                                                                        if (((Player)Users[nextPlayer]).ShowImprovedBsn(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings)))
                                                                         {
                                                                             Console.ForegroundColor = ConsoleColor.DarkRed;
-                                                                            Console.WriteLine("Нету бизнесов с построенным филиалом");
+                                                                            Console.WriteLine("Нельзя продать филиал");
                                                                             Console.ForegroundColor = ConsoleColor.Gray;
                                                                             Thread.Sleep(2000);
+                                                                            break;
+                                                                        }
+                                                                        Console.Write("Введите номер бизнеса : > ");
+                                                                        int.TryParse(Console.ReadLine(), out numberCell);
+                                                                        if (numberCell >= maxFieldCount || numberCell < 0 || ((Player)Users[nextPlayer]).BranchSale(((Player)Users[nextPlayer]).SerchImporvedBsn(Field.Buldings), numberCell))
+                                                                        {
+                                                                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                            Console.WriteLine("Неверный номер бизнеса введите новый");
+                                                                            Console.ForegroundColor = ConsoleColor.Gray;
+                                                                            Thread.Sleep(2000);
+                                                                            break;
                                                                         }
                                                                     }
                                                                     else
                                                                     {
                                                                         Console.ForegroundColor = ConsoleColor.DarkRed;
-                                                                        Console.WriteLine("У вас нету моноплии ");
+                                                                        Console.WriteLine("Нету бизнесов с построенным филиалом");
                                                                         Console.ForegroundColor = ConsoleColor.Gray;
                                                                         Thread.Sleep(2000);
                                                                     }
                                                                 }
-                                                                break;
-                                                            case TaxMenu.Surrender:
+                                                                else
                                                                 {
-                                                                    Users[nextPlayer].Surrender = true;
-                                                                    ((Player)Users[nextPlayer]).Surrendered(Field);
-                                                                    Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
-                                                                    surrender = true;
-                                                                    menu = false;
-                                                                    check = false;
+                                                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                                    Console.WriteLine("У вас нету моноплии ");
+                                                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                                                    Thread.Sleep(2000);
                                                                 }
-                                                                break;
-                                                        }
-                                                        //Console.Clear();
-                                                        ShowField("");
+                                                            }
+                                                            break;
+                                                        case TaxMenu.Surrender:
+                                                            {
+                                                                Users[nextPlayer].Surrender = true;
+                                                                ((Player)Users[nextPlayer]).Surrendered(Field);
+                                                                Field.Buldings[Users[nextPlayer].CordinationPlayer].Symbol.Remove(Users[nextPlayer].Symbol);
+                                                                surrender = true;
+                                                                menu = false;
+                                                                check = false;
+                                                            }
+                                                            break;
                                                     }
+                                                    //Console.Clear();
+                                                    ShowField("");
                                                 }
-                                                else
-                                                {
-                                                    ((Player)Users[nextPlayer]).Balance -= ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost;
-                                                    ((Player)Users[nextPlayer]).Prison = false;
-                                                    prisonSumm = 0;
-                                                    continue;
-                                                }
+                                            }
+                                            else
+                                            {
+                                                ((Player)Users[nextPlayer]).Balance -= ((Prison)Field.Buldings[((Player)Users[nextPlayer]).CordinationPlayer]).ExitCost;
+                                                ((Player)Users[nextPlayer]).Prison = false;
+                                                prisonSumm = 0;
+                                                continue;
                                             }
                                         }
                                         else
@@ -2239,7 +2238,13 @@ namespace MonopolyV20
                                                 Console.Write("Введите номер бизнеса : > ");
                                                 int.TryParse(Console.ReadLine(), out numberCell);
                                             }
-                                            ((Player)Users[nextPlayer]).MonoopolyImprovement((Business)Field.Buldings[numberCell]);
+                                            if (!((Player)Users[nextPlayer]).MonoopolyImprovement((Business)Field.Buldings[numberCell]))
+                                            {
+                                                Console.ForegroundColor = ConsoleColor.DarkRed;
+                                                Console.WriteLine("!!! Не хватает деняг что бы улучшить монополию !!!");
+                                                Console.ForegroundColor = ConsoleColor.Gray;
+                                                Thread.Sleep(2000);
+                                            }
                                         }
                                         else
                                         {

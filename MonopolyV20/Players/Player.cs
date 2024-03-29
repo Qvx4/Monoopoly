@@ -775,10 +775,15 @@ namespace MonopolyV20
                 Console.WriteLine($"Название: {{{buldings[i].Title}}} Номер: {{{buldings[i].Number}}} цена: {{{((Business)buldings[i]).UpgradePrice}}}");
             }
         } //бизнесы которые можно улучшить 
-        public void MonoopolyImprovement(Business business)
+        public bool MonoopolyImprovement(Business business)
         {
+            if (Balance < business.UpgradePrice)
+            {
+                return false;
+            }
             business.Level += 1;
             Balance -= business.UpgradePrice;
+            return true;
         }//улучшение бизнеса 
         public bool CheckCell(Building buldings, Field field)//проверк ячейки на которую попал игрок 
         {
